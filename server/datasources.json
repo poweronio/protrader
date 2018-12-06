@@ -1,6 +1,36 @@
 {
   "db": {
     "name": "db",
-    "connector": "memory"
+    "connector": "memory",
+    "file": "local.json"
+  },
+  "oanda": {
+    "name": "oanda",
+    "connector": "rest",
+    "operations": [
+      {
+        "template": {
+          "method": "GET",
+          "url": "https://api-fxtrade.oanda.com/v3/instruments/{pair}/candles",
+          "headers": {
+            "authorization": "Bearer 1fee90dedad1abc90df403870923132c-7ec28839c346f9fc989abbf08c23d99b",
+            "accepts": "application/json",
+            "content-type": "application/json",
+            "connection": "keep-alive"
+          },
+          "query": {
+            "smooth": true,
+            "count": 15,
+            "granularity": "{tf}"
+          }
+        },
+        "functions": {
+          "instruments": [
+            "pair",
+            "tf"
+          ]
+        }
+      }
+    ]
   }
 }

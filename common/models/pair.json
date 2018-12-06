@@ -1,0 +1,44 @@
+{
+  "name": "pair",
+  "plural": "pairs",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "name": {
+      "type": "string",
+      "required": true
+    },
+    "trend": {
+      "type": [
+        "string"
+      ]
+    },
+    "heatmap": {
+      "type": [
+        "number"
+      ]
+    },
+    "levels": {
+      "type": [
+        "object"
+      ]
+    },
+    "news": {
+      "type": [
+        "object"
+      ]
+    },
+    "candles": {
+      "type": [
+        "object"
+      ]
+    }
+  },
+  "validations": [],
+  "relations": {},
+  "acls": [],
+  "methods": {}
+}

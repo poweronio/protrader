@@ -1,0 +1,23 @@
+{
+  "ids": {
+    "User": 1,
+    "AccessToken": 1,
+    "ACL": 1,
+    "RoleMapping": 1,
+    "Role": 1,
+    "pair": 5
+  },
+  "models": {
+    "User": {},
+    "AccessToken": {},
+    "ACL": {},
+    "RoleMapping": {},
+    "Role": {},
+    "pair": {
+      "1": "{\"name\":\"GBP_USD\",\"id\":1}",
+      "2": "{\"name\":\"EUR_USD\",\"id\":2}",
+      "3": "{\"name\":\"GBP_JPY\",\"id\":3}",
+      "4": "{\"name\":\"EUR_JPY\",\"id\":4}"
+    }
+  }
+}

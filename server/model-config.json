@@ -34,5 +34,13 @@
   "Role": {
     "dataSource": "db",
     "public": false
+  },
+  "currency": {
+    "dataSource": "oanda",
+    "public": true
+  },
+  "pair": {
+    "dataSource": "db",
+    "public": true
   }
 }
