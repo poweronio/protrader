@@ -8,8 +8,7 @@
   },
   "properties": {
     "name": {
-      "type": "string",
-      "required": true
+      "type": "string"
     },
     "trend": {
       "type": [
@@ -31,7 +30,32 @@
         "object"
       ]
     },
-    "candles": {
+    "H3": {
+      "type": [
+        "object"
+      ]
+    },
+    "H2": {
+      "type": [
+        "object"
+      ]
+    },
+    "M30": {
+      "type": [
+        "object"
+      ]
+    },
+    "M10": {
+      "type": [
+        "object"
+      ]
+    },
+    "M5": {
+      "type": [
+        "object"
+      ]
+    },
+    "M1": {
       "type": [
         "object"
       ]

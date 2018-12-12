@@ -1,4 +1,4 @@
-app.controller('TableCtrl', ['$scope', '$timeout', '$http', function ($scope, $timeout, $http) {
+app.controller('TableCtrl', ['$scope', '$timeout', '$http', 'Instrument', function ($scope, $timeout, $http, Instrument) {
   //    var http = require('http');
   //var https = require('https');
   $scope.candleData = {
@@ -206,7 +206,20 @@ app.controller('TableCtrl', ['$scope', '$timeout', '$http', function ($scope, $t
   }
 
   function init() {
-    $http(options).then(function (res) {
+    Instrument.find({}, function (list) {
+      $scope.pairs = list;
+      console.log(list);
+    });
+  }  
+    /*  getAction();
+      getAnchor();
+      getAux1();
+      getAux2();
+      getTrend();*/
+    
+  
+  
+   /* $http(options).then(function (res) {
       console.log("Connected");
       $scope.rowCollectionBasic = res.data.candles;
       getColors(res.data.candles);
@@ -225,8 +238,8 @@ app.controller('TableCtrl', ['$scope', '$timeout', '$http', function ($scope, $t
       getAux1();
       getAux2();
       getTrend();
-    });
-  }
+    }); */
+  //}
 
   init();
 

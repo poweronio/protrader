@@ -1,0 +1,22 @@
+{
+  "name": "instrument",
+  "plural": "instruments",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "name": {
+      "type": "string"
+    },
+    "candle": {
+      "type": "object"
+      
+    }
+  },
+  "validations": [],
+  "relations": {},
+  "acls": [],
+  "methods": {}
+}

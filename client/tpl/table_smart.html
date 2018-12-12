@@ -4,7 +4,37 @@
 <div class="wrapper-md" ng-controller="TableCtrl">
   <div class="panel panel-default">
     <div class="panel-heading">The basics</div>
-    <table st-table="rowCollectionBasic" class="table table-bordered table-striped">
+    <table st-table="pairs" class="table table-bordered table-striped">
+      <thead>
+        <tr>
+          
+          <th>Pair</th>
+          <th>HEATMAP M30</th>
+          <th>H3</th>
+          <th>H2</th>
+          <th>M30</th>
+          <th>M5</th>
+          <th>R/B</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr ng-repeat="row in pairs" st-select-row="row">
+
+          <td>{{row.name}}</td>
+          <td>{{row.candlesM1[29].c*10000 - row.candlesM1[0].c*10000|number:2}}</td>
+          <td>{{row.trendH3}}</td>
+          <td>{{row.trendH2}}</td>
+          <td>{{row.trendM30}}</td>
+          <td>{{row.trendM5}}</td>
+          <td>{{row.color}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="panel panel-default">
+    <div class="panel-heading">The basics</div>
+    <table st-table="pairs" class="table table-bordered table-striped">
       <thead>
         <tr>
           <th>Index</th>
@@ -17,7 +47,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr ng-repeat="row in candles" st-select-row="row">
+        <tr ng-repeat="row in pairs.candlesH3" st-select-row="row">
           <td>{{$index}}</td>
           <td>{{row.time|date:'short'}}</td>
           <td>{{row.o}}</td>
@@ -73,82 +103,9 @@
     </table>
   </div>
 
-  <div class="panel panel-default">
-    <div class="panel-heading">Format data & cell templating</div>
-    <table st-table="rowCollectionBasic" class="table table-bordered table-striped">
-      <thead>
-        <tr>
-          <th>first name</th>
-          <th>last name</th>
-          <th>birth date</th>
-          <th>balance</th>
-          <th>email</th>
-          <th width="50"></th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr ng-repeat="row in rowCollectionBasic">
-          <td>{{row.firstName | uppercase}}</td>
-          <td>{{row.lastName}}</td>
-          <td>{{row.birthDate | date}}</td>
-          <td>{{row.balance | currency}}</td>
-          <td>
-            <button class="btn btn-xs" data-placement="top" data-content="{{row.email}}" bs-popover type="button">
-              <i class="fa fa-eye"></i>
-            </button>
-            <a ng-href="mailto:{{row.email}}">email</a>
-          </td>
-          <td>
-            <button type="button" ng-click="removeRow(row)" class="btn btn-xs btn-default">
-              <i class="fa fa-times">
-              </i>
-            </button>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
+  
 
-  <div class="panel panel-default">
-    <div class="panel-heading">Search/filter data</div>
-    <div class="panel-body">
-      <form>
-        <label for="predicate">selected predicate:</label>
-        <select class="form-control" id="predicate" ng-model="selectedPredicate" ng-options="predicate for predicate in predicates"></select>
-      </form>
-    </div>
-    <table st-table="rowCollectionBasic" class="table table-striped">
-      <thead>
-        <tr>
-          <th st-sort="firstName">first name</th>
-          <th st-sort="lastName">last name</th>
-          <th st-sort="birthDate">birth date</th>
-          <th st-sort="balance">balance</th>
-          <th>email</th>
-        </tr>
-        <tr>
-          <th>
-            <input st-search="'firstName'" placeholder="search for firstname" class="input-sm form-control" type="search" />
-          </th>
-          <th colspan="3">
-            <input st-search placeholder="global search" class="input-sm form-control" type="search" />
-          </th>
-          <th>
-            <input st-search="selectedPredicate" placeholder="bound predicate" class="input-sm form-control" type="search" />
-          </th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr ng-repeat="row in rowCollectionBasic">
-          <td>{{row.firstName | uppercase}}</td>
-          <td>{{row.lastName}}</td>
-          <td>{{row.birthDate | date}}</td>
-          <td>{{row.balance | currency}}</td>
-          <td><a ng-href="mailto:{{row.email}}">email</a></td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
+  
 
   <div class="panel panel-default">
     <div class="panel-heading">Client side Pagination</div>

@@ -40,7 +40,11 @@
     "public": true
   },
   "pair": {
-    "dataSource": "db",
+    "dataSource": "protrader",
+    "public": true
+  },
+  "instrument": {
+    "dataSource": "protrader",
     "public": true
   }
 }

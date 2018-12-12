@@ -4,6 +4,11 @@
     "connector": "memory",
     "file": "local.json"
   },
+  "protrader": {
+    "url": "mongodb://su:pr0trader@ds139919.mlab.com:39919/protrader",
+    "name": "protrader",
+    "connector": "loopback-connector-mongodb"
+  },
   "oanda": {
     "name": "oanda",
     "connector": "rest",
@@ -20,12 +25,12 @@
           },
           "query": {
             "smooth": true,
-            "count": 15,
+            "count": 30,
             "granularity": "{tf}"
           }
         },
         "functions": {
-          "instruments": [
+          "cp": [
             "pair",
             "tf"
           ]
