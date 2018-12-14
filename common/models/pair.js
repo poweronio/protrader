@@ -6,6 +6,7 @@ module.exports = function(Pair) {
   var newsDataService;
   //pair.setId("1");
   var granularity = ["H3", "H2", "M30", "M10", "M5", "M1"];
+  var instruments = ["EUR_USD", "GBP_USD", "EUR_JPY", "GBP_JPY"];
 
   Pair.afterInitialize = function () {
     
@@ -16,14 +17,14 @@ module.exports = function(Pair) {
 
   Pair.greet = function (cb) {
     newsDataService = Pair.app.dataSources.oanda1;
-    newsDataService.cp("EUR_USD", 604800, function (err, response, context) {
+    newsDataService.cp("EUR_USD", 43200, function (err, response, context) {
       if (err) throw err; //error making request
         if (response.error) {
           console.log('> response error: ' + response.error.stack);
         }
         cb(null,response);
     });
-    /*async.every(granularity, function (tf, callback) {
+    /*async.every(instruments, function (tf, callback) {
       newsDataService = Pair.app.dataSources.oanda1;
       newsDataService.pairs(pair_name, tf, function (err, response, context) {
         if (err) throw err; //error making request

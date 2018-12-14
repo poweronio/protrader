@@ -1,4 +1,4 @@
-app.controller('TableCtrl', ['$scope', '$timeout', '$http', 'Instrument', function ($scope, $timeout, $http, Instrument) {
+app.controller('TableCtrl', ['$scope', '$timeout', '$http', 'Instrument', 'Pair', function ($scope, $timeout, $http, Instrument, Pair) {
   //    var http = require('http');
   //var https = require('https');
   $scope.candleData = {
@@ -33,7 +33,7 @@ app.controller('TableCtrl', ['$scope', '$timeout', '$http', 'Instrument', functi
   }
 
 
-  function assembleData(candle) {
+ /* function assembleData(candle) {
     $scope.candles.push(candle);
   }
 
@@ -159,7 +159,7 @@ app.controller('TableCtrl', ['$scope', '$timeout', '$http', 'Instrument', functi
         size: Math.abs(auxClose - auxOpen)
       }
     }
-  }
+  }*/
 
   function getTrend() {
     var direction = $scope.action.color == "RED" ? "DOWN" : "UP";
