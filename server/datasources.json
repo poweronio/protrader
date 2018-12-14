@@ -37,5 +37,33 @@
         }
       }
     ]
+  },
+  "oanda1": {
+    "name": "oanda1",
+    "connector": "rest",
+    "operations": [
+      {
+        "template": {
+          "method": "GET",
+          "url": "https://api-fxtrade.oanda.com/labs/v1/calendar",
+          "headers": {
+            "authorization": "Bearer 1fee90dedad1abc90df403870923132c-7ec28839c346f9fc989abbf08c23d99b",
+            "accepts": "application/json",
+            "content-type": "application/json",
+            "connection": "keep-alive"
+          },
+          "query": {
+            "instrument": "{pair}",
+            "period": "{tf}"
+          }
+        },
+        "functions": {
+          "cp": [
+            "pair",
+            "tf"
+          ]
+        }
+      }
+    ]
   }
 }

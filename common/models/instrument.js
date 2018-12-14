@@ -1,6 +1,5 @@
 'use strict';
 var async = require("async");
-var Instrument_name = "EUR_USD";
 var request = require("request");
 var groupArray = require('group-array');
 
@@ -47,9 +46,8 @@ module.exports = function (Instrument) {
       
       pair.updateAttribute("trend" + tf, trend);
     
-      };
+  };
   
-
   function getAux2(instrument, tf, candleData, count) {
     var aux2Color = candleData[count].color;
     var aux2Close = candleData[count].c;
@@ -69,7 +67,6 @@ module.exports = function (Instrument) {
       });
 
   }
-
 
   function getAux(instrument, tf, candleData, count) {
     var auxColor = candleData[count].color;
@@ -140,7 +137,6 @@ module.exports = function (Instrument) {
 
   }
 
-
   function getAction(instrument, tf, candleData) {
     var action = {};
     var actionColor = candleData[candleData.length - 1].color;
@@ -162,8 +158,6 @@ module.exports = function (Instrument) {
    
   }
 
-
-
   Instrument.greet = function (cb) {
     async.every(pairs, function (pair, callback) { 
       var data = {
@@ -175,6 +169,14 @@ module.exports = function (Instrument) {
         H3: []           
       };
       Instrument.findOne({ where: { name: pair } }, function (err, instrument) {
+        newsDataService = Instrument.app.dataSources.oanda1;
+        newsDataService.cp(pair, 43200, function (err, response, context) {
+          if (err) throw err; //error making request
+            if (response.error) {
+              console.log('> response error: ' + response.error.stack);
+            }
+          instrument.updateAttribute("news",response);
+        });
         async.every(granularity, function (tf, callback) {
           candleDataService = Instrument.app.dataSources.oanda;
           candleDataService.cp(pair, tf, function (err, response, context) {
@@ -182,7 +184,7 @@ module.exports = function (Instrument) {
             if (response.error) {
               console.log('> response error: ' + response.error.stack);
             }
-
+``
             data[tf]= response.candles.map(function (candleData) {
               var obj = {
                 time: candleData.time,
