@@ -5,6 +5,7 @@ var groupArray = require('group-array');
 
 module.exports = function (Instrument) {
   var candleDataService;
+  var newsDataService;
   //Instrument.setId("1");
   var granularity = ["H3", "H2", "M30", "M10", "M5", "M1"];
   var trendTf = ["H3", "H2", "M30"];
@@ -20,13 +21,12 @@ module.exports = function (Instrument) {
   next();
   });
 
-
-
   function getTrend(pair,tf) {
     var trend = "";
     
       var action = "action" + tf;
       var anchor = "anchor" + tf;
+      var anchorTrend = "anchorTrend" +tf;
       var aux1 = "aux1-" + tf;
       var aux2 = "aux2-" + tf;
       var direction = pair[action].color == "RED" ? "DOWN" : "UP";
@@ -57,7 +57,6 @@ module.exports = function (Instrument) {
       function () { return candleData[count].color == aux2Color; },
       function (callback) {
         aux2Open = candleData[count].o;
-        console.log(count);
         aux2Index = count;
         count--;
         callback(null, count);
@@ -77,7 +76,6 @@ module.exports = function (Instrument) {
       function () { return candleData[count].color == auxColor; },
       function (callback) {
         auxOpen = candleData[count].o;
-        console.log(count);
         auxIndex = count;
         count--;
         callback(null, count);
@@ -94,25 +92,24 @@ module.exports = function (Instrument) {
     return this > min && this < max;
   };
 
-  function getAnchorTrend(instrument, tf, candleData, anchorIndex, anchorOpen, anchorClose) {
-
-    console.log(instrument.name);
-    console.log(anchorIndex);
-    console.log(anchorOpen);
-    console.log(anchorClose);
-    console.log(tf);
-    
-    var count = anchorIndex-1;
-    console.log(candleData[count-1].o);
+  function getAnchorTrend(instrument, tf, candleData, anchorIndex, anchorOpen, anchorClose) {    
     async.whilst(
-      function () { return (parseFloat(anchorOpen).between(candleData[count].o, candleData[count].c) || parseFloat(anchorClose).between(candleData[count].o, candleData[count].c)) },
+      function () { 
+        console.log(anchorIndex-1);
+        console.log("ANCHOR OPEN "  + parseFloat(anchorOpen).between(candleData[anchorIndex-1].o, candleData[anchorIndex-1].c));
+        console.log("ANCHOR CLOSE " + parseFloat(anchorClose).between(candleData[anchorIndex-1].o, candleData[anchorIndex-1].c));
+        return (!parseFloat(anchorOpen).between(candleData[anchorIndex-1].o, candleData[anchorIndex-1].c) && !parseFloat(anchorClose).between(candleData[anchorIndex-1].o, candleData[anchorIndex-1].c))},
       function (callback) {
-        count--;
-        callback(null, count);
+        anchorIndex--;
+        callback(null, anchorIndex);
       }, function (err, n) {
-        console.log(count);
-        console.log(candleData[count]);
-        instrument.updateAttribute("anchorTrend" + tf, { index: count, color: candleData[count].color});
+        console.log(" - ");
+        console.log(anchorIndex-1);
+        console.log(instrument.name + " " + tf +" " +  anchorIndex-1);
+        console.log("ANCHOR " + anchorOpen +  " - " + anchorClose);
+        console.log("ANCTRE " + candleData[anchorIndex-1].o +" - "+candleData[anchorIndex-1].c);
+        console.log(" - ");
+        instrument.updateAttribute("anchorTrend" + tf, { index: anchorIndex-1, color: candleData[anchorIndex-1].color});
       });
 
   }
@@ -184,7 +181,6 @@ module.exports = function (Instrument) {
             if (response.error) {
               console.log('> response error: ' + response.error.stack);
             }
-``
             data[tf]= response.candles.map(function (candleData) {
               var obj = {
                 time: candleData.time,
@@ -192,7 +188,8 @@ module.exports = function (Instrument) {
                 o: candleData.mid.o,
                 c: candleData.mid.c,
                 h: candleData.mid.h,
-                color: candleData.mid.c - candleData.mid.o > 0 ? "BLUE" : "RED"
+                color: candleData.mid.c - candleData.mid.o > 0 ? "BLUE" : "RED",
+                size:Math.abs(candleData.mid.c - candleData.mid.o)
               }
               return (obj);
             });

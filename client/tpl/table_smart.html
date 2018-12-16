@@ -9,6 +9,7 @@
         <tr>
           
           <th>Pair</th>
+          <th>News</th>
           <th>HEATMAP M30</th>
           <th>H3</th>
           <th>H2</th>
@@ -21,6 +22,9 @@
         <tr ng-repeat="row in pairs" st-select-row="row">
 
           <td>{{row.name}}</td>
+          <td><div ng-repeat="item in row.news">
+            <a>{{item.timestamp*1000|date:'hh:mm a'}}</a><a>{{item.title}}</a><a>{{item.impact}}</a>
+          </div></td>
           <td>{{row.candlesM1[29].c*10000 - row.candlesM1[0].c*10000|number:2}}</td>
           <td>{{row.trendH3}}</td>
           <td>{{row.trendH2}}</td>
