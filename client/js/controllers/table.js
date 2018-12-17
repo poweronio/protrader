@@ -217,12 +217,12 @@ app.controller('TableCtrl', ['$scope', '$timeout', '$http', 'Instrument', 'Pair'
         },
         x: function(d){ return d['date']; },
         y: function(d){ return d['close']; },
-        duration: 100,
+        duration: 30,
         
         xAxis: {
             axisLabel: 'Dates',
             tickFormat: function(d) {
-                return d3.time.format('%x')(new Date(new Date() - (20000 * 86400000) + (d * 86400000)));
+                return d3.time.format('%x')(new Date(d.replace('-','/')));
             },
             showMaxMin: false
         },
@@ -257,7 +257,7 @@ $scope.data =[];
       console.log(list);
       var candleArray= list[0].candlesM5.map(function (candleData) {
         var obj = {
-            time: candleData.time,
+            time: candleData.time.replace('T',' '),
             open: candleData.o,
             high: candleData.h,
             low: candleData.l,
