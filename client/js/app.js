@@ -16,6 +16,7 @@ angular.module('app', [
     'ui.load',
     'ui.jq',
     'oc.lazyLoad',
+    'nvd3',
   'pascalprecht.translate',
     'lbServices'
 ]);
