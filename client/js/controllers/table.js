@@ -252,7 +252,8 @@ $scope.data =[];
 
 function getTimeStamp(longDate){
   var shorterDate = longDate.replace('T',' ');
-  return (new Date(shorterDate.replace('-','/')).getTime()/1000);
+  var unixtimestamp = (new Date(shorterDate.replace('-','/'))).getTime() / 1000;
+  return unixtimestamp;
 }
 
   function init() {
