@@ -269,6 +269,7 @@ $scope.data =[];
         }
         return (obj);
       });
+      console.log($scope.data);
     });
   }  
     /*  getAction();
