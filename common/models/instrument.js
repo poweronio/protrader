@@ -27,8 +27,8 @@ module.exports = function (Instrument) {
       var action = "action" + tf;
       var anchor = "anchor" + tf;
       var anchorTrend = "anchorTrend" +tf;
-      var aux1 = "aux1-" + tf;
-      var aux2 = "aux2-" + tf;
+      var aux1 = "aux1" + tf;
+      var aux2 = "aux2" + tf;
       var direction = pair[action].color == "RED" ? "DOWN" : "UP";
       var _direction = direction == "DOWN" ? "UP" : "DOWN";
       if (pair[anchor].size < pair[aux1].size) {
@@ -38,11 +38,15 @@ module.exports = function (Instrument) {
           trend = "SIDEWAYS BIAS " + direction + " CONFIRMED";
         }
       }
-      else if (pair[action].size >= pair[anchor].size) {
-        trend = _direction + "TREND N.S. ANCHOR BREAK"
-      } else if (pair[aux2].size <= pair[aux1].size) {
-        trend = _direction + "TREND N.S."
-      } else trend = _direction + "TREND SETUP";
+      else if (pair[action].size < pair[anchor].size) {
+      if (pair[anchorTrend].color == pair[anchor].color) {
+        trend = _direction + "TREND SETUP"
+      } else trend = direction + "TREND N.S";
+    } else if (pair[anchorTrend].color == pair[anchor].color) {
+      trend = _direction + "TREND ANCHOR BREAK";
+    }else {
+      trend = direction + "TREND N.S"
+    }
       
       pair.updateAttribute("trend" + tf, trend);
     
@@ -167,7 +171,7 @@ module.exports = function (Instrument) {
       };
       Instrument.findOne({ where: { name: pair } }, function (err, instrument) {
         newsDataService = Instrument.app.dataSources.oanda1;
-        newsDataService.cp(pair, 43200, function (err, response, context) {
+        newsDataService.cp(pair, 86400, function (err, response, context) {
           if (err) throw err; //error making request
             if (response.error) {
               console.log('> response error: ' + response.error.stack);

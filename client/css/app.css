@@ -6,6 +6,30 @@ html {
   background-color: #f0f3f4;
 }
 
+.fa-arrow-right {
+  color:black;
+}
+
+.fa-arrow-up {
+  color:blue;
+}
+
+.fa-arrow-down {
+  color:red;
+}
+
+.fa-times {
+  color:red;
+}
+
+.fa-square-o{
+  color:green;
+  font-weight: bold
+}
+.fa-check{
+  color:green
+}
+
 body {
   font-family: "Source Sans Pro", "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-size: 14px;
