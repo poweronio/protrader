@@ -259,12 +259,12 @@ $scope.data =[];
         var obj = {
           values:{
             time: candleData.time,
-            open: candleData.mid.o,
-            high: candleData.mid.h,
-            low: candleData.mid.l,
-            close: candleData.mid.c,
-            color: candleData.mid.c - candleData.mid.o > 0 ? "BLUE" : "RED",
-            size:Math.abs(candleData.mid.c - candleData.mid.o)
+            open: candleData.o,
+            high: candleData.h,
+            low: candleData.l,
+            close: candleData.c,
+            color: candleData.c - candleData.o > 0 ? "BLUE" : "RED",
+            size:Math.abs(candleData.c - candleData.o)
           }
         }
         return (obj);
