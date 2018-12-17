@@ -215,7 +215,7 @@ app.controller('TableCtrl', ['$scope', '$timeout', '$http', 'Instrument', 'Pair'
             bottom: 66,
             left: 60
         },
-        x: function(d){ return d['date']; },
+        x: function(d){ return d['time']; },
         y: function(d){ return d['close']; },
         duration: 30,
         
