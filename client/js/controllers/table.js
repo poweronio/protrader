@@ -246,13 +246,16 @@ app.controller('TableCtrl', ['$scope', '$timeout', '$http', 'Instrument', 'Pair'
     }
 };
 
-$scope.data =[];
+$scope.data =[{values: [
+  {"date": 15854, "open": 165.42, "high": 165.8, "low": 164.34, "close": 165.22, "volume": 160363400, "adjusted": 164.35},
+  {"date": 15855, "open": 165.35, "high": 166.59, "low": 165.22, "close": 165.83, "volume": 107793800, "adjusted": 164.96},
+  {"date": 15856, "open": 165.37, "high": 166.31, "low": 163.13, "close": 163.45, "volume": 176850100, "adjusted": 162.59}]}];
 
   function init() {
     Instrument.find({}, function (list) {
       $scope.pairs = list;
       console.log(list);
-      $scope.data = list[0].candlesM5;
+      // $scope.data = list[0].candlesM5;
     });
   }  
     /*  getAction();
