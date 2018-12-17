@@ -222,7 +222,7 @@ app.controller('TableCtrl', ['$scope', '$timeout', '$http', 'Instrument', 'Pair'
         xAxis: {
             axisLabel: 'Dates',
             tickFormat: function(d) {
-                return d3.time.format('%x')(new Date(d.replace('-','/')));
+                return d3.time.format('%x')(new Date(d));
             },
             showMaxMin: false
         },
@@ -250,6 +250,10 @@ $scope.data =[];
 // {values: [  {"date": 15854, "open": 165.42, "high": 165.8, "low": 164.34, "close": 165.22, "volume": 160363400, "adjusted": 164.35},  {"date": 15856, "open": 165.37, "high": 166.31, "low": 163.13, "close": 163.45, "volume": 176850100, "adjusted": 162.59}]}];
 
 
+function getTimeStamp(longDate){
+  var shorterDate = longDate.replace('T',' ');
+  return new Date(shorterDate.replace('-','/')).getTime()/1000;
+}
 
   function init() {
     Instrument.find({}, function (list) {
@@ -257,7 +261,7 @@ $scope.data =[];
       console.log(list);
       var candleArray= list[0].candlesM5.map(function (candleData) {
         var obj = {
-            time: candleData.time.replace('T',' '),
+            time: getTimeStamp(candleData.time),
             open: candleData.o,
             high: candleData.h,
             low: candleData.l,
