@@ -266,7 +266,7 @@ function getTimeStamp(longDate){
       console.log(list);
       var candleArray= list[0].candlesM5.map(function (candleData) {
         var obj = {
-            time: getTimeStamp(candleData.time),
+            time: candleData.time,
             open: candleData.o,
             high: candleData.h,
             low: candleData.l,
