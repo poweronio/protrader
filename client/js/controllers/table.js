@@ -255,9 +255,8 @@ $scope.data =[];
     Instrument.find({}, function (list) {
       $scope.pairs = list;
       console.log(list);
-      $scope.data= list[0].candlesM5.map(function (candleData) {
+      var candleArray= list[0].candlesM5.map(function (candleData) {
         var obj = {
-          values:{
             time: candleData.time,
             open: candleData.o,
             high: candleData.h,
@@ -266,9 +265,9 @@ $scope.data =[];
             color: candleData.c - candleData.o > 0 ? "BLUE" : "RED",
             size:Math.abs(candleData.c - candleData.o)
           }
-        }
         return (obj);
       });
+      $scope.data.push({values:candleArray});
       console.log($scope.data);
     });
   }  
