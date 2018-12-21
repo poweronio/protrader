@@ -230,7 +230,7 @@ app.controller('TableCtrl', ['$scope', '$timeout', '$http', 'Instrument', 'Pair'
         yAxis: {
             axisLabel: 'Stock Price',
             tickFormat: function(d){
-                return '$' + d3.format(',.1f')(d);
+                return '$' + d3.format(',.4f')(d);
             },
             showMaxMin: false
         },
@@ -239,7 +239,7 @@ app.controller('TableCtrl', ['$scope', '$timeout', '$http', 'Instrument', 'Pair'
             scaleExtent: [1, 10],
             useFixedDomain: false,
             useNiceScale: false,
-            horizontalOff: false,
+            horizontalOff: true,
             verticalOff: true,
             unzoomEventType: 'dblclick.zoom'
         }
@@ -264,9 +264,9 @@ function getTimeStamp(longDate){
     Instrument.find({}, function (list) {
       $scope.pairs = list;
       console.log(list);
-      var candleArray= list[0].candlesM5.map(function (candleData) {
+      var candleArray= list[0].candlesM5.map(function (candleData,index) {
         var obj = {
-            time: candleData.time,
+            time: index/20,//candleData.time.substring(5,16),
             open: candleData.o,
             high: candleData.h,
             low: candleData.l,
