@@ -81,36 +81,12 @@
   </div>
 
   <div class="panel panel-default">
-    <div class="panel-heading">The basics</div>
-    <table st-table="pairs" class="table table-bordered table-striped">
-      <thead>
-        <tr>
-          <th>Index</th>
-          <th>time</th>
-          <th>Open</th>
-          <th>Close</th>
-          <th>Hi</th>
-          <th>Lo</th>
-          <th>R/B</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr ng-repeat="row in pairs.candlesH3" st-select-row="row">
-          <td>{{$index}}</td>
-          <td>{{row.time|date:'short'}}</td>
-          <td>{{row.o}}</td>
-          <td>{{row.c}}</td>
-          <td>{{row.h}}</td>
-          <td>{{row.l}}</td>
-          <td>{{row.color}}</td>
-        </tr>
-      </tbody>
-    </table>
+      <div class="panel-heading">The Chart</div>
+      <div class="panel-body">
+    <nvd3 options="options" data="data" ></nvd3>
   </div>
-  <a>Action : {{action}}</a><br>
-  <a>Anchor : {{anchor}}</a><br>
-  <a>Aux1 : {{aux1}}</a><br>
-  <a>Aux2 : {{aux2}}</a><br>
+  </div>
+
 
   <div class="panel panel-default">
     <div class="panel-heading">
