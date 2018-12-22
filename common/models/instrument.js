@@ -104,7 +104,7 @@ module.exports = function (Instrument) {
     async.whilst(
       function () { 
         console.log("candleData");
-        console.log(candleData);
+        console.log(candleData[anchorIndex-1]);
         console.log("ANCHOR OPEN "  + parseFloat(anchorOpen).between(candleData[anchorIndex-1].o, candleData[anchorIndex-1].c));
         console.log("ANCHOR CLOSE " + parseFloat(anchorClose).between(candleData[anchorIndex-1].o, candleData[anchorIndex-1].c));
         return (!parseFloat(anchorOpen).between(candleData[anchorIndex-1].o, candleData[anchorIndex-1].c) && !parseFloat(anchorClose).between(candleData[anchorIndex-1].o, candleData[anchorIndex-1].c))},
