@@ -9,7 +9,7 @@ module.exports = function (Instrument) {
   //Instrument.setId("1");
   var granularity = ["H3", "H2", "M30", "M10", "M5", "M1"];
   var trendTf = ["H3", "H2", "M30"];
-  var pairs = ["EUR_USD", "GBP_USD", "EUR_JPY", "GBP_JPY"];
+  var pairs = ["EUR_USD", "GBP_USD", "USD_JPY","EUR_JPY", "GBP_JPY"];
   //var i = 1;
   
 
