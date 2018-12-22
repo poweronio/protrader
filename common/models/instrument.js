@@ -32,7 +32,7 @@ module.exports = function (Instrument) {
       var direction = pair[action].color == "RED" ? "DOWN" : "UP";
       var _direction = direction == "DOWN" ? "UP" : "DOWN";
       if (pair[anchor].size < pair[aux1].size) {
-        if (pair[[action].size < pair[anchor].size) {
+        if (pair[action].size < pair[anchor].size) {
           trend = "SIDEWAYS BIAS " + direction;
         } else {
           trend = "SIDEWAYS BIAS " + direction + " CONFIRMED";
