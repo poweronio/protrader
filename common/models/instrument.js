@@ -39,8 +39,8 @@ module.exports = function (Instrument) {
         }
       }
       else {
-        console.log(pair[action]);
-        console.log(pair[acnhor]);
+        console.log(pair["action" +tf]);
+        console.log(pair["acnhor" + tf]);
       }
       /* if (pair[action].size < pair[anchor].size) {
       if (pair[anchorTrend].color == pair[anchor].color) {
