@@ -32,20 +32,24 @@ module.exports = function (Instrument) {
       var direction = pair[action].color == "RED" ? "DOWN" : "UP";
       var _direction = direction == "DOWN" ? "UP" : "DOWN";
       if (pair[anchor].size < pair[aux1].size) {
-        if (pair[action].size < pair[anchor].size) {
+        if (pair[[action].size < pair[anchor].size) {
           trend = "SIDEWAYS BIAS " + direction;
         } else {
           trend = "SIDEWAYS BIAS " + direction + " CONFIRMED";
         }
       }
-      else if (pair[action].size < pair[anchor].size) {
+      else {
+        console.log(pair[action]);
+        console.log(pair[acnhor]);
+      }
+      /* if (pair[action].size < pair[anchor].size) {
       if (pair[anchorTrend].color == pair[anchor].color) {
         trend = _direction + "TREND SETUP"
       } else trend = direction + "TREND N.S";
     } else if (pair[anchorTrend].color == pair[anchor].color) {
       trend = _direction + "TREND ANCHOR BREAK";
     }else {
-      trend = direction + "TREND N.S"
+      trend = direction + "TREND N.S"*/
     }
       
       pair.updateAttribute("trend" + tf, trend);
