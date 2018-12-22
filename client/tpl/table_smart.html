@@ -25,7 +25,7 @@
           <td><div ng-repeat="item in row.news">
             <a>{{item.timestamp*1000|date:'hh:mm a'}}</a>&nbsp;<a>{{item.title}}</a><a>{{item.impact}}</a>
           </div></td>
-          <td>{{row.candlesM1[29].c*10000 - row.candlesM1[0].c*10000|number:2}}</td>
+          <td>{{row.candlesM1[29].c*row.pip - row.candlesM1[0].c*row.pip|number:2}}</td>
           <td>
             <a ng-if="row.trendH3=='SIDEWAYS BIAS UP'"><i class="fa fa-arrow-right"></i><i class="fa fa-arrow-up"></i></a>
             <a ng-if="row.trendH3=='SIDEWAYS BIAS DOWN'"><i class="fa fa-arrow-right"></i><i class="fa fa-arrow-down"></i></a>
