@@ -50,9 +50,9 @@ module.exports = function (Instrument) {
       trend = _direction + "TREND ANCHOR BREAK";
     }else {
       trend = direction + "TREND N.S"*/
-    }
+    // }
       
-      pair.updateAttribute("trend" + tf, trend);
+      // pair.updateAttribute("trend" + tf, trend);
     
   };
   
