@@ -10,6 +10,7 @@ module.exports = function (Instrument) {
   var granularity = ["H3", "H2", "M30", "M10", "M5", "M1"];
   var trendTf = ["H3", "H2", "M30"];
   var pairs = ["EUR_USD", "GBP_USD", "EUR_JPY", "GBP_JPY","USD_JPY"];
+
   //var i = 1;
   
 
@@ -38,17 +39,21 @@ module.exports = function (Instrument) {
           trend = "SIDEWAYS BIAS " + direction + " CONFIRMED";
         }
       }
-      else if (pair[action].size < pair[anchor].size) {
+      else {
+        console.log(pair["action" +tf]);
+        console.log(pair["acnhor" + tf]);
+      }
+      /* if (pair[action].size < pair[anchor].size) {
       if (pair[anchorTrend].color == pair[anchor].color) {
         trend = _direction + "TREND SETUP"
       } else trend = direction + "TREND N.S";
     } else if (pair[anchorTrend].color == pair[anchor].color) {
       trend = _direction + "TREND ANCHOR BREAK";
     }else {
-      trend = direction + "TREND N.S"
-    }
+      trend = direction + "TREND N.S"*/
+    // }
       
-      pair.updateAttribute("trend" + tf, trend);
+      // pair.updateAttribute("trend" + tf, trend);
     
   };
   
@@ -99,10 +104,12 @@ module.exports = function (Instrument) {
   function getAnchorTrend(instrument, tf, candleData, anchorIndex, anchorOpen, anchorClose) {    
     async.whilst(
       function () { 
+
         console.log(anchorIndex-1);
         console.log("ANCHOR OPEN "  + parseFloat(anchorOpen).between(candleData[anchorIndex-1].o, candleData[anchorIndex-1].c));
         console.log("ANCHOR CLOSE " + parseFloat(anchorClose).between(candleData[anchorIndex-1].o, candleData[anchorIndex-1].c));
         return (anchorIndex-1>0)&&(!parseFloat(anchorOpen).between(candleData[anchorIndex-1].o, candleData[anchorIndex-1].c) && !parseFloat(anchorClose).between(candleData[anchorIndex-1].o, candleData[anchorIndex-1].c))},
+
       function (callback) {
         anchorIndex--;
         callback(null, anchorIndex);
