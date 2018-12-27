@@ -25,7 +25,7 @@
           },
           "query": {
             "smooth": true,
-            "count": 30,
+            "count": 50,
             "granularity": "{tf}"
           }
         },
