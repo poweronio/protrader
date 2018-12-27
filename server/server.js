@@ -15,7 +15,7 @@ app.start = function() {
     if (app.get('loopback-component-explorer')) {
       var explorerPath = app.get('loopback-component-explorer').mountPath;
       console.log('Browse your REST API at %s%s', baseUrl, explorerPath);
-      sync();
+      // sync();
     }
   });
 };
@@ -31,7 +31,7 @@ function sync() {
   console.log(new Date());
 }
 
-setTimeout(sync, 60000);
+// setTimeout(sync, 60000);
 
 
 // Bootstrap the application, configure models, datasources and middleware.
