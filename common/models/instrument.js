@@ -9,7 +9,8 @@ module.exports = function (Instrument) {
   //Instrument.setId("1");
   var granularity = ["H3", "H2", "M30", "M10", "M5", "M1"];
   var trendTf = ["H3", "H2", "M30"];
-  var pairs = ["EUR_USD", "GBP_USD", "USD_JPY","EUR_JPY", "GBP_JPY"];
+  var pairs = ["EUR_USD", "GBP_USD", "EUR_JPY", "GBP_JPY","USD_JPY"];
+
   //var i = 1;
   
 
@@ -104,14 +105,18 @@ module.exports = function (Instrument) {
     async.whilst(
       function () { 
 
-        return (!parseFloat(anchorOpen).between(candleData[anchorIndex-1].o, candleData[anchorIndex-1].c) && !parseFloat(anchorClose).between(candleData[anchorIndex-1].o, candleData[anchorIndex-1].c)&& (anchorIndex>1))},
+        console.log(anchorIndex-1);
+        console.log("ANCHOR OPEN "  + parseFloat(anchorOpen).between(candleData[anchorIndex-1].o, candleData[anchorIndex-1].c));
+        console.log("ANCHOR CLOSE " + parseFloat(anchorClose).between(candleData[anchorIndex-1].o, candleData[anchorIndex-1].c));
+        return (anchorIndex-1>0)&&(!parseFloat(anchorOpen).between(candleData[anchorIndex-1].o, candleData[anchorIndex-1].c) && !parseFloat(anchorClose).between(candleData[anchorIndex-1].o, candleData[anchorIndex-1].c))},
+
       function (callback) {
         anchorIndex--;
         callback(null, anchorIndex);
       }, function (err, n) {
         console.log(" - ");
         console.log(anchorIndex-1);
-        console.log(instrument.name + " " + tf +" " +  anchorIndex-1);
+        console.log(instrument.name + " " + tf);
         console.log("ANCHOR " + anchorOpen +  " - " + anchorClose);
         console.log("ANCTRE " + candleData[anchorIndex-1].o +" - "+candleData[anchorIndex-1].c);
         console.log(" - ");
@@ -161,6 +166,53 @@ module.exports = function (Instrument) {
    
   }
 
+  function getButter(instrument, tf, candleData){
+   var price = candleData;
+   var butter={
+     daily:false,
+     htf:false,
+     itf:false,
+     stf:false
+    }
+   var daily = false;
+   var htf = false;
+   var itf = false;
+   var stf = false;
+
+  price= candleData>10?candleData*100:candleData*10000;
+  
+  console.log("***************************");
+    console.log("Getting Butter...");
+    console.log("***************************");
+    console.log(instrument.name);
+    console.log(candleData);
+  if((price%1000>250)&&(price%1000<750)){
+    butter.daily = true;
+    console.log('DAILY BUTTER')
+  }
+
+  if((price%250>75)&&(price%250<175)){
+    butter.htf = true;
+    console.log('4HR BUTTER')
+  }
+  if((price%100>25)&&(price%100<75)){
+    butter.itf = true;
+    console.log('30M BUTTER')
+  }
+
+  if((price%25>5)&&(price%25<20)){
+    butter.stf = true;
+    console.log('5M BUTTER')
+  }
+  
+  console.log(price%1000);
+  console.log(price%250);
+  console.log(price%100);
+  console.log(price%25);
+  console.log("***************************");
+  instrument.updateAttribute("butter", butter);
+  }
+
   Instrument.greet = function (cb) {
     async.every(pairs, function (pair, callback) { 
       var data = {
@@ -186,6 +238,9 @@ module.exports = function (Instrument) {
             if (err) throw err; //error making request
             if (response.error) {
               console.log('> response error: ' + response.error.stack);
+            }
+            if(tf=='M1'){
+              getButter(instrument,tf,response.candles[response.candles.length-1].mid.c);
             }
             data[tf]= response.candles.map(function (candleData) {
               var obj = {
