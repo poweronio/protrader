@@ -1,7 +1,10 @@
 'use strict';
+const zlib = require('zlib');
 var async = require("async");
 var request = require("request");
 var groupArray = require('group-array');
+// var Koa = require('koa');
+// var bodyParser = require('koa-bodyparser');
 
 module.exports = function (Instrument) {
   var candleDataService;
@@ -205,6 +208,7 @@ module.exports = function (Instrument) {
       Instrument.findOne({ where: { name: pair } }, function (err, instrument) {
         newsDataService = Instrument.app.dataSources.oanda1;
         newsDataService.cp(pair, 86400, function (err, response, context) {
+          // console.log(response);
           if (err) throw err; //error making request
             if (response.error) {
               console.log('> response error: ' + response.error.stack);
@@ -217,12 +221,13 @@ module.exports = function (Instrument) {
             if (response.error) {
               console.log('> response error: ' + response.error.stack);
             }
-            console.log(response);
+        // console.log(response);
           instrument.updateAttribute("orderbook",response);
         });
         async.every(granularity, function (tf, callback) {
           candleDataService = Instrument.app.dataSources.oanda;
           candleDataService.cp(pair, tf, function (err, response, context) {
+            // console.log(response);
             if (err) throw err; //error making request
             if (response.error) {
               console.log('> response error: ' + response.error.stack);
