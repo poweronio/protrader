@@ -32,6 +32,10 @@ app.controller('TableCtrl', ['$scope', '$timeout', '$http', 'Instrument', 'Pair'
     method: 'GET'
   }
 
+  $scope.currentTime = new Date().getTime()/1000;
+
+  
+
 
  /* function assembleData(candle) {
     $scope.candles.push(candle);
@@ -266,14 +270,30 @@ $scope.greaterThan = function(prop, val){
   }
 }
 
+
+function updateDurations() {
+  
+  $scope.updated -=1;
+  
+  $timeout(updateDurations, 1000, true);
+};
+updateDurations();    
+
+
   function init() {
+
+    $scope.updated = 60;
     Instrument.find({}, function (list) {
       $scope.pairs = list;
+      // console.log($scope.currentTime);
       console.log(list);
       for(var i=0;i<list.length;i++){
-        var rt = $filter('filter')(list[i].candlesM30, {size:$scope.greaterThan('size',0.002)});
-        console.log(rt);
+        var rtm30 = $filter('filter')(list[i].candlesM30, {rt:true});
+        var rth2 = $filter('filter')(list[i].candlesH2, {rt:true});
+        var rth3 = $filter('filter')(list[i].candlesH3, {rt:true});
+        $scope.racetrack.push({rth3,rth2,rtm30});
       }
+      // console.log($scope.racetrack);
       var candleArray= list[0].candlesM30.map(function (candleData,index) {
         var obj = {
             time: index/2,//candleData.time.substring(5,16),
@@ -287,11 +307,14 @@ $scope.greaterThan = function(prop, val){
         return (obj);
       });
       $scope.data.push({values:candleArray});
-      console.log($scope.data);
+      // console.log($scope.data);
     });
+    $timeout(init, 60000,true);
   }  
 
   init();
+
+  
 
   
 

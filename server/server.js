@@ -26,12 +26,14 @@ function sync() {
         if(err)
         console.log(err);
         console.log(resp.body);
+        console.log(new Date());
       })
   
   console.log(new Date());
+  setTimeout(sync, 60000);
 }
 
-setTimeout(sync, 60000);
+
 
 
 // Bootstrap the application, configure models, datasources and middleware.

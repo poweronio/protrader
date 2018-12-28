@@ -38,6 +38,35 @@
       }
     ]
   },
+  "orderbook": {
+    "name": "orderbook",
+    "connector": "rest",
+    "operations": [
+      {
+        "template": {
+          "method": "GET",
+          "url": "https://api-fxtrade.oanda.com/v3/instruments/{pair}/{endpoint}",
+          "gzip":true,
+          "headers": {
+            "Authorization": "Bearer 1fee90dedad1abc90df403870923132c-7ec28839c346f9fc989abbf08c23d99b",
+            "accepts": "application/json",
+            "content-type": "application/json",
+            "Connection": "keep-alive"
+          },
+          "query": {
+            "instrument": "{pair}",
+            "endpoint":"{endpoint}"
+          }
+        },
+        "functions": {
+          "cp": [
+            "pair",
+            "endpoint"
+          ]
+        }
+      }
+    ]
+  },
   "oanda1": {
     "name": "oanda1",
     "connector": "rest",
@@ -52,6 +81,7 @@
             "content-type": "application/json",
             "connection": "keep-alive"
           },
+          "gzip":true,
           "query": {
             "instrument": "{pair}",
             "period": "{tf}"

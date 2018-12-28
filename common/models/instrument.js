@@ -6,6 +6,7 @@ var groupArray = require('group-array');
 module.exports = function (Instrument) {
   var candleDataService;
   var newsDataService;
+  var orderbookService;
   //Instrument.setId("1");
   var granularity = ["H3", "H2", "M30", "M10", "M5", "M1"];
   var trendTf = ["H3", "H2", "M30"];
@@ -102,22 +103,12 @@ module.exports = function (Instrument) {
   function getAnchorTrend(instrument, tf, candleData, anchorIndex, anchorOpen, anchorClose) {    
     async.whilst(
       function () { 
-
-        console.log(anchorIndex-1);
-        console.log("ANCHOR OPEN "  + parseFloat(anchorOpen).between(candleData[anchorIndex-1].o, candleData[anchorIndex-1].c));
-        console.log("ANCHOR CLOSE " + parseFloat(anchorClose).between(candleData[anchorIndex-1].o, candleData[anchorIndex-1].c));
         return (anchorIndex-1>0)&&(!parseFloat(anchorOpen).between(candleData[anchorIndex-1].o, candleData[anchorIndex-1].c) && !parseFloat(anchorClose).between(candleData[anchorIndex-1].o, candleData[anchorIndex-1].c))},
 
       function (callback) {
         anchorIndex--;
         callback(null, anchorIndex);
       }, function (err, n) {
-        console.log(" - ");
-        console.log(anchorIndex-1);
-        console.log(instrument.name + " " + tf);
-        console.log("ANCHOR " + anchorOpen +  " - " + anchorClose);
-        console.log("ANCTRE " + candleData[anchorIndex-1].o +" - "+candleData[anchorIndex-1].c);
-        console.log(" - ");
         instrument.updateAttribute("anchorTrend" + tf, { index: anchorIndex-1, color: candleData[anchorIndex-1].color});
       });
 
@@ -164,6 +155,11 @@ module.exports = function (Instrument) {
    
   }
 
+  function getHeatmap(instrument, tf, candleLast, candleStart){
+    // var getHeatmap = candleLast - candleStart;
+    instrument.updateAttribute("heatmap",(candleLast - candleStart)*instrument.pip );
+  }
+
   function getButter(instrument, tf, candleData){
    var price = candleData;
    var butter={
@@ -178,36 +174,21 @@ module.exports = function (Instrument) {
    var stf = false;
 
   price= candleData>10?candleData*100:candleData*10000;
-  
-  console.log("***************************");
-    console.log("Getting Butter...");
-    console.log("***************************");
-    console.log(instrument.name);
-    console.log(candleData);
   if((price%1000>250)&&(price%1000<750)){
     butter.daily = true;
-    console.log('DAILY BUTTER')
   }
 
   if((price%250>75)&&(price%250<175)){
     butter.htf = true;
-    console.log('4HR BUTTER')
   }
   if((price%100>25)&&(price%100<75)){
     butter.itf = true;
-    console.log('30M BUTTER')
   }
 
   if((price%25>5)&&(price%25<20)){
     butter.stf = true;
-    console.log('5M BUTTER')
   }
   
-  console.log(price%1000);
-  console.log(price%250);
-  console.log(price%100);
-  console.log(price%25);
-  console.log("***************************");
   instrument.updateAttribute("butter", butter);
   }
 
@@ -230,6 +211,15 @@ module.exports = function (Instrument) {
             }
           instrument.updateAttribute("news",response);
         });
+        orderbookService = Instrument.app.dataSources.orderbook;
+        orderbookService.cp(pair, 'orderBook', function (err, response, context) {
+          if (err) throw err; //error making request
+            if (response.error) {
+              console.log('> response error: ' + response.error.stack);
+            }
+            console.log(response);
+          instrument.updateAttribute("orderbook",response);
+        });
         async.every(granularity, function (tf, callback) {
           candleDataService = Instrument.app.dataSources.oanda;
           candleDataService.cp(pair, tf, function (err, response, context) {
@@ -238,7 +228,8 @@ module.exports = function (Instrument) {
               console.log('> response error: ' + response.error.stack);
             }
             if(tf=='M1'){
-              getButter(instrument,tf,response.candles[response.candles.length-1].mid.c);
+              getButter(instrument,tf,response.candles[response.candles.length-1].mid.c); 
+              getHeatmap(instrument,tf,response.candles[response.candles.length-1].mid.c,response.candles[0].mid.c); 
             }
             data[tf]= response.candles.map(function (candleData) {
               var obj = {
