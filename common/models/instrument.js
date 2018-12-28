@@ -248,7 +248,8 @@ module.exports = function (Instrument) {
                 c: candleData.mid.c,
                 h: candleData.mid.h,
                 color: candleData.mid.c - candleData.mid.o > 0 ? "BLUE" : "RED",
-                size:Math.abs(candleData.mid.c - candleData.mid.o)
+                size:Math.abs(candleData.mid.c - candleData.mid.o)*instrument.pip,
+                rt:(Math.abs(candleData.mid.c - candleData.mid.o)*instrument.pip)>30?true:false
               }
               return (obj);
             });

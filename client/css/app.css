@@ -2,6 +2,17 @@ html {
   background-color: #f0f3f4;
 }
 
+butter,
+.butter {
+  background: yellow!important;
+}
+impact1,.impact1 {
+  background:gray;
+}
+impact2,.impact2 {
+  background:yellow;
+}
+
 .fa-arrow-right {
   color:black;
 }

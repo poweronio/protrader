@@ -1,4 +1,4 @@
-app.controller('TableCtrl', ['$scope', '$timeout', '$http', 'Instrument', 'Pair', function ($scope, $timeout, $http, Instrument, Pair) {
+app.controller('TableCtrl', ['$scope', '$timeout', '$http', 'Instrument', 'Pair', '$filter',function ($scope, $timeout, $http, Instrument, Pair,$filter) {
   //    var http = require('http');
   //var https = require('https');
   $scope.candleData = {
@@ -248,7 +248,7 @@ app.controller('TableCtrl', ['$scope', '$timeout', '$http', 'Instrument', 'Pair'
 
 $scope.data =[];
 // {values: [  {"date": 15854, "open": 165.42, "high": 165.8, "low": 164.34, "close": 165.22, "volume": 160363400, "adjusted": 164.35},  {"date": 15856, "open": 165.37, "high": 166.31, "low": 163.13, "close": 163.45, "volume": 176850100, "adjusted": 162.59}]}];
-
+$scope.racetrack =[];
 
 function getTimeStamp(longDate){
   var shorterDate = longDate.replace('T',' ');
@@ -260,10 +260,20 @@ function getTimeStamp(longDate){
   return unixtimestamp;
 }
 
+$scope.greaterThan = function(prop, val){
+  return function(item){
+    return item[prop] > val;
+  }
+}
+
   function init() {
     Instrument.find({}, function (list) {
       $scope.pairs = list;
       console.log(list);
+      for(var i=0;i<list.length;i++){
+        var rt = $filter('filter')(list[i].candlesM30, {size:$scope.greaterThan('size',0.002)});
+        console.log(rt);
+      }
       var candleArray= list[0].candlesM30.map(function (candleData,index) {
         var obj = {
             time: index/2,//candleData.time.substring(5,16),

@@ -11,7 +11,7 @@
           <th>Pair</th>
           <th>Price</th>
           <th>News</th>
-          <th>Butter</th>
+          <th>RACETRACK</th>
           <th>HEATMAP-30</th>
           <th>H3</th>
           <th>H2</th>
@@ -26,14 +26,16 @@
           <td>{{row.name}}</td>
           <td>{{row.candlesM1[29].c}}</td>
           <td><div ng-repeat="item in row.news">
-            <a>{{item.timestamp*1000|date:'hh:mm a'}}</a>&nbsp;<a>{{item.title}}</a><a>{{item.impact}}</a>
+            <div class="block"><a class="label" ng-class="{ 'label-default': item.impact==1, 'label-default': item.impact==2, 'label-warning': item.impact==3,'label-danger': item.impact==4,'label-danger': item.impact==5 }">{{item.impact}}</a>
+            <a>{{item.timestamp*1000|date:'hh:mm a'}}</a>&nbsp;<a>{{item.title}}</a></div>
           </div></td>
           <td>
-            {{row.butter.daily}} - {{row.butter.htf}} - {{row.butter.itf}} - {{row.butter.stf}}
+            {{row.racetrack}}
+            <!-- {{row.butter.daily}} - {{row.butter.htf}} - {{row.butter.itf}} - {{row.butter.stf}} -->
           </td>
 
           <td>{{row.candlesM1[29].c*row.pip - row.candlesM1[0].c*row.pip|number:2}}</td>
-          <td>
+          <td ng-class="{'butter':row.butter.daily}">
             <a ng-if="row.trendH3=='SIDEWAYS BIAS UP'"><i class="fa fa-arrow-right"></i><i class="fa fa-arrow-up"></i></a>
             <a ng-if="row.trendH3=='SIDEWAYS BIAS DOWN'"><i class="fa fa-arrow-right"></i><i class="fa fa-arrow-down"></i></a>
             <a ng-if="row.trendH3=='SIDEWAYS BIAS UP CONFIRMED'"><i class="fa fa-arrow-right"></i><i class="fa fa-arrow-up"></i><i class="fa fa-check"></i></a>
@@ -48,7 +50,7 @@
             <!-- <a>{{row.anchorH3.size}}</a><br> -->
             <!-- <a>{{row.aux1H3.size}}</a><br> -->
           </td>
-          <td>
+          <td ng-class="{'butter':row.butter.htf}">
               <a ng-if="row.trendH2=='SIDEWAYS BIAS UP'"><i class="fa fa-arrow-right"></i><i class="fa fa-arrow-up"></i></a>
               <a ng-if="row.trendH2=='SIDEWAYS BIAS DOWN'"><i class="fa fa-arrow-right"></i><i class="fa fa-arrow-down"></i></a>
               <a ng-if="row.trendH2=='SIDEWAYS BIAS UP CONFIRMED'"><i class="fa fa-arrow-right"></i><i class="fa fa-arrow-up"></i><i class="fa fa-check"></i></a>
@@ -63,7 +65,7 @@
             <!-- <a>{{row.anchorH2.size}}</a><br> -->
             <!-- <a>{{row.aux1H2.size}}</a><br> -->
           </td>
-          <td>
+          <td ng-class="{'butter':row.butter.itf}">
               <a ng-if="row.trendM30=='SIDEWAYS BIAS UP'"><i class="fa fa-arrow-right"></i><i class="fa fa-arrow-up"></i></a>
               <a ng-if="row.trendM30=='SIDEWAYS BIAS DOWN'"><i class="fa fa-arrow-right"></i><i class="fa fa-arrow-down"></i></a>
               <a ng-if="row.trendM30=='SIDEWAYS BIAS UP CONFIRMED'"><i class="fa fa-arrow-right"></i><i class="fa fa-arrow-up"></i><i class="fa fa-check"></i></a>
@@ -77,7 +79,7 @@
             <!-- <a>{{row.actionM30.size}}</a><br> -->
             <!-- <a>{{row.anchorM30.size}}</a><br> -->
           </td>
-          <td>
+          <td ng-class="{'butter':row.butter.stf}">
               <a ng-if="row.trendM5=='SIDEWAYS BIAS UP'"><i class="fa fa-arrow-right"></i><i class="fa fa-arrow-up"></i></a>
               <a ng-if="row.trendM5=='SIDEWAYS BIAS DOWN'"><i class="fa fa-arrow-right"></i><i class="fa fa-arrow-down"></i></a>
               <a ng-if="row.trendM5=='SIDEWAYS BIAS UP CONFIRMED'"><i class="fa fa-arrow-right"></i><i class="fa fa-arrow-up"></i><i class="fa fa-check"></i></a>
