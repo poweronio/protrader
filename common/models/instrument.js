@@ -39,21 +39,19 @@ module.exports = function (Instrument) {
           trend = "SIDEWAYS BIAS " + direction + " CONFIRMED";
         }
       }
-      else {
-        console.log(pair["action" +tf]);
-        console.log(pair["acnhor" + tf]);
-      }
-      /* if (pair[action].size < pair[anchor].size) {
+      else 
+       
+       if (pair[action].size < pair[anchor].size) {
       if (pair[anchorTrend].color == pair[anchor].color) {
         trend = _direction + "TREND SETUP"
       } else trend = direction + "TREND N.S";
     } else if (pair[anchorTrend].color == pair[anchor].color) {
       trend = _direction + "TREND ANCHOR BREAK";
     }else {
-      trend = direction + "TREND N.S"*/
-    // }
+      trend = direction + "TREND N.S";
+     }
       
-      // pair.updateAttribute("trend" + tf, trend);
+      pair.updateAttribute("trend" + tf, trend);
     
   };
   

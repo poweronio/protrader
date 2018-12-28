@@ -264,9 +264,9 @@ function getTimeStamp(longDate){
     Instrument.find({}, function (list) {
       $scope.pairs = list;
       console.log(list);
-      var candleArray= list[0].candlesM5.map(function (candleData,index) {
+      var candleArray= list[0].candlesM30.map(function (candleData,index) {
         var obj = {
-            time: index/20,//candleData.time.substring(5,16),
+            time: index/2,//candleData.time.substring(5,16),
             open: candleData.o,
             high: candleData.h,
             low: candleData.l,
