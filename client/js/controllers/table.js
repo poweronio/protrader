@@ -250,7 +250,9 @@ app.controller('TableCtrl', ['$scope', '$timeout', '$http', 'Instrument', 'Pair'
     }
 };
 
-$scope.data =[];
+$scope.dataH3 =[];
+$scope.dataH2 =[];
+$scope.dataM30 =[];
 // {values: [  {"date": 15854, "open": 165.42, "high": 165.8, "low": 164.34, "close": 165.22, "volume": 160363400, "adjusted": 164.35},  {"date": 15856, "open": 165.37, "high": 166.31, "low": 163.13, "close": 163.45, "volume": 176850100, "adjusted": 162.59}]}];
 
 
@@ -272,7 +274,6 @@ $scope.greaterThan = function(prop, val){
 
 
 function updateDurations() {
-  
   $scope.updated -=1;
   if(new Date().getDay()>4&&new Date().getHours()>17&&new Date().getDay!=7){
   $scope.updated = 0;
@@ -296,49 +297,8 @@ function updateDurations() {
         var rth2 = $filter('filter')(list[i].candlesH2, {rt:true});
         var rth3 = $filter('filter')(list[i].candlesH3, {rt:true});
         $scope.racetrack.push({rth3,rth2,rtm30});
+      }
 
-      // console.log($scope.racetrack);=
-      var candleArrayH3= list[i].candlesH3.map(function (candleData,index) {
-        var obj = {
-            time: index/2,//candleData.time.substring(5,16),
-            open: candleData.o,
-            high: candleData.h,
-            low: candleData.l,
-            close: candleData.c,
-            color: candleData.c - candleData.o > 0 ? "BLUE" : "RED",
-            size:Math.abs(candleData.c - candleData.o)
-          }
-        return (obj);
-      });
-      var candleArrayH2= list[i].candlesH2.map(function (candleData,index) {
-        var obj = {
-            time: index/2,//candleData.time.substring(5,16),
-            open: candleData.o,
-            high: candleData.h,
-            low: candleData.l,
-            close: candleData.c,
-            color: candleData.c - candleData.o > 0 ? "BLUE" : "RED",
-            size:Math.abs(candleData.c - candleData.o)
-          }
-        return (obj);
-      });
-      var candleArrayM30= list[i].candlesM30.map(function (candleData,index) {
-        var obj = {
-            time: index/2,//candleData.time.substring(5,16),
-            open: candleData.o,
-            high: candleData.h,
-            low: candleData.l,
-            close: candleData.c,
-            color: candleData.c - candleData.o > 0 ? "BLUE" : "RED",
-            size:Math.abs(candleData.c - candleData.o)
-          }
-        return (obj);
-      });
-var temp = [{values:candleArrayH3},{values:candleArrayH2},{values:candleArrayM30}];
-
-      $scope.data.push(temp);
-    }
-      console.log($scope.data);
     });
     if((new Date().getDay()==5)&&(new Date().getHours()>17)||(new Date().getDay==6)||(new Date().getDay()==7)&&(new Date().getHours()<17)){
     console.log("offline");
@@ -351,7 +311,47 @@ var temp = [{values:candleArrayH3},{values:candleArrayH2},{values:candleArrayM30
 
   init();
 
-  
+  $scope.updateCharts = function (_index){
+    var candleArrayH3= $scope.pairs[_index].candlesH3.map(function (candleData,index) {
+      var obj = {
+          time: index/2,//candleData.time.substring(5,16),
+          open: candleData.o,
+          high: candleData.h,
+          low: candleData.l,
+          close: candleData.c,
+          color: candleData.c - candleData.o > 0 ? "BLUE" : "RED",
+          size:Math.abs(candleData.c - candleData.o)
+        }
+      return (obj);
+    });
+    $scope.data.push({values:candleArrayH3});
+    var candleArrayH2= $scope.pairs[_index].candlesH2.map(function (candleData,index) {
+      var obj = {
+          time: index/2,//candleData.time.substring(5,16),
+          open: candleData.o,
+          high: candleData.h,
+          low: candleData.l,
+          close: candleData.c,
+          color: candleData.c - candleData.o > 0 ? "BLUE" : "RED",
+          size:Math.abs(candleData.c - candleData.o)
+        }
+      return (obj);
+    });
+    $scope.data.push({values:candleArrayH3});
+    var candleArrayM30= $scope.pairs[_index].candlesM30.map(function (candleData,index) {
+      var obj = {
+          time: index/2,//candleData.time.substring(5,16),
+          open: candleData.o,
+          high: candleData.h,
+          low: candleData.l,
+          close: candleData.c,
+          color: candleData.c - candleData.o > 0 ? "BLUE" : "RED",
+          size:Math.abs(candleData.c - candleData.o)
+        }
+      return (obj);
+    });
+    $scope.data.push({values:candleArrayH3});
+  }
 
   
 
