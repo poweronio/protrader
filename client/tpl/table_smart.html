@@ -25,7 +25,9 @@
           <td>{{row.name}}</td>
           <td>{{row.candlesM1[49].c}}</td>
           <td><div ng-repeat="item in row.news">
-            <div ng-if="item.timestamp>=currentTime" class="block"><a class="label" ng-class="{ 'label-default': item.impact==1, 'label-default': item.impact==2, 'label-warning': item.impact==3,'label-danger': item.impact==4,'label-danger': item.impact==5 }">{{item.impact}}</a>
+            <!-- <div ng-if="item.timestamp>=currentTime" class="block"> -->
+            <div class="block">
+              <a class="label" ng-class="{ 'label-default': item.impact==1, 'label-default': item.impact==2, 'label-warning': item.impact==3,'label-danger': item.impact==4,'label-danger': item.impact==5 }">{{item.impact}}</a>
             <a>{{item.timestamp*1000|date:'hh:mm a'}}</a>&nbsp;<a>{{item.title}}</a></div>
           </div></td>
           <td>
@@ -35,7 +37,7 @@
 
           <td >{{row.heatmap|number:1}}</td>
           <td ng-class="{'butter':row.butter.daily}">
-            <a ng-if="row.trendH3=='SIDEWAYS BIAS UP'"><i class="fa fa-arrow-right"></i><i class="fa fa-arrow-up"></i></a>
+            <div class="block"><a ng-if="row.trendH3=='SIDEWAYS BIAS UP'"><i class="fa fa-arrow-right"></i><i class="fa fa-arrow-up"></i></a>
             <a ng-if="row.trendH3=='SIDEWAYS BIAS DOWN'"><i class="fa fa-arrow-right"></i><i class="fa fa-arrow-down"></i></a>
             <a ng-if="row.trendH3=='SIDEWAYS BIAS UP CONFIRMED'"><i class="fa fa-arrow-right"></i><i class="fa fa-arrow-up"></i><i class="fa fa-check"></i></a>
             <a ng-if="row.trendH3=='SIDEWAYS BIAS DOWN CONFIRMED'"><i class="fa fa-arrow-right"></i><i class="fa fa-arrow-down"></i><i class="fa fa-check"></i></a>
@@ -44,7 +46,7 @@
             <a ng-if="row.trendH3=='UPTREND SETUP'"><i class="fa fa-arrow-up"></i><i class="fa fa-square-o"></i></a>
             <a ng-if="row.trendH3=='DOWNTREND SETUP'"><i class="fa fa-arrow-down"></i><i class="fa fa-square-o"></i></a>
             <a ng-if="row.trendH3=='UPTREND ANCHOR BREAK'"><i class="fa fa-arrow-up"></i><i class="fa fa-times"></i></a>
-            <a ng-if="row.trendH3=='DOWNTREND ANCHOR BREAK'"><i class="fa fa-arrow-down"></i><i class="fa fa-times"></i></a><br>
+            <a ng-if="row.trendH3=='DOWNTREND ANCHOR BREAK'"><i class="fa fa-arrow-down"></i><i class="fa fa-times"></i></a><br></div>
             <!-- <a>{{row.actionH3.size}}</a><br> -->
             <!-- <a>{{row.anchorH3.size}}</a><br> -->
             <!-- <a>{{row.aux1H3.size}}</a><br> -->
@@ -104,41 +106,6 @@
   </div>
 
  
-  <div class="panel panel-default">
-    <div class="panel-heading">pipe/ajax plugin</div>
-    <table st-table="rowCollectionPip" st-pipe="callServer" class="table table-striped">
-      <thead>
-        <tr>
-          <th st-sort="firstName">first name</th>
-          <th st-sort="lastName">last name</th>
-          <th st-sort="birthDate">birth date</th>
-          <th st-sort="balance">balance</th>
-          <th>email</th>
-        </tr>
-        <tr>
-          <th>
-            <input st-search="firstName" placeholder="search for firstname" class="input-sm form-control" type="search" />
-          </th>
-          <th colspan="4">
-            <input st-search placeholder="global search" class="input-sm form-control" type="search" />
-          </th>
-        </tr>
-      </thead>
-      <tbody ng-hide="isLoading">
-        <tr ng-repeat="row in rowCollectionPip">
-          <td>{{row.firstName | uppercase}}</td>
-          <td>{{row.lastName}}</td>
-          <td>{{row.birthDate | date}}</td>
-          <td>{{row.balance | currency}}</td>
-          <td><a ng-href="mailto:{{row.email}}">email</a></td>
-        </tr>
-      </tbody>
-      <tbody ng-show="isLoading">
-        <tr>
-          <td colspan="5" class="text-center"><i class="fa fa-spin fa-refresh"></i></td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
+  
 </div>
 

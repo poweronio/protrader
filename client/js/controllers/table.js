@@ -212,11 +212,11 @@ app.controller('TableCtrl', ['$scope', '$timeout', '$http', 'Instrument', 'Pair'
   $scope.options = {
     chart: {
         type: 'candlestickBarChart',
-        height: 450,
+        height: 500,
         margin : {
             top: 20,
             right: 20,
-            bottom: 66,
+            bottom: 50,
             left: 60
         },
         x: function(d){ return d['time']; },
@@ -224,7 +224,7 @@ app.controller('TableCtrl', ['$scope', '$timeout', '$http', 'Instrument', 'Pair'
         duration: 30,
         
         xAxis: {
-            axisLabel: 'Dates',
+            axisLabel: 'Time',
            /* tickFormat: function(d) {
                 return d3.time.format('%x')(new Date(d));
             },
@@ -232,15 +232,15 @@ app.controller('TableCtrl', ['$scope', '$timeout', '$http', 'Instrument', 'Pair'
         },
 
         yAxis: {
-            axisLabel: 'Stock Price',
+            axisLabel: 'Rate',
             tickFormat: function(d){
                 return '$' + d3.format(',.4f')(d);
             },
             showMaxMin: false
         },
         zoom: {
-            enabled: true,
-            scaleExtent: [1, 10],
+            // enabled: true,
+            // scaleExtent: [1, 10],
             useFixedDomain: false,
             useNiceScale: false,
             horizontalOff: true,
@@ -274,8 +274,11 @@ $scope.greaterThan = function(prop, val){
 function updateDurations() {
   
   $scope.updated -=1;
-  
+  if(new Date().getDay()>4&&new Date().getHours()>17&&new Date().getDay!=7){
+  $scope.updated = 0;
+  } else
   $timeout(updateDurations, 1000, true);
+
 };
 updateDurations();    
 
@@ -293,8 +296,8 @@ updateDurations();
         var rth3 = $filter('filter')(list[i].candlesH3, {rt:true});
         $scope.racetrack.push({rth3,rth2,rtm30});
       }
-      // console.log($scope.racetrack);
-      var candleArray= list[0].candlesM30.map(function (candleData,index) {
+      console.log($scope.racetrack);
+      var candleArray= list[0].candlesH3.map(function (candleData,index) {
         var obj = {
             time: index/2,//candleData.time.substring(5,16),
             open: candleData.o,
@@ -309,6 +312,9 @@ updateDurations();
       $scope.data.push({values:candleArray});
       // console.log($scope.data);
     });
+    if(new Date().getDay()>4&&new Date().getHours()>17&&new Date().getDay!=7){
+    console.log("offline");
+    }else
     $timeout(init, 60000,true);
   }  
 

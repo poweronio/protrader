@@ -207,7 +207,7 @@ module.exports = function (Instrument) {
       };
       Instrument.findOne({ where: { name: pair } }, function (err, instrument) {
         newsDataService = Instrument.app.dataSources.oanda1;
-        newsDataService.cp(pair, 86400, function (err, response, context) {
+        newsDataService.cp(pair, 604800, function (err, response, context) {
           // console.log(response);
           if (err) throw err; //error making request
             if (response.error) {
@@ -225,6 +225,7 @@ module.exports = function (Instrument) {
           instrument.updateAttribute("orderbook",response);
         });
         async.every(granularity, function (tf, callback) {
+          var rtlength = 40;
           candleDataService = Instrument.app.dataSources.oanda;
           candleDataService.cp(pair, tf, function (err, response, context) {
             // console.log(response);
@@ -237,6 +238,13 @@ module.exports = function (Instrument) {
               getHeatmap(instrument,tf,response.candles[response.candles.length-1].mid.c,response.candles[0].mid.c); 
             }
             data[tf]= response.candles.map(function (candleData) {
+              if(tf=="H3"){
+                rtlength=50;
+              }else if(tf=="H2"){
+                rtlength=40;
+              }else if(tf=="M30"){
+                rtlength=30;
+              }
               var obj = {
                 time: candleData.time,
                 l: candleData.mid.l,
@@ -245,7 +253,7 @@ module.exports = function (Instrument) {
                 h: candleData.mid.h,
                 color: candleData.mid.c - candleData.mid.o > 0 ? "BLUE" : "RED",
                 size:Math.abs(candleData.mid.c - candleData.mid.o)*instrument.pip,
-                rt:(Math.abs(candleData.mid.c - candleData.mid.o)*instrument.pip)>30?true:false
+                rt:(Math.abs(candleData.mid.c - candleData.mid.o)*instrument.pip)>rtlength?true:false
               }
               return (obj);
             });

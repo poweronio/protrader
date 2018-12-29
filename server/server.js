@@ -15,6 +15,15 @@ app.start = function() {
     if (app.get('loopback-component-explorer')) {
       var explorerPath = app.get('loopback-component-explorer').mountPath;
       console.log('Browse your REST API at %s%s', baseUrl, explorerPath);
+      if(new Date().getDay()>4&&new Date().getHours()>17&&new Date().getDay!=7)
+      {
+            console.log("Market Closed");
+      }
+      else {
+        console.log("Market OPEN");
+        sync();
+      }
+
       sync();
     }
   });
