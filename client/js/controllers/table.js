@@ -312,7 +312,7 @@ updateDurations();
       $scope.data.push({values:candleArray});
       // console.log($scope.data);
     });
-    if(new Date().getDay()>4&&new Date().getHours()>17&&new Date().getDay!=7){
+    if((new Date().getDay()==5)&&(new Date().getHours()>17)||(new Date().getDay==6)||(new Date().getDay()==7)&&(new Date().getHours()<17)){
     console.log("offline");
     }else
     $timeout(init, 60000,true);
