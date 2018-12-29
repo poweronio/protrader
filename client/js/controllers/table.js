@@ -324,7 +324,7 @@ function updateDurations() {
         }
       return (obj);
     });
-    $scope.data.push({values:candleArrayH3});
+    $scope.dataH3.push({values:candleArrayH3});
     var candleArrayH2= $scope.pairs[_index].candlesH2.map(function (candleData,index) {
       var obj = {
           time: index/2,//candleData.time.substring(5,16),
@@ -337,7 +337,7 @@ function updateDurations() {
         }
       return (obj);
     });
-    $scope.data.push({values:candleArrayH3});
+    $scope.dataH2.push({values:candleArrayH3});
     var candleArrayM30= $scope.pairs[_index].candlesM30.map(function (candleData,index) {
       var obj = {
           time: index/2,//candleData.time.substring(5,16),
@@ -350,7 +350,7 @@ function updateDurations() {
         }
       return (obj);
     });
-    $scope.data.push({values:candleArrayH3});
+    $scope.dataM30.push({values:candleArrayH3});
   }
 
   
