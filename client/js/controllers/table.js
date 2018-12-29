@@ -315,7 +315,10 @@ updateDurations();
     if((new Date().getDay()==5)&&(new Date().getHours()>17)||(new Date().getDay==6)||(new Date().getDay()==7)&&(new Date().getHours()<17)){
     console.log("offline");
     }else
-    $timeout(init, 60000,true);
+    {
+      // $timeout(init, 60000,true);
+    }
+
   }  
 
   init();
