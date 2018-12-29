@@ -280,13 +280,14 @@ function updateDurations() {
   $timeout(updateDurations, 1000, true);
 
 };
-updateDurations();    
+// updateDurations();    
 
 
   function init() {
-    $scope.racetrack =[];
+    $scope.racetrack = null;
     $scope.updated = 60;
     Instrument.find({}, function (list) {
+      $scope.racetrack = [];
       $scope.pairs = list;
       // console.log($scope.currentTime);
       console.log(list);
