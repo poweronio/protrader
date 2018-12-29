@@ -243,7 +243,7 @@ module.exports = function (Instrument) {
               }else if(tf=="H2"){
                 rtlength=40;
               }else if(tf=="M30"){
-                rtlength=30;
+                rtlength=25;
               }
               var obj = {
                 time: candleData.time,
