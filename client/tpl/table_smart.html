@@ -100,14 +100,8 @@
 
   <div class="panel panel-default" ng-repeat="row in data">
       <div class="panel-heading">The Chart</div>
-      <div class="panel-body">
-    <nvd3 options="options" data="row.H3" ></nvd3>
-  </div>
-  <div class="panel-body">
-    <nvd3 options="options" data="row.H2" ></nvd3>
-  </div>
-  <div class="panel-body">
-    <nvd3 options="options" data="row.M30" ></nvd3>
+      <div class="panel-body" ng-repeat="item in row">
+    <nvd3 options="options" data="item" ></nvd3>
   </div>
   </div>
 
