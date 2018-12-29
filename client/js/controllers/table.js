@@ -290,15 +290,15 @@ function updateDurations() {
       $scope.racetrack = [];
       $scope.pairs = list;
       // console.log($scope.currentTime);
-      console.log(list);
+      // console.log(list);
       for(var i=0;i<list.length;i++){
         var rtm30 = $filter('filter')(list[i].candlesM30, {rt:true});
         var rth2 = $filter('filter')(list[i].candlesH2, {rt:true});
         var rth3 = $filter('filter')(list[i].candlesH3, {rt:true});
         $scope.racetrack.push({rth3,rth2,rtm30});
-      }
-      console.log($scope.racetrack);
-      var candleArray= list[0].candlesH3.map(function (candleData,index) {
+
+      // console.log($scope.racetrack);=
+      var candleArrayH3= list[i].candlesH3.map(function (candleData,index) {
         var obj = {
             time: index/2,//candleData.time.substring(5,16),
             open: candleData.o,
@@ -310,8 +310,33 @@ function updateDurations() {
           }
         return (obj);
       });
-      $scope.data.push({values:candleArray});
-      // console.log($scope.data);
+      var candleArrayH2= list[i].candlesH2.map(function (candleData,index) {
+        var obj = {
+            time: index/2,//candleData.time.substring(5,16),
+            open: candleData.o,
+            high: candleData.h,
+            low: candleData.l,
+            close: candleData.c,
+            color: candleData.c - candleData.o > 0 ? "BLUE" : "RED",
+            size:Math.abs(candleData.c - candleData.o)
+          }
+        return (obj);
+      });
+      var candleArrayM30= list[i].candlesM30.map(function (candleData,index) {
+        var obj = {
+            time: index/2,//candleData.time.substring(5,16),
+            open: candleData.o,
+            high: candleData.h,
+            low: candleData.l,
+            close: candleData.c,
+            color: candleData.c - candleData.o > 0 ? "BLUE" : "RED",
+            size:Math.abs(candleData.c - candleData.o)
+          }
+        return (obj);
+      });
+      $scope.data.push({H3:{values:candleArrayH3}},{H2:{values:candleArrayH2}},{M30:{values:candleArrayM30}});
+    }
+      console.log($scope.data);
     });
     if((new Date().getDay()==5)&&(new Date().getHours()>17)||(new Date().getDay==6)||(new Date().getDay()==7)&&(new Date().getHours()<17)){
     console.log("offline");
