@@ -252,7 +252,7 @@ app.controller('TableCtrl', ['$scope', '$timeout', '$http', 'Instrument', 'Pair'
 
 $scope.data =[];
 // {values: [  {"date": 15854, "open": 165.42, "high": 165.8, "low": 164.34, "close": 165.22, "volume": 160363400, "adjusted": 164.35},  {"date": 15856, "open": 165.37, "high": 166.31, "low": 163.13, "close": 163.45, "volume": 176850100, "adjusted": 162.59}]}];
-$scope.racetrack =[];
+
 
 function getTimeStamp(longDate){
   var shorterDate = longDate.replace('T',' ');
@@ -284,7 +284,7 @@ updateDurations();
 
 
   function init() {
-
+    $scope.racetrack =[];
     $scope.updated = 60;
     Instrument.find({}, function (list) {
       $scope.pairs = list;
