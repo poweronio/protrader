@@ -98,10 +98,11 @@
     </table>
   </div>
 
-  <div class="panel panel-default" ng-repeat="row in data">
+  <!-- <div class="panel panel-default" ng-repeat="row in data"> -->
+  <div class="panel panel-default">
       <div class="panel-heading">The Chart</div>
-      <div class="panel-body" ng-repeat="item in row">
-    <nvd3 options="options" data="item" ></nvd3>
+      <div class="panel-body">
+    <nvd3 options="options" data="data[0][0]" ></nvd3>
   </div>
   </div>
 
