@@ -31,7 +31,9 @@
             <a>{{item.timestamp*1000|date:'hh:mm a'}}</a>&nbsp;<a>{{item.title}}</a></div>
           </div></td>
           <td>
-            {{racetrack[$index]}}
+            <div><a></a>{{racetrack[$index].rth3[racetrack[$index].rth3.length-1]}}</div>
+            <div>H2{{racetrack[$index].rth2[racetrack[$index].rth3.length-1]}}</div>
+            <div>M30{{racetrack[$index].rtm30[racetrack[$index].rth3.length-1]}}</div>
             <!-- {{row.butter.daily}} - {{row.butter.htf}} - {{row.butter.itf}} - {{row.butter.stf}} -->
           </td>
 
