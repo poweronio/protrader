@@ -334,7 +334,9 @@ function updateDurations() {
           }
         return (obj);
       });
-      $scope.data.push({H3:{values:candleArrayH3}},{H2:{values:candleArrayH2}},{M30:{values:candleArrayM30}});
+var temp = [{H3:{values:candleArrayH3}},{H2:{values:candleArrayH2}},{M30:{values:candleArrayM30}}];
+
+      $scope.data.push(temp);
     }
       console.log($scope.data);
     });
