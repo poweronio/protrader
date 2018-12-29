@@ -20,7 +20,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr ng-repeat="row in pairs|orderBy:'heatmap'">
+        <tr ng-repeat="row in pairs|orderBy:'heatmap'" ng-click="updateCharts($index)">
 
           <td>{{row.name}}</td>
           <td>{{row.candlesM1[49].c}}</td>
