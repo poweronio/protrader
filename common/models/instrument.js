@@ -207,7 +207,8 @@ module.exports = function (Instrument) {
       };
       Instrument.findOne({ where: { name: pair } }, function (err, instrument) {
         newsDataService = Instrument.app.dataSources.oanda1;
-        newsDataService.cp(pair, 604800, function (err, response, context) {
+        // newsDataService.cp(pair, 604800, function (err, response, context) {
+        newsDataService.cp(pair, 86400, function (err, response, context) {
           // console.log(response);
           if (err) throw err; //error making request
             if (response.error) {

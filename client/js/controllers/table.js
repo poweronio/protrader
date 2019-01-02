@@ -212,7 +212,7 @@ app.controller('TableCtrl', ['$scope', '$timeout', '$http', 'Instrument', 'Pair'
   $scope.options = {
     chart: {
         type: 'candlestickBarChart',
-        height: 500,
+        height: 350,
         margin : {
             top: 20,
             right: 20,
@@ -312,6 +312,8 @@ function updateDurations() {
   init();
 
   $scope.updateCharts = function (_index){
+    console.log(_index);
+    $scope.dataH3, $scope.dataH2,$scope.dataM30 =null;
     var candleArrayH3= $scope.pairs[_index].candlesH3.map(function (candleData,index) {
       var obj = {
           time: index/2,//candleData.time.substring(5,16),
@@ -324,6 +326,7 @@ function updateDurations() {
         }
       return (obj);
     });
+    $scope.dataH3=[];
     $scope.dataH3.push({values:candleArrayH3});
     var candleArrayH2= $scope.pairs[_index].candlesH2.map(function (candleData,index) {
       var obj = {
@@ -337,6 +340,7 @@ function updateDurations() {
         }
       return (obj);
     });
+    $scope.dataH2=[];
     $scope.dataH2.push({values:candleArrayH2});
     var candleArrayM30= $scope.pairs[_index].candlesM30.map(function (candleData,index) {
       var obj = {
@@ -350,6 +354,7 @@ function updateDurations() {
         }
       return (obj);
     });
+    $scope.dataM30=[];
     $scope.dataM30.push({values:candleArrayM30});
   }
 
