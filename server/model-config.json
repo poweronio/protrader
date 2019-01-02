@@ -46,5 +46,13 @@
   "instrument": {
     "dataSource": "protrader",
     "public": true
+  },
+  "candle": {
+    "dataSource": "protrader",
+    "public": true
+  },
+  "news": {
+    "dataSource": "protrader",
+    "public": true
   }
 }

@@ -91,6 +91,13 @@ small,
   text-shadow: none;
 }
 
+.uptick {
+  background-color:green!important;
+}
+.downtick{
+  background-color:red!important;
+}
+
 .badge {
   background-color: #cfdadd;
 }
@@ -110,6 +117,10 @@ small,
 .label-sm {
   padding-top: 0;
   padding-bottom: 1px;
+}
+
+.label-lg {
+  font-size: 13px!important;
 }
 
 .badge-white {
@@ -4224,6 +4235,10 @@ a.text-#000000:hover {
 .no-shadow {
   -webkit-box-shadow: none !important;
           box-shadow: none !important;
+}
+
+.wrapper-xxs {
+  padding: 4px!important;
 }
 
 .wrapper-xs {

@@ -41,7 +41,7 @@
   "orderbook": {
     "name": "orderbook",
     "connector": "rest",
-    "gzip":true,
+    "gzip": true,
     "operations": [
       {
         "template": {
@@ -51,13 +51,13 @@
             "Authorization": "Bearer 1fee90dedad1abc90df403870923132c-7ec28839c346f9fc989abbf08c23d99b",
             "Accept-Encoding": "gzip,deflate",
             "accepts": "application/json",
-            "content-encoding":"gzip",
+            "content-encoding": "gzip",
             "content-type": "application/json",
             "Connection": "keep-alive"
           },
           "query": {
             "instrument": "{pair}",
-            "endpoint":"{endpoint}"
+            "endpoint": "{endpoint}"
           }
         },
         "functions": {
@@ -76,13 +76,13 @@
       {
         "template": {
           "method": "GET",
-          "gzip":true,
+          "gzip": true,
           "url": "https://api-fxtrade.oanda.com/labs/v1/calendar",
           "headers": {
             "authorization": "Bearer 1fee90dedad1abc90df403870923132c-7ec28839c346f9fc989abbf08c23d99b",
             "Accept-Encoding": "gzip,deflate",
             "accepts": "application/json",
-            "content-encoding":"gzip",
+            "content-encoding": "gzip",
             "content-type": "application/json",
             "Connection": "keep-alive"
           },

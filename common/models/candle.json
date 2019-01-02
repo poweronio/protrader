@@ -1,0 +1,43 @@
+{
+  "name": "candle",
+  "plural": "candles",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "granularity": {
+      "type": "string",
+      "required": true
+    },
+    "time": {
+      "type": "number",
+      "required": true
+    },
+    "color": {
+      "type": "string",
+      "required": true
+    },
+    "size": {
+      "type": "string",
+      "required": true
+    },
+    "signal": {
+      "type": "string"
+    }
+  },
+  "validations": [],
+  "relations": {
+    "instrument": {
+      "type": "belongsTo",
+      "model": "instrument",
+      "foreignKey": "",
+      "options": {
+        "nestRemoting": true
+      }
+    }
+  },
+  "acls": [],
+  "methods": {}
+}
