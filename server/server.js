@@ -5,6 +5,7 @@ var boot = require('loopback-boot');
 var request = require('request');
 
 var app = module.exports = loopback();
+var apiBase = app.get('url')+'api/';
 
 app.start = function() {
   // start the web server
@@ -21,25 +22,41 @@ app.start = function() {
       }
       else {
         console.log("Market OPEN");
-        sync();
+        // sync();
       }
-
-      sync();
+      news();
+      // sync();
     }
   });
 };
 
 function sync() {
-  request.post('http://localhost:3000/api/instruments/greet',function(err,resp){
+  var apiBase = app.get('url')+'api/';
+  request.post(apiBase+'instruments/greet',function(err,resp){
         console.log("Run");
         if(err)
         console.log(err);
-        console.log(resp.body);
+        // console.log(resp.body);
         console.log(new Date());
       })
   
   console.log(new Date());
   setTimeout(sync, 60000);
+  
+}
+
+function news() {
+  var apiBase = app.get('url')+'api/';
+  request.post(apiBase+'instruments/fetchNews',function(err,resp){
+        console.log("Run");
+        if(err)
+        console.log(err);
+        // console.log(resp.body);
+        console.log(new Date());
+      })
+  
+  console.log(new Date());
+  setTimeout(news, 3600000);
 }
 
 

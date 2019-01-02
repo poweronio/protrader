@@ -281,17 +281,18 @@ function updateDurations() {
   $timeout(updateDurations, 1000, true);
 
 };
-// updateDurations();    
+updateDurations();    
 
 
   function init() {
+    
     $scope.racetrack = null;
     $scope.updated = 60;
     Instrument.find({}, function (list) {
       $scope.racetrack = [];
       $scope.pairs = list;
       // console.log($scope.currentTime);
-      // console.log(list);
+      console.log(list);
       for(var i=0;i<list.length;i++){
         var rtm30 = $filter('filter')(list[i].candlesM30, {rt:true});
         var rth2 = $filter('filter')(list[i].candlesH2, {rt:true});
@@ -304,7 +305,7 @@ function updateDurations() {
     console.log("offline");
     }else
     {
-      // $timeout(init, 60000,true);
+      $timeout(init, 60000,true);
     }
 
   }  
@@ -312,6 +313,9 @@ function updateDurations() {
   init();
 
   $scope.updateCharts = function (_index){
+$scope.dataH3,$scope.dataH2,$scope.dataM30 = null;
+$scope.dataH3,$scope.dataH2,$scope.dataM30 = [];
+
     var candleArrayH3= $scope.pairs[_index].candlesH3.map(function (candleData,index) {
       var obj = {
           time: index/2,//candleData.time.substring(5,16),

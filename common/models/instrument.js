@@ -3,6 +3,8 @@ const zlib = require('zlib');
 var async = require("async");
 var request = require("request");
 var groupArray = require('group-array');
+var app = require('../../server/server');
+
 // var Koa = require('koa');
 // var bodyParser = require('koa-bodyparser');
 
@@ -11,9 +13,11 @@ module.exports = function (Instrument) {
   var newsDataService;
   var orderbookService;
   //Instrument.setId("1");
-  var granularity = ["H3", "H2", "M30", "M10", "M5", "M1"];
-  var trendTf = ["H3", "H2", "M30"];
+  var granularity = ["H3", "H2", "M30", "M5", "M1"];
   var pairs = ["EUR_USD", "GBP_USD", "EUR_JPY", "GBP_JPY","USD_JPY"];
+  var tH3,tM30,tM5,tM1 =[];
+  var tcandles=0;
+  var tcandleData, hcandleData, jcandleData=[];
 
   //var i = 1;
   
@@ -26,76 +30,37 @@ module.exports = function (Instrument) {
   next();
   });
 
-  function getTrend(pair,tf) {
+  function getTrend(instrument,tf, tcandleData) {
     var trend = "";
-    
-      var action = "action" + tf;
-      var anchor = "anchor" + tf;
+    var refTrend = "trendState"+tf;
+      var action = tcandleData[0];
+      var anchor = tcandleData[1];
       var anchorTrend = "anchorTrend" +tf;
-      var aux1 = "aux1" + tf;
-      var aux2 = "aux2" + tf;
-      var direction = pair[action].color == "RED" ? "DOWN" : "UP";
+      var aux1 = tcandleData[2];
+      var aux2 = tcandleData[3];
+      var direction = action.color == "RED" ? "DOWN" : "UP";
       var _direction = direction == "DOWN" ? "UP" : "DOWN";
-      if (pair[anchor].size < pair[aux1].size) {
-        if (pair[action].size < pair[anchor].size) {
+      if (anchor.size < aux1.size) {
+        if (action.size < anchor.size) {
           trend = "SIDEWAYS BIAS " + direction;
         } else {
           trend = "SIDEWAYS BIAS " + direction + " CONFIRMED";
         }
       }
-      else 
-       
-       if (pair[action].size < pair[anchor].size) {
-      if (pair[anchorTrend].color == pair[anchor].color) {
+      else       
+       if (action.size < anchor.size) {
+      if (instrument[anchorTrend].color == anchor.color) {
         trend = _direction + "TREND SETUP"
       } else trend = direction + "TREND N.S";
-    } else if (pair[anchorTrend].color == pair[anchor].color) {
+    } else if (instrument[anchorTrend].color == anchor.color) {
       trend = _direction + "TREND ANCHOR BREAK";
     }else {
       trend = direction + "TREND N.S";
      }
       
-      pair.updateAttribute("trend" + tf, trend);
+      instrument.updateAttribute("trend" + tf, trend);
     
   };
-  
-  function getAux2(instrument, tf, candleData, count) {
-    var aux2Color = candleData[count].color;
-    var aux2Close = candleData[count].c;
-    var aux2Index = 0;
-    var aux2Open = 0;
-    async.whilst(
-      function () { return candleData[count].color == aux2Color; },
-      function (callback) {
-        aux2Open = candleData[count].o;
-        aux2Index = count;
-        count--;
-        callback(null, count);
-      }, function (err, n) {
-        instrument.updateAttribute("aux2" + tf, { index: aux2Index, c: aux2Close, o: aux2Open, color: aux2Color, size: Math.abs(aux2Close - aux2Open) });
-        getTrend(instrument, tf);
-      });
-
-  }
-
-  function getAux(instrument, tf, candleData, count) {
-    var auxColor = candleData[count].color;
-    var auxClose = candleData[count].c;
-    var auxIndex = 0;
-    var auxOpen = 0;
-    async.whilst(
-      function () { return candleData[count].color == auxColor; },
-      function (callback) {
-        auxOpen = candleData[count].o;
-        auxIndex = count;
-        count--;
-        callback(null, count);
-      }, function (err, n) {
-        instrument.updateAttribute("aux1" + tf, { index: auxIndex, c: auxClose, o: auxOpen, color: auxColor, size: Math.abs(auxClose - auxOpen) });
-        getAux2(instrument, tf, candleData, count);
-      });
-
-  }
 
   Number.prototype.between = function (a, b) {
     var min = Math.min.apply(Math, [a, b]),
@@ -103,64 +68,50 @@ module.exports = function (Instrument) {
     return this > min && this < max;
   };
 
-  function getAnchorTrend(instrument, tf, candleData, anchorIndex, anchorOpen, anchorClose) {    
+  function getAnchorTrend(instrument, tf, candleData, anchorIndex, anchorOpen, anchorClose, tcandleData) {    
     async.whilst(
       function () { 
         return (anchorIndex-1>0)&&(!parseFloat(anchorOpen).between(candleData[anchorIndex-1].o, candleData[anchorIndex-1].c) && !parseFloat(anchorClose).between(candleData[anchorIndex-1].o, candleData[anchorIndex-1].c))},
-
       function (callback) {
         anchorIndex--;
         callback(null, anchorIndex);
       }, function (err, n) {
-        instrument.updateAttribute("anchorTrend" + tf, { index: anchorIndex-1, color: candleData[anchorIndex-1].color});
+        instrument.updateAttribute("anchorTrend" + tf, { index: anchorIndex-1, color: candleData[anchorIndex-1].color},getTrend(instrument,tf,tcandleData));
+        // instrument.updateAttribute("anchorTrend" + tf, { index: anchorIndex-1, color: candleData[anchorIndex-1].color});
       });
 
   }
 
-  function getAnchor(instrument, tf, candleData, count) {
-    var anchorColor = candleData[count].color;
-    var anchorClose = candleData[count].c;
-    var anchorIndex = 0;
-    var anchorOpen = 0;
+  function getTrendCandles(instrument,tf,candleData,count,iterations){
+   tcandleData=[];
     async.whilst(
-      function () { return candleData[count].color == anchorColor; },
-      function (callback) {
-        anchorOpen = candleData[count].o;
-        anchorIndex = count;
-        count--;
-        callback(null, count);
-      }, function (err, n) {
-        instrument.updateAttribute("anchor" + tf, { index: anchorIndex, c: anchorClose, o: anchorOpen, color: anchorColor, size: Math.abs(anchorClose - anchorOpen) });
-        getAux(instrument, tf, candleData, count);
-        getAnchorTrend(instrument, tf, candleData, anchorIndex, anchorOpen, anchorClose);
+      function(){return iterations>-1},
+      function(callback){
+        var candleColor = candleData[count].color;
+        var candleClose = candleData[count].c;
+        var candleIndex = 0;
+        var candleOpen = 0;
+        async.whilst(
+         function () { return candleData[count].color == candleColor; },
+         function (callback) {
+           candleOpen = candleData[count].o;
+           candleIndex = count;
+           count--;
+           callback(null, count);
+         }, function (err, n) {
+           tcandleData.push({index:candleIndex,c:candleClose,o:candleOpen,color:candleColor,size:Math.abs(candleClose-candleOpen)});
+           });
+        iterations--;
+        callback(null,iterations);
+      }, function(err,n){
+        instrument.updateAttribute("trendState"+tf,tcandleData, getAnchorTrend(instrument,tf,candleData,tcandleData[1].index,tcandleData[1].o,tcandleData[1].c, tcandleData));
       });
-
-  }
-
-  function getAction(instrument, tf, candleData) {
-    var action = {};
-    var actionColor = candleData[candleData.length - 1].color;
-    var actionClose = candleData[candleData.length - 1].c;
-    var actionIndex = 0;
-    var actionOpen = 0;
-    var count = candleData.length - 1;
-    async.whilst(
-      function () { return candleData[count].color == candleData[candleData.length - 1].color; },
-      function (callback) {
-        actionOpen = candleData[count].o;
-        actionIndex = count;
-        count--;
-        callback(null, count);
-      }, function (err, n) {
-        instrument.updateAttribute("action" + tf, { index: actionIndex, c: actionClose, o: actionOpen, color: actionColor, size: Math.abs(actionClose - actionOpen) });
-        getAnchor(instrument, tf, candleData, count);
-      });
-   
+    
   }
 
   function getHeatmap(instrument, tf, candleLast, candleStart){
     // var getHeatmap = candleLast - candleStart;
-    instrument.updateAttribute("heatmap",(candleLast - candleStart)*instrument.pip );
+    instrument.updateAttribute("heatmap",{change:Math.abs((candleLast - candleStart)*instrument.pip),color:candleLast-candleStart>0?'BLUE':'RED'});
   }
 
   function getButter(instrument, tf, candleData){
@@ -195,7 +146,12 @@ module.exports = function (Instrument) {
   instrument.updateAttribute("butter", butter);
   }
 
+  function getHTFSD(instrument,tf,candleData){
+
+  }
+
   Instrument.greet = function (cb) {
+
     async.every(pairs, function (pair, callback) { 
       var data = {
         M1: [],
@@ -206,6 +162,7 @@ module.exports = function (Instrument) {
         H3: []           
       };
       Instrument.findOne({ where: { name: pair } }, function (err, instrument) {
+        
         newsDataService = Instrument.app.dataSources.oanda1;
         newsDataService.cp(pair, 604800, function (err, response, context) {
           // console.log(response);
@@ -221,21 +178,24 @@ module.exports = function (Instrument) {
             if (response.error) {
               console.log('> response error: ' + response.error.stack);
             }
-        // console.log(response);
-          instrument.updateAttribute("orderbook",response);
+        var orderBook = response;
+        instrument.updateAttribute("orderbook",response.orderBook.buckets);
         });
         async.every(granularity, function (tf, callback) {
           var rtlength = 40;
           candleDataService = Instrument.app.dataSources.oanda;
           candleDataService.cp(pair, tf, function (err, response, context) {
-            // console.log(response);
             if (err) throw err; //error making request
             if (response.error) {
               console.log('> response error: ' + response.error.stack);
             }
             if(tf=='M1'){
+              instrument.updateAttribute("price", response.candles[response.candles.length-1].mid.c);
               getButter(instrument,tf,response.candles[response.candles.length-1].mid.c); 
               getHeatmap(instrument,tf,response.candles[response.candles.length-1].mid.c,response.candles[0].mid.c); 
+            }
+            if(tf=='H3'){
+              getHTFSD(instrument,tf,response.candles);
             }
             data[tf]= response.candles.map(function (candleData) {
               if(tf=="H3"){
@@ -246,7 +206,7 @@ module.exports = function (Instrument) {
                 rtlength=25;
               }
               var obj = {
-                time: candleData.time,
+                time: new Date(candleData.time).getTime()/1000,
                 l: candleData.mid.l,
                 o: candleData.mid.o,
                 c: candleData.mid.c,
@@ -257,12 +217,14 @@ module.exports = function (Instrument) {
               }
               return (obj);
             });
-            
-            instrument.updateAttribute("candles"+tf, data[tf] );
-            getAction(instrument, tf, data[tf]);
-            //console.log(groupArray(data[tf], 'color'));
-            callback(null, data);
+
+            tcandles=3;
+            instrument.updateAttribute("candles"+tf, data[tf]);
+            getTrendCandles(instrument,tf,data[tf],data[tf].length-1,3);
+
+            callback(null, data);  
           });
+          
         }, function (err, result) {
           //instrument.updateAttribute("candle", data);
           
@@ -275,6 +237,25 @@ module.exports = function (Instrument) {
 
   Instrument.remoteMethod('greet', {
     returns: { arg: 'greeting', type: 'string' }
+  });
+
+
+  Instrument.fetchNews = function (cb) {
+    Instrument.find({fields:{name:true,id:true}}, function(err,pairs){
+      var apiBase = app.get('url')+'api/';
+      request.post(apiBase+'news/fetch',pairs,function(err,resp){
+            console.log("Run");
+            if(err)
+            console.log(err);
+            // console.log(resp.body);
+            console.log(new Date());
+          })
+
+    })
+  }
+
+  Instrument.remoteMethod('fetchNews', {
+    returns: { arg: 'fetchNews', type: 'string' }
   });
 
 };

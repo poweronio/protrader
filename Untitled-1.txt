@@ -1,0 +1,99 @@
+{    "name":"AUD_USD",
+    "class":"minor",
+    "pip":10000,
+    "value":0.70359}
+
+{    "name":"AUD_JPY",
+    "class":"minor",
+    "pip":100,
+    "value":76.93400}
+
+{    "name":"AUD_CAD",
+    "class":"minor",
+    "pip":10000,
+    "value":0.95490}
+
+{    "name":"NZD_USD",
+    "class":"minor",
+    "pip":10000,
+    "value":1}
+
+{    "name":"NZD_JPY",
+    "class":"minor",
+    "pip":100,
+    "value":1}
+
+{    "name":"NZD_CAD",
+    "class":"minor",
+    "pip":10000,
+    "value":1}
+
+{    "name":"GBP_USD",
+    "class":"major",
+    "pip":10000,
+    "value":1.27542}
+
+{    "name":"GBP_CAD",
+    "class":"minor",
+    "pip":10000,
+    "value":1}
+
+{    "name":"GBP_JPY",
+    "class":"major",
+    "pip":100,
+    "value":1}
+
+{    "name":"EUR_USD",
+    "class":"major",
+    "pip":10000,
+    "value":1.14808}
+
+{    "name":"EUR_CAD",
+    "class":"minor",
+    "pip":10000,
+    "value":1}
+
+{    "name":"EUR_JPY",
+    "class":"major",
+    "pip":100,
+    "value":1}
+
+{    "name":"USD_JPY",
+    "class":"major",
+    "pip":100,
+    "value":109.3265}
+0
+{    "name":"USD_CAD",
+    "class":"minor",
+    "pip":10000,
+    "value":1}
+
+{    "name":"USD_CHF",
+    "class":"major",
+    "pip":10000,
+    "value":1}
+
+{    "name":"CAD_CHF",
+    "class":"minor",
+    "pip":10000,
+    "value":1}
+
+{    "name":"EUR_CHF",
+    "class":"minor",
+    "pip":10000,
+    "value":1}
+
+{    "name":"GBP_CHF",
+    "class":"minor",
+    "pip":10000,
+    "value":1}
+
+{    "name":"CAD_JPY",
+    "class":"minor",
+    "pip":100,
+    "value":1}
+
+{    "name":"EUR_GBP",
+    "class":"minor",
+    "pip":10000,
+    "value":1}

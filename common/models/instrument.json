@@ -10,13 +10,24 @@
     "name": {
       "type": "string"
     },
-    "candle": {
-      "type": "object"
-      
+    "pip": {
+      "type": "number"
+    },
+    "class": {
+      "type": "string"
     }
   },
   "validations": [],
-  "relations": {},
+  "relations": {
+    "candles": {
+      "type": "hasMany",
+      "model": "candle",
+      "foreignKey": "",
+      "options": {
+        "nestRemoting": true
+      }
+    }
+  },
   "acls": [],
   "methods": {}
 }
