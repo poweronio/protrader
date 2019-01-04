@@ -7,6 +7,7 @@ var request = require('request');
 var app = module.exports = loopback();
 var apiBase = app.get('url')+'api/';
 
+
 app.start = function() {
   // start the web server
   return app.listen(function() {
@@ -48,7 +49,7 @@ function sync() {
 function news() {
   var apiBase = app.get('url')+'api/';
   request.post(apiBase+'instruments/fetchNews',function(err,resp){
-        console.log("Run");
+        console.log("Run Server News");
         if(err)
         console.log(err);
         // console.log(resp.body);
@@ -56,7 +57,7 @@ function news() {
       })
   
   console.log(new Date());
-  setTimeout(news, 3600000);
+  // setTimeout(news, 3600000);
 }
 
 

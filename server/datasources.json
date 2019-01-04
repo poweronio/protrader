@@ -87,17 +87,18 @@
             "Connection": "keep-alive"
           },
           "query": {
-            "instrument": "{pair}",
-            "period": "{tf}"
+            "instrument": "{instrument}",
+            "period": "{period}"
           }
         },
         "functions": {
           "cp": [
-            "pair",
-            "tf"
+            "instrument",
+            "period"
           ]
         }
       }
     ]
   }
 }
+ 

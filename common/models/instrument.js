@@ -245,13 +245,13 @@ module.exports = function (Instrument) {
     Instrument.find({fields:{name:true,id:true}}, function(err,pairs){
       var apiBase = app.get('url')+'api/';
       request.post(apiBase+'news/fetch',pairs,function(err,resp){
-            console.log("Run");
+            console.log("Run Instrument Fetch News");
             if(err)
             console.log(err);
             // console.log(resp.body);
             console.log(new Date());
           })
-
+cb(null,"Greeters");
     })
   }
 
