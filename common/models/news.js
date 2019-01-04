@@ -25,7 +25,7 @@ module.exports = function(News) {
             });
                
         cb(null, 'Greetings... ');
-    };
+    });
 
     News.remoteMethod('fetch', {
         accepts:{arg:'instruments', type:['string']},
@@ -33,3 +33,4 @@ module.exports = function(News) {
      });
 
 };
+}
