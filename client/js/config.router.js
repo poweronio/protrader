@@ -22,7 +22,7 @@ angular.module('app')
               .otherwise('/app/dashboard-v3');
           }else{
             $urlRouterProvider
-              .otherwise('/app/dashboard-v1');
+              .otherwise('/app/table/smart');
           }
           
           $stateProvider
