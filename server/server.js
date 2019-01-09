@@ -26,7 +26,7 @@ app.start = function() {
         // sync();
       }
       news();
-      // sync();
+      sync();
     }
   });
 };
@@ -48,7 +48,7 @@ function sync() {
 
 function news() {
   var apiBase = app.get('url')+'api/';
-  request.post(apiBase+'instruments/fetchNews',function(err,resp){
+  request.post(apiBase+'news/fetch',function(err,resp){
         console.log("Run Server News");
         if(err)
         console.log(err);

@@ -312,13 +312,13 @@ updateDurations();
 
   init();
 
-  $scope.updateCharts = function (_index){
-    console.log(_index);
+  $scope.updateCharts = function (row){
+     console.log(row);
     $scope.dataH3, $scope.dataH2,$scope.dataM30 =null;
 $scope.dataH3,$scope.dataH2,$scope.dataM30 = null;
 $scope.dataH3,$scope.dataH2,$scope.dataM30 = [];
 
-    var candleArrayH3= $scope.pairs[_index].candlesH3.map(function (candleData,index) {
+    var candleArrayH3= row.candlesH3.map(function (candleData,index) {
       var obj = {
           time: index/2,//candleData.time.substring(5,16),
           open: candleData.o,
@@ -332,7 +332,7 @@ $scope.dataH3,$scope.dataH2,$scope.dataM30 = [];
     });
     $scope.dataH3=[];
     $scope.dataH3.push({values:candleArrayH3});
-    var candleArrayH2= $scope.pairs[_index].candlesH2.map(function (candleData,index) {
+    var candleArrayH2= row.candlesH2.map(function (candleData,index) {
       var obj = {
           time: index/2,//candleData.time.substring(5,16),
           open: candleData.o,
@@ -346,7 +346,7 @@ $scope.dataH3,$scope.dataH2,$scope.dataM30 = [];
     });
     $scope.dataH2=[];
     $scope.dataH2.push({values:candleArrayH2});
-    var candleArrayM30= $scope.pairs[_index].candlesM30.map(function (candleData,index) {
+    var candleArrayM30= row.candlesM30.map(function (candleData,index) {
       var obj = {
           time: index/2,//candleData.time.substring(5,16),
           open: candleData.o,

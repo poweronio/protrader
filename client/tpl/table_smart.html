@@ -6,7 +6,7 @@
     <div class="panel-heading">Updating in {{updated}} seconds</div>
     <table st-table="pairs" class="table table-bordered ">
       <thead>
-        <tr>
+          <tr class="bg-dark">
           <th>Pair</th>
           <th>∆M30</th>
           <th>News</th>
@@ -16,56 +16,34 @@
           <th>M30</th>
           <th>M5</th>
           <th>M1</th>
-        <tr class="bg-dark">
-          <th class="w-xs">Pair</th>
-          <th class="w-xs">Price</th>
-          <th>News</th>
-          <th>RACETRACK</th>
-          <th class="w-xs">HTMP30</th>
-          <th class="w-xxs">H3</th>
-          <th class="w-xxs">H2</th>
-          <th class="w-xxs">M30</th>
-          <th class="w-xxs">M5</th>
-          <th class="w-xxs">M1</th>
-          <th>R/B</th>
         </tr>
       </thead>
       <tbody class="v-middle">
-        <tr ng-repeat="row in pairs|orderBy:'-heatmap.change'" ng-click="updateCharts($index)">
+        <tr ng-repeat="row in pairs|orderBy:'-heatmap.change'" ng-click="updateCharts(row)">
 
-          <td>{{row.name}}<br>{{row.candlesM1[49].c}}</td>
-          <td >{{row.heatmap|number:1}}</td>
-          <td>{{row.name}}</td>
-          <td>{{row.price}}</td>
-          <td><div ng-repeat="item in row.news">
+          <td>{{row.name}}<br>{{row.price}}</td>
+          <td>          <button class="btn" ng-class="{'uptick':row.heatmap.color=='BLUE','downtick':row.heatmap.color=='RED'}"><a class="text-white font-bold">{{row.heatmap.change|number:1}}</a></button></td>
+          <td>
+            <div ng-repeat="item in row.news">
             <div ng-if="item.timestamp>=currentTime" class="block">
             <!-- <div class="block"> -->
-              <a class="label" ng-class="{ 'label-default': item.impact==1, 'label-default': item.impact==2, 'label-warning': item.impact==3,'label-danger': item.impact==4,'label-danger': item.impact==5 }">{{item.impact}}</a>
+            <a class="label" ng-class="{ 'label-default': item.impact==1, 'label-default': item.impact==2, 'label-warning': item.impact==3,'label-danger': item.impact==4,'label-danger': item.impact==5 }">{{item.impact}}</a>
             <a>{{item.timestamp*1000|date:'d h:mm'}}</a>
             <!-- &nbsp;<a>{{item.title}}</a> -->
+            </div>
           </div>
-          </div></td>
+        </td>
           <td>
-            <div><a class="label label-default">H3</a>{{racetrack[$index].rth3[racetrack[$index].rth3.length-1].time|date:'MM/dd h:mm'}} <a class="label" ng-class="{'label-success':racetrack[$index].rth3[racetrack[$index].rth3.length-1].color=='BLUE','label-danger':racetrack[$index].rth3[racetrack[$index].rth3.length-1].color=='RED'}">{{racetrack[$index].rth3[racetrack[$index].rth3.length-1].size|number:0}} pips</a> </div>
-            <div><a class="label label-default">H2</a>{{racetrack[$index].rth2[racetrack[$index].rth2.length-1].time|date:'MM/dd h:mm'}} <a class="label" ng-class="{'label-success':racetrack[$index].rth2[racetrack[$index].rth2.length-1].color=='BLUE','label-danger':racetrack[$index].rth2[racetrack[$index].rth2.length-1].color=='RED'}">{{racetrack[$index].rth2[racetrack[$index].rth2.length-1].size|number:0}} pips</a> </div>
-            <div><a class="label label-default">M30</a>{{racetrack[$index].rtm30[racetrack[$index].rtm30.length-1].time|date:'MM/dd h:mm'}} <a class="label" ng-class="{'label-success':racetrack[$index].rtm30[racetrack[$index].rtm30.length-1].color=='BLUE','label-danger':racetrack[$index].rtm30[racetrack[$index].rtm30.length-1].color=='RED'}">{{racetrack[$index].rtm30[racetrack[$index].rtm30.length-1].size|number:0}} pips</a> </div>
-            
-            <!-- {{row.butter.daily}} - {{row.butter.htf}} - {{row.butter.itf}} - {{row.butter.stf}} -->
-          </td>
+            <!-- <div><a class="label label-default">H3</a>{{racetrack[$index].rth3[racetrack[$index].rth3.length-1].time|date:'MM/dd h:mm'}} <a class="label" ng-class="{'label-success':racetrack[$index].rth3[racetrack[$index].rth3.length-1].color=='BLUE','label-danger':racetrack[$index].rth3[racetrack[$index].rth3.length-1].color=='RED'}">{{racetrack[$index].rth3[racetrack[$index].rth3.length-1].size|number:0}} pips</a> </div> -->
+            <!-- <div><a class="label label-default">H2</a>{{racetrack[$index].rth2[racetrack[$index].rth2.length-1].time|date:'MM/dd h:mm'}} <a class="label" ng-class="{'label-success':racetrack[$index].rth2[racetrack[$index].rth2.length-1].color=='BLUE','label-danger':racetrack[$index].rth2[racetrack[$index].rth2.length-1].color=='RED'}">{{racetrack[$index].rth2[racetrack[$index].rth2.length-1].size|number:0}} pips</a> </div> -->
+            <!-- <div><a class="label label-default">M30</a>{{racetrack[$index].rtm30[racetrack[$index].rtm30.length-1].time|date:'MM/dd h:mm'}} <a class="label" ng-class="{'label-success':racetrack[$index].rtm30[racetrack[$index].rtm30.length-1].color=='BLUE','label-danger':racetrack[$index].rtm30[racetrack[$index].rtm30.length-1].color=='RED'}">{{racetrack[$index].rtm30[racetrack[$index].rtm30.length-1].size|number:0}} pips</a> </div> -->
+            <div ng-repeat="item in row.candlesH3|filter:true|limitTo:1|orderBy:'item.time'" ><a class="label" ng-class="{'label-danger':item.color=='RED','label-success':item.color=='BLUE'}">H3 ◘ {{item.size|number:0}} ◘ {{item.o}}</a></div>
+            <div ng-repeat="item in row.candlesH2|filter:true|limitTo:1|orderBy:'item.time'" ><a class="label" ng-class="{'label-danger':item.color=='RED','label-success':item.color=='BLUE'}">H2 ◘ {{item.size|number:0}} ◘ {{item.o}}</a></div>
+            <div ng-repeat="item in row.candlesM30|filter:true|limitTo:1|orderBy:'item.time'" ><a class="label" ng-class="{'label-danger':item.color=='RED','label-success':item.color=='BLUE'}">M30 ◘ {{item.size|number:0}} ◘ {{item.o}}</a></div>
 
-          
-          <td ng-class="{'butter':row.butter.daily}">
-            <div class="block"><a ng-if="row.trendH3=='SIDEWAYS BIAS UP'"><i class="fa fa-arrow-right"></i><i class="fa fa-arrow-up"></i></a>
-            <a>{{item.timestamp*1000|date:'d hh:mm a'}}</a>&nbsp;<a>{{item.title}}</a></div>
-          </div></td>
-          <td class="w-sm">
-            <div ng-repeat="item in row.candlesH3|filter:true|limitTo:1|orderBy:'-item.time'" ><a class="label" ng-class="{'label-danger':item.color=='RED','label-success':item.color=='BLUE'}">H3 ◘ {{item.size|number:0}} ◘ {{item.o}}</a></div>
-            <div ng-repeat="item in row.candlesH2|filter:true|limitTo:1|orderBy:'-item.time'" ><a class="label" ng-class="{'label-danger':item.color=='RED','label-success':item.color=='BLUE'}">H2 ◘ {{item.size|number:0}} ◘ {{item.o}}</a></div>
-            <div ng-repeat="item in row.candlesM30|filter:true|limitTo:1|orderBy:'-item.time'" ><a class="label" ng-class="{'label-danger':item.color=='RED','label-success':item.color=='BLUE'}">M30 ◘ {{item.size|number:0}} ◘ {{item.o}}</a></div>
-            
-            <!-- {{row.butter.daily}} - {{row.butter.htf}} - {{row.butter.itf}} - {{row.butter.stf}} -->
+
           </td>
-          <td>          <button class="btn" ng-class="{'uptick':row.heatmap.color=='BLUE','downtick':row.heatmap.color=='RED'}"><a class="text-white font-bold">{{row.heatmap.change|number:1}}</a></button></td>
+          
           <td class="wrapper-xxs" ng-class="{'butter':row.butter.daily}">
             <div class="col"><a ng-if="row.trendH3=='SIDEWAYS BIAS UP'"><i class="fa fa-arrow-right"></i><i class="fa fa-arrow-up"></i></a>
             <a ng-if="row.trendH3=='SIDEWAYS BIAS DOWN'"><i class="fa fa-arrow-right"></i><i class="fa fa-arrow-down"></i></a>
@@ -77,9 +55,6 @@
             <a ng-if="row.trendH3=='DOWNTREND SETUP'"><i class="fa fa-arrow-down"></i><i class="fa fa-square-o"></i></a>
             <a ng-if="row.trendH3=='UPTREND ANCHOR BREAK'"><i class="fa fa-arrow-up"></i><i class="fa fa-times"></i></a>
             <a ng-if="row.trendH3=='DOWNTREND ANCHOR BREAK'"><i class="fa fa-arrow-down"></i><i class="fa fa-times"></i></a></div>
-            <!-- <a>{{row.actionH3.size}}</a><br> -->
-            <!-- <a>{{row.anchorH3.size}}</a><br> -->
-            <!-- <a>{{row.aux1H3.size}}</a><br> -->
           </td>
           <td class="wrapper-xxs" ng-class="{'butter':row.butter.htf}">
               <a ng-if="row.trendH2=='SIDEWAYS BIAS UP'"><i class="fa fa-arrow-right"></i><i class="fa fa-arrow-up"></i></a>
@@ -134,7 +109,9 @@
             <a ng-if="row.trendM1=='UPTREND ANCHOR BREAK'"><i class="fa fa-arrow-up"></i>X</a>
             <a ng-if="row.trendM1=='DOWNTREND ANCHOR BREAK'"><i class="fa fa-arrow-down"></i>X</a>
         </td>
-          <td><a ng-repeat="item in row.orderbook|filter:row.price"></a>{{row.orderbook.}}</td>
+          <td>
+            <!-- <a ng-repeat="item in row.orderbook|filter:row.price"></a>{{row.orderbook.}} -->
+          </td>
         </tr>
       </tbody>
     </table>

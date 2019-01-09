@@ -4,6 +4,7 @@ var async = require("async");
 var request = require("request");
 var groupArray = require('group-array');
 var app = require('../../server/server');
+var newsDataService;
 
 // var Koa = require('koa');
 // var bodyParser = require('koa-bodyparser');
@@ -14,7 +15,28 @@ module.exports = function (Instrument) {
   var orderbookService;
   //Instrument.setId("1");
   var granularity = ["H3", "H2", "M30", "M5", "M1"];
-  var pairs = ["EUR_USD", "GBP_USD", "EUR_JPY", "GBP_JPY","USD_JPY"];
+  var pairs = [
+"AUD_USD",
+"AUD_JPY",
+"AUD_CAD",
+"NZD_USD",
+"NZD_JPY",
+"NZD_CAD",
+"GBP_USD",
+"GBP_CAD",
+"GBP_JPY",
+"EUR_USD",
+"EUR_CAD",
+"EUR_JPY",
+"USD_JPY",
+"USD_CAD",
+"USD_CHF",
+"CAD_CHF",
+"EUR_CHF",
+"GBP_CHF",
+"CAD_JPY",
+"EUR_GBP",
+  ];
   var tH3,tM30,tM5,tM1 =[];
   var tcandles=0;
   var tcandleData, hcandleData, jcandleData=[];
@@ -22,13 +44,13 @@ module.exports = function (Instrument) {
   //var i = 1;
   
 
-  Instrument.afterInitialize = function () {
-  };
+  // Instrument.afterInitialize = function () {
+  // };
 
-  Instrument.observe('before save', function (ctx, next) {
+  // Instrument.observe('before save', function (ctx, next) {
     //console.log(ctx.currentInstance);
-  next();
-  });
+  // next();
+  // });
 
   function getTrend(instrument,tf, tcandleData) {
     var trend = "";
@@ -163,25 +185,25 @@ module.exports = function (Instrument) {
       };
       Instrument.findOne({ where: { name: pair } }, function (err, instrument) {
         
-        newsDataService = Instrument.app.dataSources.oanda1;
+        // newsDataService = Instrument.app.dataSources.oanda1;
         // newsDataService.cp(pair, 604800, function (err, response, context) {
-        newsDataService.cp(pair, 86400, function (err, response, context) {
+        // newsDataService.cp(pair, 86400, function (err, response, context) {
           // console.log(response);
-          if (err) throw err; //error making request
-            if (response.error) {
-              console.log('> response error: ' + response.error.stack);
-            }
-          instrument.updateAttribute("news",response);
-        });
-        orderbookService = Instrument.app.dataSources.orderbook;
-        orderbookService.cp(pair, 'orderBook', function (err, response, context) {
-          if (err) throw err; //error making request
-            if (response.error) {
-              console.log('> response error: ' + response.error.stack);
-            }
-        var orderBook = response;
-        instrument.updateAttribute("orderbook",response.orderBook.buckets);
-        });
+          // if (err) throw err; //error making request
+            // if (response.error) {
+              // console.log('> response error: ' + response.error.stack);
+            // }
+          // instrument.updateAttribute("news",response);
+        // });
+        // orderbookService = Instrument.app.dataSources.orderbook;
+        // orderbookService.cp(pair, 'orderBook', function (err, response, context) {
+          // if (err) throw err; //error making request
+            // if (response.error) {
+              // console.log('> response error: ' + response.error.stack);
+            // }
+        // var orderBook = response;
+        // instrument.updateAttribute("orderbook",response.orderBook.buckets);
+        // });
         async.every(granularity, function (tf, callback) {
           var rtlength = 40;
           candleDataService = Instrument.app.dataSources.oanda;
@@ -244,16 +266,33 @@ module.exports = function (Instrument) {
   Instrument.fetchNews = function (cb) {
     Instrument.find({fields:{name:true,id:true}}, function(err,pairs){
       var apiBase = app.get('url')+'api/';
-      request.post(apiBase+'news/fetch',pairs,function(err,resp){
-            console.log("Run Instrument Fetch News");
-            if(err)
-            console.log(err);
-            // console.log(resp.body);
-            console.log(new Date());
-          })
+      console.log(pairs);
+
+      async.every(pairs, function (pair, callback) { 
+        newsDataService = Instrument.app.dataSources.oanda1;
+            newsDataService.cp(pair, 86400 , function (err, response, context) {
+              if (err) throw err; //error making request
+              if (response.error) {
+                console.log('> response error: ' + response.error.stack);
+              }
+          //   instrument.updateAttribute("news",response);
+          console.log(response);
+          var apiBase = app.get('url')+'api/';
+          if(response.length>0){
+          // response.forEach((newsItem) => {
+              // request.post(apiBase+'news',newsItem,function(err,resp){
+// console.log(err);
+// console.log(resp);
+                  // });
+                  // console.log(newsItem);
+                // });
+              }
+      });
+    });
 cb(null,"Greeters");
-    })
-  }
+    
+  });
+}
 
   Instrument.remoteMethod('fetchNews', {
     returns: { arg: 'fetchNews', type: 'string' }
