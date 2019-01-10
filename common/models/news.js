@@ -33,6 +33,4 @@ var pairs = [
         // accepts:{arg:'pairs', type:'string'},
         returns: { arg: 'greeting', type: 'string' }
      });
-
-
 }

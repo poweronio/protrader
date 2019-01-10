@@ -1,0 +1,33 @@
+{
+  "name": "orderbook",
+  "plural": "orderbook",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "instrument": {
+      "type": "string",
+      "required": true
+    },
+    "time": {
+      "type": "number"
+    },
+    "bucketWidth": {
+      "type": "string"
+    },
+    "price":{
+      "type":"number"
+    },
+    "buckets": {
+      "type": [
+        "object"
+      ]
+    }
+  },
+  "validations": [],
+  "relations": {},
+  "acls": [],
+  "methods": {}
+}

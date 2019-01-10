@@ -183,6 +183,14 @@ module.exports = function (Instrument) {
         H2: [],
         H3: []           
       };
+      var datachart = {
+        M1: [],
+        M5: [],
+        M10: [],
+        M30: [],
+        H2: [],
+        H3: []           
+      };
       Instrument.findOne({ where: { name: pair } }, function (err, instrument) {
         
         // newsDataService = Instrument.app.dataSources.oanda1;
@@ -240,9 +248,30 @@ module.exports = function (Instrument) {
               }
               return (obj);
             });
+            datachart[tf]= response.candles.map(function (candleData) {
+              if(tf=="H3"){
+                rtlength=50;
+              }else if(tf=="H2"){
+                rtlength=40;
+              }else if(tf=="M30"){
+                rtlength=25;
+              }
+              var obj = {
+                time: new Date(candleData.time).getTime()/1000,
+                low: candleData.mid.l,
+                open: candleData.mid.o,
+                close: candleData.mid.c,
+                high: candleData.mid.h,
+                color: candleData.mid.c - candleData.mid.o > 0 ? "BLUE" : "RED",
+                size:Math.abs(candleData.mid.c - candleData.mid.o)*instrument.pip,
+                rt:(Math.abs(candleData.mid.c - candleData.mid.o)*instrument.pip)>rtlength?true:false
+              }
+              return (obj);
+            });
 
             tcandles=3;
             instrument.updateAttribute("candles"+tf, data[tf]);
+            instrument.updateAttribute("chart"+tf, datachart[tf]);
             getTrendCandles(instrument,tf,data[tf],data[tf].length-1,3);
 
             callback(null, data);  

@@ -19,7 +19,200 @@
         </tr>
       </thead>
       <tbody class="v-middle">
-        <tr ng-repeat="row in pairs|orderBy:'-heatmap.change'" ng-click="updateCharts(row)">
+        <tr  ng-repeat="row in pairs|orderBy:'-heatmap.change'|filter:'major'" ng-click="updateCharts(row)">
+
+          <td >{{row.name}}<br>{{row.price}}</td>
+          <td>          <button class="btn btn-rounded" ng-class="{'uptick':row.heatmap.color=='BLUE','downtick':row.heatmap.color=='RED'}"><a class="text-white font-bold">{{row.heatmap.change|number:1}}</a></button></td>
+          <td>
+            <div ng-repeat="item in row.news">
+            <div ng-if="item.timestamp>=currentTime" class="block">
+            <!-- <div class="block"> -->
+            <a class="label" ng-class="{ 'label-default': item.impact==1, 'label-default': item.impact==2, 'label-warning': item.impact==3,'label-danger': item.impact==4,'label-danger': item.impact==5 }">{{item.impact}}</a>
+            <a>{{item.timestamp*1000|date:'d h:mm'}}</a>
+            <!-- &nbsp;<a>{{item.title}}</a> -->
+            </div>
+          </div>
+        </td>
+          <td>
+            <!-- <div><a class="label label-default">H3</a>{{racetrack[$index].rth3[racetrack[$index].rth3.length-1].time|date:'MM/dd h:mm'}} <a class="label" ng-class="{'label-success':racetrack[$index].rth3[racetrack[$index].rth3.length-1].color=='BLUE','label-danger':racetrack[$index].rth3[racetrack[$index].rth3.length-1].color=='RED'}">{{racetrack[$index].rth3[racetrack[$index].rth3.length-1].size|number:0}} pips</a> </div> -->
+            <!-- <div><a class="label label-default">H2</a>{{racetrack[$index].rth2[racetrack[$index].rth2.length-1].time|date:'MM/dd h:mm'}} <a class="label" ng-class="{'label-success':racetrack[$index].rth2[racetrack[$index].rth2.length-1].color=='BLUE','label-danger':racetrack[$index].rth2[racetrack[$index].rth2.length-1].color=='RED'}">{{racetrack[$index].rth2[racetrack[$index].rth2.length-1].size|number:0}} pips</a> </div> -->
+            <!-- <div><a class="label label-default">M30</a>{{racetrack[$index].rtm30[racetrack[$index].rtm30.length-1].time|date:'MM/dd h:mm'}} <a class="label" ng-class="{'label-success':racetrack[$index].rtm30[racetrack[$index].rtm30.length-1].color=='BLUE','label-danger':racetrack[$index].rtm30[racetrack[$index].rtm30.length-1].color=='RED'}">{{racetrack[$index].rtm30[racetrack[$index].rtm30.length-1].size|number:0}} pips</a> </div> -->
+            <div ng-repeat="item in row.candlesH3|filter:true|limitTo:1|orderBy:'time'" ><a class="label text-lg" ng-class="{'label-danger':item.color=='RED','label-success':item.color=='BLUE'}">H3 ◘ {{item.size|number:0}} ◘ {{item.o}}</a></div>
+            <div ng-repeat="item in row.candlesH2|filter:true|limitTo:1|orderBy:'item.time'" ><a class="label" ng-class="{'label-danger':item.color=='RED','label-success':item.color=='BLUE'}">H2 ◘ {{item.size|number:0}} ◘ {{item.o}}</a></div>
+            <div ng-repeat="item in row.candlesM30|filter:true|limitTo:1|orderBy:'item.time'" ><a class="label" ng-class="{'label-danger':item.color=='RED','label-success':item.color=='BLUE'}">M30 ◘ {{item.size|number:0}} ◘ {{item.o}}</a></div>
+
+
+          </td>
+          
+          <td class="wrapper-xxs" ng-class="{'butter':row.butter.daily}">
+            <div class="col"><a ng-if="row.trendH3=='SIDEWAYS BIAS UP'"><i class="fa fa-arrow-right"></i><i class="fa fa-arrow-up"></i></a>
+            <a ng-if="row.trendH3=='SIDEWAYS BIAS DOWN'"><i class="fa fa-arrow-right"></i><i class="fa fa-arrow-down"></i></a>
+            <a ng-if="row.trendH3=='SIDEWAYS BIAS UP CONFIRMED'"><i class="fa fa-arrow-right"></i><i class="fa fa-arrow-up"></i><i class="fa fa-check"></i></a>
+            <a ng-if="row.trendH3=='SIDEWAYS BIAS DOWN CONFIRMED'"><i class="fa fa-arrow-right"></i><i class="fa fa-arrow-down"></i><i class="fa fa-check"></i></a>
+            <a ng-if="row.trendH3=='UPTREND N.S'"><i class="fa fa-arrow-up"></i></a>
+            <a ng-if="row.trendH3=='DOWNTREND N.S'"><i class="fa fa-arrow-down"></i></a>
+            <a ng-if="row.trendH3=='UPTREND SETUP'"><i class="fa fa-arrow-up"></i><i class="fa fa-square-o"></i></a>
+            <a ng-if="row.trendH3=='DOWNTREND SETUP'"><i class="fa fa-arrow-down"></i><i class="fa fa-square-o"></i></a>
+            <a ng-if="row.trendH3=='UPTREND ANCHOR BREAK'"><i class="fa fa-arrow-up"></i><i class="fa fa-times"></i></a>
+            <a ng-if="row.trendH3=='DOWNTREND ANCHOR BREAK'"><i class="fa fa-arrow-down"></i><i class="fa fa-times"></i></a></div>
+          </td>
+          <td class="wrapper-xxs" ng-class="{'butter':row.butter.htf}">
+              <a ng-if="row.trendH2=='SIDEWAYS BIAS UP'"><i class="fa fa-arrow-right"></i><i class="fa fa-arrow-up"></i></a>
+              <a ng-if="row.trendH2=='SIDEWAYS BIAS DOWN'"><i class="fa fa-arrow-right"></i><i class="fa fa-arrow-down"></i></a>
+              <a ng-if="row.trendH2=='SIDEWAYS BIAS UP CONFIRMED'"><i class="fa fa-arrow-right"></i><i class="fa fa-arrow-up"></i><i class="fa fa-check"></i></a>
+              <a ng-if="row.trendH2=='SIDEWAYS BIAS DOWN CONFIRMED'"><i class="fa fa-arrow-right"></i><i class="fa fa-arrow-down"></i><i class="fa fa-check"></i></a>
+              <a ng-if="row.trendH2=='UPTREND N.S'"><i class="fa fa-arrow-up"></i></a>
+              <a ng-if="row.trendH2=='DOWNTREND N.S'"><i class="fa fa-arrow-down"></i></a>
+              <a ng-if="row.trendH2=='UPTREND SETUP'"><i class="fa fa-arrow-up"></i><i class="fa fa-square-o"></i></a>
+              <a ng-if="row.trendH2=='DOWNTREND SETUP'"><i class="fa fa-arrow-down"></i><i class="fa fa-square-o"></i></a>
+              <a ng-if="row.trendH2=='UPTREND ANCHOR BREAK'"><i class="fa fa-arrow-up"></i><i class="fa fa-times"></i></a>
+            <a ng-if="row.trendH2=='DOWNTREND ANCHOR BREAK'"><i class="fa fa-arrow-down"></i><i class="fa fa-times"></i></a>
+            <!-- <a>{{row.actionH2.size}}</a><br> -->
+            <!-- <a>{{row.anchorH2.size}}</a><br> -->
+            <!-- <a>{{row.aux1H2.size}}</a><br> -->
+          </td>
+          <td class="wrapper-xxs" ng-class="{'butter':row.butter.itf}">
+              <a ng-if="row.trendM30=='SIDEWAYS BIAS UP'"><i class="fa fa-arrow-right"></i><i class="fa fa-arrow-up"></i></a>
+              <a ng-if="row.trendM30=='SIDEWAYS BIAS DOWN'"><i class="fa fa-arrow-right"></i><i class="fa fa-arrow-down"></i></a>
+              <a ng-if="row.trendM30=='SIDEWAYS BIAS UP CONFIRMED'"><i class="fa fa-arrow-right"></i><i class="fa fa-arrow-up"></i><i class="fa fa-check"></i></a>
+              <a ng-if="row.trendM30=='SIDEWAYS BIAS DOWN CONFIRMED'"><i class="fa fa-arrow-right"></i><i class="fa fa-arrow-down"></i><i class="fa fa-check"></i></a>
+              <a ng-if="row.trendM30=='UPTREND N.S'"><i class="fa fa-arrow-up"></i></a>
+              <a ng-if="row.trendM30=='DOWNTREND N.S'"><i class="fa fa-arrow-down"></i></a>
+              <a ng-if="row.trendM30=='UPTREND SETUP'"><i class="fa fa-arrow-up"></i><i class="fa fa-square-o"></i></a>
+              <a ng-if="row.trendM30=='DOWNTREND SETUP'"><i class="fa fa-arrow-down"></i><i class="fa fa-square-o"></i></a>
+              <a ng-if="row.trendM30=='UPTREND ANCHOR BREAK'"><i class="fa fa-arrow-up"></i><i class="fa fa-times"></i></a>
+            <a ng-if="row.trendM30=='DOWNTREND ANCHOR BREAK'"><i class="fa fa-arrow-down"></i><i class="fa fa-times"></i></a>
+            <!-- <a>{{row.actionM30.size}}</a><br> -->
+            <!-- <a>{{row.anchorM30.size}}</a><br> -->
+          </td>
+          <td class="wrapper-xxs" ng-class="{'butter':row.butter.stf}">
+              <a ng-if="row.trendM5=='SIDEWAYS BIAS UP'"><i class="fa fa-arrow-right"></i><i class="fa fa-arrow-up"></i></a>
+              <a ng-if="row.trendM5=='SIDEWAYS BIAS DOWN'"><i class="fa fa-arrow-right"></i><i class="fa fa-arrow-down"></i></a>
+              <a ng-if="row.trendM5=='SIDEWAYS BIAS UP CONFIRMED'"><i class="fa fa-arrow-right"></i><i class="fa fa-arrow-up"></i><i class="fa fa-check"></i></a>
+              <a ng-if="row.trendM5=='SIDEWAYS BIAS DOWN CONFIRMED'"><i class="fa fa-arrow-right"></i><i class="fa fa-arrow-down"></i><i class="fa fa-check"></i></a>
+              <a ng-if="row.trendM5=='UPTREND N.S'"><i class="fa fa-arrow-up"></i></a>
+              <a ng-if="row.trendM5=='DOWNTREND N.S'"><i class="fa fa-arrow-down"></i></a>
+              <a ng-if="row.trendM5=='UPTREND SETUP'"><i class="fa fa-arrow-up"></i><i class="fa fa-square-o"></i></a>
+              <a ng-if="row.trendM5=='DOWNTREND SETUP'"><i class="fa fa-arrow-down"></i><i class="fa fa-square-o"></i></a>
+              <a ng-if="row.trendM5=='UPTREND ANCHOR BREAK'"><i class="fa fa-arrow-up"></i>X</a>
+              <a ng-if="row.trendM5=='DOWNTREND ANCHOR BREAK'"><i class="fa fa-arrow-down"></i>X</a>
+          </td>
+          <td class="wrapper-xxs" >
+            <a ng-if="row.trendM1=='SIDEWAYS BIAS UP'"><i class="fa fa-arrow-right"></i><i class="fa fa-arrow-up"></i></a>
+            <a ng-if="row.trendM1=='SIDEWAYS BIAS DOWN'"><i class="fa fa-arrow-right"></i><i class="fa fa-arrow-down"></i></a>
+            <a ng-if="row.trendM1=='SIDEWAYS BIAS UP CONFIRMED'"><i class="fa fa-arrow-right"></i><i class="fa fa-arrow-up"></i><i class="fa fa-check"></i></a>
+            <a ng-if="row.trendM1=='SIDEWAYS BIAS DOWN CONFIRMED'"><i class="fa fa-arrow-right"></i><i class="fa fa-arrow-down"></i><i class="fa fa-check"></i></a>
+            <a ng-if="row.trendM1=='UPTREND N.S'"><i class="fa fa-arrow-up"></i></a>
+            <a ng-if="row.trendM1=='DOWNTREND N.S'"><i class="fa fa-arrow-down"></i></a>
+            <a ng-if="row.trendM1=='UPTREND SETUP'"><i class="fa fa-arrow-up"></i><i class="fa fa-square-o"></i></a>
+            <a ng-if="row.trendM1=='DOWNTREND SETUP'"><i class="fa fa-arrow-down"></i><i class="fa fa-square-o"></i></a>
+            <a ng-if="row.trendM1=='UPTREND ANCHOR BREAK'"><i class="fa fa-arrow-up"></i>X</a>
+            <a ng-if="row.trendM1=='DOWNTREND ANCHOR BREAK'"><i class="fa fa-arrow-down"></i>X</a>
+        </td>
+        
+          <td>
+            <!-- <a ng-repeat="item in row.orderbook|filter:row.price"></a>{{row.orderbook.}} -->
+          </td>
+        </tr>
+      </tbody>
+      <tbody class="v-middle">
+        <tr ng-repeat="row in pairs|orderBy:'-heatmap.change'|filter:'minor'" ng-click="updateCharts(row)">
+
+          <td>{{row.name}}<br>{{row.price}}</td>
+          <td>          <button class="btn" ng-class="{'uptick':row.heatmap.color=='BLUE','downtick':row.heatmap.color=='RED'}"><a class="text-white font-bold">{{row.heatmap.change|number:1}}</a></button></td>
+          <td>
+            <div ng-repeat="item in row.news">
+            <div ng-if="item.timestamp>=currentTime" class="block">
+            <!-- <div class="block"> -->
+            <a class="label" ng-class="{ 'label-default': item.impact==1, 'label-default': item.impact==2, 'label-warning': item.impact==3,'label-danger': item.impact==4,'label-danger': item.impact==5 }">{{item.impact}}</a>
+            <a>{{item.timestamp*1000|date:'d h:mm'}}</a>
+            <!-- &nbsp;<a>{{item.title}}</a> -->
+            </div>
+          </div>
+        </td>
+          <td>
+            <!-- <div><a class="label label-default">H3</a>{{racetrack[$index].rth3[racetrack[$index].rth3.length-1].time|date:'MM/dd h:mm'}} <a class="label" ng-class="{'label-success':racetrack[$index].rth3[racetrack[$index].rth3.length-1].color=='BLUE','label-danger':racetrack[$index].rth3[racetrack[$index].rth3.length-1].color=='RED'}">{{racetrack[$index].rth3[racetrack[$index].rth3.length-1].size|number:0}} pips</a> </div> -->
+            <!-- <div><a class="label label-default">H2</a>{{racetrack[$index].rth2[racetrack[$index].rth2.length-1].time|date:'MM/dd h:mm'}} <a class="label" ng-class="{'label-success':racetrack[$index].rth2[racetrack[$index].rth2.length-1].color=='BLUE','label-danger':racetrack[$index].rth2[racetrack[$index].rth2.length-1].color=='RED'}">{{racetrack[$index].rth2[racetrack[$index].rth2.length-1].size|number:0}} pips</a> </div> -->
+            <!-- <div><a class="label label-default">M30</a>{{racetrack[$index].rtm30[racetrack[$index].rtm30.length-1].time|date:'MM/dd h:mm'}} <a class="label" ng-class="{'label-success':racetrack[$index].rtm30[racetrack[$index].rtm30.length-1].color=='BLUE','label-danger':racetrack[$index].rtm30[racetrack[$index].rtm30.length-1].color=='RED'}">{{racetrack[$index].rtm30[racetrack[$index].rtm30.length-1].size|number:0}} pips</a> </div> -->
+            <div ng-repeat="item in row.candlesH3|filter:true|limitTo:1|orderBy:'item.time'" ><a class="label" ng-class="{'label-danger':item.color=='RED','label-success':item.color=='BLUE'}">H3 ◘ {{item.size|number:0}} ◘ {{item.o}}</a></div>
+            <div ng-repeat="item in row.candlesH2|filter:true|limitTo:1|orderBy:'item.time'" ><a class="label" ng-class="{'label-danger':item.color=='RED','label-success':item.color=='BLUE'}">H2 ◘ {{item.size|number:0}} ◘ {{item.o}}</a></div>
+            <div ng-repeat="item in row.candlesM30|filter:true|limitTo:1|orderBy:'item.time'" ><a class="label" ng-class="{'label-danger':item.color=='RED','label-success':item.color=='BLUE'}">M30 ◘ {{item.size|number:0}} ◘ {{item.o}}</a></div>
+
+
+          </td>
+          
+          <td class="wrapper-xxs" ng-class="{'butter':row.butter.daily}">
+            <div class="col"><a ng-if="row.trendH3=='SIDEWAYS BIAS UP'"><i class="fa fa-arrow-right"></i><i class="fa fa-arrow-up"></i></a>
+            <a ng-if="row.trendH3=='SIDEWAYS BIAS DOWN'"><i class="fa fa-arrow-right"></i><i class="fa fa-arrow-down"></i></a>
+            <a ng-if="row.trendH3=='SIDEWAYS BIAS UP CONFIRMED'"><i class="fa fa-arrow-right"></i><i class="fa fa-arrow-up"></i><i class="fa fa-check"></i></a>
+            <a ng-if="row.trendH3=='SIDEWAYS BIAS DOWN CONFIRMED'"><i class="fa fa-arrow-right"></i><i class="fa fa-arrow-down"></i><i class="fa fa-check"></i></a>
+            <a ng-if="row.trendH3=='UPTREND N.S'"><i class="fa fa-arrow-up"></i></a>
+            <a ng-if="row.trendH3=='DOWNTREND N.S'"><i class="fa fa-arrow-down"></i></a>
+            <a ng-if="row.trendH3=='UPTREND SETUP'"><i class="fa fa-arrow-up"></i><i class="fa fa-square-o"></i></a>
+            <a ng-if="row.trendH3=='DOWNTREND SETUP'"><i class="fa fa-arrow-down"></i><i class="fa fa-square-o"></i></a>
+            <a ng-if="row.trendH3=='UPTREND ANCHOR BREAK'"><i class="fa fa-arrow-up"></i><i class="fa fa-times"></i></a>
+            <a ng-if="row.trendH3=='DOWNTREND ANCHOR BREAK'"><i class="fa fa-arrow-down"></i><i class="fa fa-times"></i></a></div>
+          </td>
+          <td class="wrapper-xxs" ng-class="{'butter':row.butter.htf}">
+              <a ng-if="row.trendH2=='SIDEWAYS BIAS UP'"><i class="fa fa-arrow-right"></i><i class="fa fa-arrow-up"></i></a>
+              <a ng-if="row.trendH2=='SIDEWAYS BIAS DOWN'"><i class="fa fa-arrow-right"></i><i class="fa fa-arrow-down"></i></a>
+              <a ng-if="row.trendH2=='SIDEWAYS BIAS UP CONFIRMED'"><i class="fa fa-arrow-right"></i><i class="fa fa-arrow-up"></i><i class="fa fa-check"></i></a>
+              <a ng-if="row.trendH2=='SIDEWAYS BIAS DOWN CONFIRMED'"><i class="fa fa-arrow-right"></i><i class="fa fa-arrow-down"></i><i class="fa fa-check"></i></a>
+              <a ng-if="row.trendH2=='UPTREND N.S'"><i class="fa fa-arrow-up"></i></a>
+              <a ng-if="row.trendH2=='DOWNTREND N.S'"><i class="fa fa-arrow-down"></i></a>
+              <a ng-if="row.trendH2=='UPTREND SETUP'"><i class="fa fa-arrow-up"></i><i class="fa fa-square-o"></i></a>
+              <a ng-if="row.trendH2=='DOWNTREND SETUP'"><i class="fa fa-arrow-down"></i><i class="fa fa-square-o"></i></a>
+              <a ng-if="row.trendH2=='UPTREND ANCHOR BREAK'"><i class="fa fa-arrow-up"></i><i class="fa fa-times"></i></a>
+            <a ng-if="row.trendH2=='DOWNTREND ANCHOR BREAK'"><i class="fa fa-arrow-down"></i><i class="fa fa-times"></i></a>
+            <!-- <a>{{row.actionH2.size}}</a><br> -->
+            <!-- <a>{{row.anchorH2.size}}</a><br> -->
+            <!-- <a>{{row.aux1H2.size}}</a><br> -->
+          </td>
+          <td class="wrapper-xxs" ng-class="{'butter':row.butter.itf}">
+              <a ng-if="row.trendM30=='SIDEWAYS BIAS UP'"><i class="fa fa-arrow-right"></i><i class="fa fa-arrow-up"></i></a>
+              <a ng-if="row.trendM30=='SIDEWAYS BIAS DOWN'"><i class="fa fa-arrow-right"></i><i class="fa fa-arrow-down"></i></a>
+              <a ng-if="row.trendM30=='SIDEWAYS BIAS UP CONFIRMED'"><i class="fa fa-arrow-right"></i><i class="fa fa-arrow-up"></i><i class="fa fa-check"></i></a>
+              <a ng-if="row.trendM30=='SIDEWAYS BIAS DOWN CONFIRMED'"><i class="fa fa-arrow-right"></i><i class="fa fa-arrow-down"></i><i class="fa fa-check"></i></a>
+              <a ng-if="row.trendM30=='UPTREND N.S'"><i class="fa fa-arrow-up"></i></a>
+              <a ng-if="row.trendM30=='DOWNTREND N.S'"><i class="fa fa-arrow-down"></i></a>
+              <a ng-if="row.trendM30=='UPTREND SETUP'"><i class="fa fa-arrow-up"></i><i class="fa fa-square-o"></i></a>
+              <a ng-if="row.trendM30=='DOWNTREND SETUP'"><i class="fa fa-arrow-down"></i><i class="fa fa-square-o"></i></a>
+              <a ng-if="row.trendM30=='UPTREND ANCHOR BREAK'"><i class="fa fa-arrow-up"></i><i class="fa fa-times"></i></a>
+            <a ng-if="row.trendM30=='DOWNTREND ANCHOR BREAK'"><i class="fa fa-arrow-down"></i><i class="fa fa-times"></i></a>
+            <!-- <a>{{row.actionM30.size}}</a><br> -->
+            <!-- <a>{{row.anchorM30.size}}</a><br> -->
+          </td>
+          <td class="wrapper-xxs" ng-class="{'butter':row.butter.stf}">
+              <a ng-if="row.trendM5=='SIDEWAYS BIAS UP'"><i class="fa fa-arrow-right"></i><i class="fa fa-arrow-up"></i></a>
+              <a ng-if="row.trendM5=='SIDEWAYS BIAS DOWN'"><i class="fa fa-arrow-right"></i><i class="fa fa-arrow-down"></i></a>
+              <a ng-if="row.trendM5=='SIDEWAYS BIAS UP CONFIRMED'"><i class="fa fa-arrow-right"></i><i class="fa fa-arrow-up"></i><i class="fa fa-check"></i></a>
+              <a ng-if="row.trendM5=='SIDEWAYS BIAS DOWN CONFIRMED'"><i class="fa fa-arrow-right"></i><i class="fa fa-arrow-down"></i><i class="fa fa-check"></i></a>
+              <a ng-if="row.trendM5=='UPTREND N.S'"><i class="fa fa-arrow-up"></i></a>
+              <a ng-if="row.trendM5=='DOWNTREND N.S'"><i class="fa fa-arrow-down"></i></a>
+              <a ng-if="row.trendM5=='UPTREND SETUP'"><i class="fa fa-arrow-up"></i><i class="fa fa-square-o"></i></a>
+              <a ng-if="row.trendM5=='DOWNTREND SETUP'"><i class="fa fa-arrow-down"></i><i class="fa fa-square-o"></i></a>
+              <a ng-if="row.trendM5=='UPTREND ANCHOR BREAK'"><i class="fa fa-arrow-up"></i>X</a>
+              <a ng-if="row.trendM5=='DOWNTREND ANCHOR BREAK'"><i class="fa fa-arrow-down"></i>X</a>
+          </td>
+          <td class="wrapper-xxs" >
+            <a ng-if="row.trendM1=='SIDEWAYS BIAS UP'"><i class="fa fa-arrow-right"></i><i class="fa fa-arrow-up"></i></a>
+            <a ng-if="row.trendM1=='SIDEWAYS BIAS DOWN'"><i class="fa fa-arrow-right"></i><i class="fa fa-arrow-down"></i></a>
+            <a ng-if="row.trendM1=='SIDEWAYS BIAS UP CONFIRMED'"><i class="fa fa-arrow-right"></i><i class="fa fa-arrow-up"></i><i class="fa fa-check"></i></a>
+            <a ng-if="row.trendM1=='SIDEWAYS BIAS DOWN CONFIRMED'"><i class="fa fa-arrow-right"></i><i class="fa fa-arrow-down"></i><i class="fa fa-check"></i></a>
+            <a ng-if="row.trendM1=='UPTREND N.S'"><i class="fa fa-arrow-up"></i></a>
+            <a ng-if="row.trendM1=='DOWNTREND N.S'"><i class="fa fa-arrow-down"></i></a>
+            <a ng-if="row.trendM1=='UPTREND SETUP'"><i class="fa fa-arrow-up"></i><i class="fa fa-square-o"></i></a>
+            <a ng-if="row.trendM1=='DOWNTREND SETUP'"><i class="fa fa-arrow-down"></i><i class="fa fa-square-o"></i></a>
+            <a ng-if="row.trendM1=='UPTREND ANCHOR BREAK'"><i class="fa fa-arrow-up"></i>X</a>
+            <a ng-if="row.trendM1=='DOWNTREND ANCHOR BREAK'"><i class="fa fa-arrow-down"></i>X</a>
+        </td>
+          <td>
+            <!-- <a ng-repeat="item in row.orderbook|filter:row.price"></a>{{row.orderbook.}} -->
+          </td>
+        </tr>
+      </tbody>
+      <tbody class="v-middle">
+        <tr ng-repeat="row in pairs|orderBy:'-heatmap.change'|filter:'calc'" ng-click="updateCharts(row)">
 
           <td>{{row.name}}<br>{{row.price}}</td>
           <td>          <button class="btn" ng-class="{'uptick':row.heatmap.color=='BLUE','downtick':row.heatmap.color=='RED'}"><a class="text-white font-bold">{{row.heatmap.change|number:1}}</a></button></td>
@@ -140,18 +333,28 @@
   </div>
 
   <!-- <div class="panel panel-default" ng-repeat="row in data"> -->
-  <div class="panel panel-default">
-      <div class="panel-heading">The Chart</div>
-      <div class="panel-body col-xs-4">
-    <nvd3 options="options" data="dataH3" ></nvd3>
-      </div>
-      
-      <div class="panel-body col-xs-4">
+  <div class="panel panel-default col-xs-6">
+      <div class="panel-heading">{{focus.name}} H2</div>
+      <div class="panel-body ">
     <nvd3 options="options" data="dataH2" ></nvd3>
+      </div>
   </div>
-
-      <div class="panel-body col-xs-4">
+  <div class="panel panel-default col-xs-6">
+      <div class="panel-heading">{{focus.name}} M30</div>
+      <div class="panel-body ">
     <nvd3 options="options" data="dataM30" ></nvd3>
+  </div>
+  </div>
+  <div class="panel panel-default col-xs-6">
+  <div class="panel-heading">{{focus.name}} M5</div>
+      <div class="panel-body ">
+    <nvd3 options="options" data="dataM5" ></nvd3>
+  </div>
+  </div>
+  <div class="panel panel-default col-xs-6">
+  <div class="panel-heading">{{focus.name}} M1</div>
+      <div class="panel-body ">
+    <nvd3 options="options" data="dataM1" ></nvd3>
   </div>
   </div>
 

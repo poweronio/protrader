@@ -1,4 +1,4 @@
-app.controller('TableCtrl', ['$scope', '$timeout', '$http', 'Instrument', 'Pair', '$filter',function ($scope, $timeout, $http, Instrument, Pair,$filter) {
+app.controller('TableCtrl', ['$scope', '$timeout', '$http', 'Instrument', 'News', '$filter',function ($scope, $timeout, $http, Instrument, News,$filter) {
   //    var http = require('http');
   //var https = require('https');
   $scope.candleData = {
@@ -221,14 +221,14 @@ app.controller('TableCtrl', ['$scope', '$timeout', '$http', 'Instrument', 'Pair'
         },
         x: function(d){ return d['time']; },
         y: function(d){ return d['close']; },
-        duration: 30,
+        duration: 20,
         
         xAxis: {
             axisLabel: 'Time',
-           /* tickFormat: function(d) {
-                return d3.time.format('%x')(new Date(d));
+            tickFormat: function(d) {
+                return d3.time.format('%a %d %I:%M')(new Date(d*1000));
             },
-            showMaxMin: false*/
+            showMaxMin: false
         },
 
         yAxis: {
@@ -241,8 +241,8 @@ app.controller('TableCtrl', ['$scope', '$timeout', '$http', 'Instrument', 'Pair'
         zoom: {
             // enabled: true,
             // scaleExtent: [1, 10],
-            useFixedDomain: false,
-            useNiceScale: false,
+            // useFixedDomain: false,
+            // useNiceScale: true,
             horizontalOff: true,
             verticalOff: true,
             unzoomEventType: 'dblclick.zoom'
@@ -288,7 +288,23 @@ updateDurations();
     
     $scope.racetrack = null;
     $scope.updated = 60;
-    Instrument.find({}, function (list) {
+    News.find({where:{
+      timestamp:{gt:new Date().getTime()/1000}
+    }}, function(nlist){
+      console.log(nlist);
+    })
+    Instrument.find({fields:{
+      'name':true,
+      'heatmap':true,
+      'class':true,
+      'butter':true,
+      "price":true,
+"trendH3":true,
+"trendH2":true,
+"trendM30":true,
+"trendM5":true,
+"trendM1":true
+    }}, function (list) {
       $scope.racetrack = [];
       $scope.pairs = list;
       // console.log($scope.currentTime);
@@ -313,53 +329,25 @@ updateDurations();
   init();
 
   $scope.updateCharts = function (row){
+    $scope.focus = row;
      console.log(row);
-    $scope.dataH3, $scope.dataH2,$scope.dataM30 =null;
-$scope.dataH3,$scope.dataH2,$scope.dataM30 = null;
-$scope.dataH3,$scope.dataH2,$scope.dataM30 = [];
-
-    var candleArrayH3= row.candlesH3.map(function (candleData,index) {
-      var obj = {
-          time: index/2,//candleData.time.substring(5,16),
-          open: candleData.o,
-          high: candleData.h,
-          low: candleData.l,
-          close: candleData.c,
-          color: candleData.c - candleData.o > 0 ? "BLUE" : "RED",
-          size:Math.abs(candleData.c - candleData.o)
-        }
-      return (obj);
-    });
-    $scope.dataH3=[];
-    $scope.dataH3.push({values:candleArrayH3});
-    var candleArrayH2= row.candlesH2.map(function (candleData,index) {
-      var obj = {
-          time: index/2,//candleData.time.substring(5,16),
-          open: candleData.o,
-          high: candleData.h,
-          low: candleData.l,
-          close: candleData.c,
-          color: candleData.c - candleData.o > 0 ? "BLUE" : "RED",
-          size:Math.abs(candleData.c - candleData.o)
-        }
-      return (obj);
-    });
-    $scope.dataH2=[];
-    $scope.dataH2.push({values:candleArrayH2});
-    var candleArrayM30= row.candlesM30.map(function (candleData,index) {
-      var obj = {
-          time: index/2,//candleData.time.substring(5,16),
-          open: candleData.o,
-          high: candleData.h,
-          low: candleData.l,
-          close: candleData.c,
-          color: candleData.c - candleData.o > 0 ? "BLUE" : "RED",
-          size:Math.abs(candleData.c - candleData.o)
-        }
-      return (obj);
-    });
-    $scope.dataM30=[];
-    $scope.dataM30.push({values:candleArrayM30});
+    $scope.dataH3 =null;
+    $scope.dataH2 =null;
+    $scope.dataM30 =null;
+    $scope.dataM5 =null;
+    $scope.dataM1 =null;
+    $scope.dataH3 = [];
+    $scope.dataH2 = [];
+    $scope.dataM30 = [];
+    $scope.dataM5 = [];
+    $scope.dataM1 = [];
+    $scope.dataH3.push({values:row.chartH3});
+    $scope.dataH2.push({values:row.chartH2});
+    $scope.dataM30.push({values:row.chartM30});
+    $scope.dataM5.push({values:row.chartM5});
+    $scope.dataM1.push({values:row.chartM1});
+    
+    
   }
 
   
