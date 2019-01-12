@@ -327,4 +327,28 @@ cb(null,"Greeters");
     returns: { arg: 'fetchNews', type: 'string' }
   });
 
+
+  Instrument.getStream = function (cb) { 
+    // var instruments="GBP_USD,GBP_JPY,EUR_USD,EUR_JPY,USD_CHF,USD_JPY,USD_CAD,EUR_CHF,GBP_CHF,EUR_GBP,AUD_USD,AUD_JPY,NZD_USD";
+    var instruments="GBP_USD,GBP_JPY,EUR_USD,EUR_JPY,USD_CHF,USD_JPY";//,USD_CAD,EUR_CHF,GBP_CHF,EUR_GBP,AUD_USD,AUD_JPY,NZD_USD";
+    var streamService;
+    streamService = app.dataSources.streaming;
+    streamService.cp(function(err,response,context){
+      console.log('Is Streaming?');
+      console.log(context);
+      if (err) throw err; //error making request
+      if (response.error) {
+          console.log('> response error: ' + response.error.stack);
+      }
+      console.log(response);
+      response.on('data', (chunk)=>{
+        console.log(chunk);
+      });
+      cb(null,"Streamer");
+    });
+    
+  }
+  Instrument.remoteMethod('getStream', {
+    returns: { arg: 'getStream', type: 'string' }
+  });
 };

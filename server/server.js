@@ -26,12 +26,22 @@ app.start = function() {
         // sync();
       }
       
-      sync();
+      // sync();
+      // getStream();
       // news();
       // orderBook();
     }
   });
 };
+
+app.post('/curl-out', function (req, res) {
+  console.log("BOOM");
+  app.emit('testEvent');
+  return res.status(200).end();
+});
+
+
+
 
 function sync() {
   var apiBase = app.get('url')+'api/';
@@ -65,6 +75,22 @@ function orderBook() {
   var apiBase = app.get('url')+'api/';
   request.post(apiBase+'orderbook/fetch',function(err,resp){
         console.log("Run orderbook");
+        if(err)
+        console.log(err);
+        // console.log(resp.body);
+        console.log(new Date());
+      })
+  
+  console.log(new Date());
+  // setTimeout(news, 3600000);
+}
+
+
+function getStream() {
+
+  var apiBase = app.get('url')+'api/';
+  request.post(apiBase+'instruments/getStream',function(err,resp){
+        console.log("Run Stream");
         if(err)
         console.log(err);
         // console.log(resp.body);

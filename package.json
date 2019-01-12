@@ -11,9 +11,11 @@
     "posttest": "npm run lint"
   },
   "dependencies": {
+    "@oanda/v20": "^3.0.25-0",
     "async": "^2.6.1",
     "compression": "^1.7.3",
     "cors": "^2.5.2",
+    "curl-request": "^1.1.1",
     "group-array": "^0.3.3",
     "helmet": "^3.10.0",
     "koa-bodyparser": "^2.5.0",
