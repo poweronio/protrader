@@ -3,15 +3,24 @@ var async = require("async");
 module.exports = function(News) {
     var newsDataService;
 var pairs = [
-    'AUD_USD',
+    'EUR_USD',
     'NZD_JPY',
     'GBP_CAD',
-    'EUR_CHF'];
+    'AUD_CHF'];
+
+    // 3600 - 1 hour
+    // 43200 - 12 hour
+    // 86400 - 1 day
+    // 604800 - 1 week
+    // 2592000 - 1 month
+    // 7776000 - 3 months
+    // 15552000 - 6 months
+    // 31536000 - 1 year
 
     News.fetch = function (cb) {
         async.every(pairs, function (pair, callback) { 
             newsDataService = News.app.dataSources.oanda1;
-            newsDataService.cp(pair, 604800 , function (err, response, context) {
+            newsDataService.cp(pair, 86400 , function (err, response, context) {
           if (err) throw err; //error making request
             if (response.error) {
               console.log('> response error: ' + response.error.stack);

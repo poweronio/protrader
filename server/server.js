@@ -26,7 +26,7 @@ app.start = function() {
         // sync();
       }
       
-      // sync();
+      sync();
       // getStream();
       // news();
       // orderBook();
@@ -54,7 +54,7 @@ function sync() {
       })
   
   console.log(new Date());
-  // setTimeout(sync, 60000);
+  setTimeout(sync, 60000);
   
 }
 

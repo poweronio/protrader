@@ -34,180 +34,7 @@ app.controller('TableCtrl', ['$scope', '$timeout', '$http', 'Instrument', 'News'
 
   $scope.currentTime = new Date().getTime()/1000;
 
-  
 
-
- /* function assembleData(candle) {
-    $scope.candles.push(candle);
-  }
-
-  function getColors(candles) {
-    $scope.candles = [];
-    for (var i = 0; i < candles.length; i++) {
-      var candleData = {
-        c: candles[i].mid.c,
-        o: candles[i].mid.o,
-        h: candles[i].mid.h,
-        l: candles[i].mid.l,
-        time: candles[i].time,
-        color: (candles[i].mid.c - candles[i].mid.o >= 0) ? "BLUE" : "RED"
-      };
-
-      assembleData(candleData);
-    }
-  }
-
-  function getAction() {
-    var i = $scope.candles.length - 1;
-    var actionColor = $scope.candles[i].color;
-    var actionClose = $scope.candles[i].c;
-    var actionIndex = 0;
-    var actionOpen = 0;
-
-    // var anchorColor = actionColor=="RED"?"BLUE":"RED";
-    // var anchorClose = 0;
-    // var anchorOpen =0;
-
-    while ($scope.candles[i].color == actionColor) {
-      actionOpen = $scope.candles[i].o;
-      actionIndex = i;
-      console.log(i);
-      i--;
-    }
-    if (actionOpen > 0) {
-      $scope.action = {
-        index: actionIndex,
-        c: actionClose,
-        o: actionOpen,
-        color: actionColor,
-        size: Math.abs(actionClose - actionOpen)
-      }
-    }
-  }
-
-  function getAnchor() {
-    var anchorColor = $scope.action.color == "RED" ? "BLUE" : "RED";
-    var anchorClose = $scope.action.o;
-    var anchorIndex = $scope.action.index - 1;
-    var i = anchorIndex;
-    var anchorOpen = 0;
-    while ($scope.candles[i].color == anchorColor) {
-      anchorOpen = $scope.candles[i].o;
-      anchorIndex = i;
-      console.log(i);
-      i--;
-    }
-    if (anchorOpen > 0) {
-      $scope.anchor = {
-        index: anchorIndex,
-        c: anchorClose,
-        o: anchorOpen,
-        color: anchorColor,
-        size: Math.abs(anchorClose - anchorOpen)
-
-      }
-    }
-  }
-
-  function getAux1() {
-    var auxColor = $scope.action.color;
-    var auxClose = $scope.anchor.o;
-    var auxIndex = $scope.anchor.index - 1;
-    var i = auxIndex;
-    var auxOpen = 0;
-
-    console.log("Starting at: " + i);
-    console.log(auxColor);
-
-    while ($scope.candles[i].color == auxColor) {
-      auxOpen = $scope.candles[i].o;
-      auxIndex = i;
-      console.log(i);
-      i--;
-    }
-
-    if (auxOpen > 0) {
-      $scope.aux1 = {
-        index: auxIndex,
-        c: auxClose,
-        o: auxOpen,
-        color: auxColor,
-        size: Math.abs(auxClose - auxOpen)
-      }
-    }
-  }
-
-  function getAux2() {
-    var auxColor = $scope.anchor.color;
-    var auxClose = $scope.aux1.c;
-    var auxIndex = $scope.aux1.index - 1;
-    var i = auxIndex;
-    var auxOpen = 0;
-
-    console.log("Starting at: " + i);
-    console.log(auxColor);
-
-    while ($scope.candles[i].color == auxColor) {
-      auxOpen = $scope.candles[i].o;
-      auxIndex = i;
-      console.log(i);
-      i--;
-    }
-
-    if (auxOpen > 0) {
-      $scope.aux2 = {
-        index: auxIndex,
-        c: auxClose,
-        o: auxOpen,
-        color: auxColor,
-        size: Math.abs(auxClose - auxOpen)
-      }
-    }
-  }*/
-
-  function getTrend() {
-    var direction = $scope.action.color == "RED" ? "DOWN" : "UP";
-    var _direction = direction == "DOWN" ? "UP" : "DOWN";
-
-    // ****** ****** ****** ******** ****** ****** ******//
-    // ****** ****** ****** SIDEWAYS ****** ****** ******//
-    // ****** ****** ****** ******** ****** ****** ******//
-    if ($scope.anchor.size < $scope.aux1.size) {
-      console.log("SIDEWAYS");
-      var direction = $scope.action.color == "RED" ? "DOWN" : "UP";
-      if ($scope.action.size < $scope.anchor.size) {
-        console.log("BIAS " + direction);
-      } else if ($scope.action.size >= $scope.anchor.size) {
-        console.log("BIAS " + direction + " CONFIRMED");
-      }
-    } else
-      // ****** ****** ***** ****** ******//
-      // ****** ****** TREND ****** ******//
-      // ****** ****** ***** ****** ******// 
-      if ($scope.anchor.size >= $scope.aux1.size) {
-        console.log("TREND IS ");
-        // ****** ****** ****** ******** ****** ****** ******//
-        // ****** ****** ANCHOR BREAK *** ****** ******//
-        // ****** ****** ****** ******** ****** ****** ******//
-        if ($scope.action.size >= $scope.anchor.size) {
-          console.log(_direction + "TREND N.S ANCHOR BREAK");
-        }
-
-        // ****** ****** ****** ****** ******//
-        // ****** ***** NO SETUP ***** ******//
-        // ****** ****** ****** ****** ******//
-        else if ($scope.aux2 <= $scope.aux1) {
-          console.log("TREND IS " + direction + " N.S");
-        }
-        // ****** ****** ****** ****** ******//
-        // ****** ******  SETUP ****** ******//
-        // ****** ****** ****** ****** ******//
-
-        else if ($scope.aux2 > $scope.aux1) {
-          console.log("TREND IS " + direction + " SETUP");
-        }
-      }
-  }
 
   $scope.options = {
     chart: {
@@ -253,8 +80,6 @@ app.controller('TableCtrl', ['$scope', '$timeout', '$http', 'Instrument', 'News'
 $scope.dataH3 =[];
 $scope.dataH2 =[];
 $scope.dataM30 =[];
-// {values: [  {"date": 15854, "open": 165.42, "high": 165.8, "low": 164.34, "close": 165.22, "volume": 160363400, "adjusted": 164.35},  {"date": 15856, "open": 165.37, "high": 166.31, "low": 163.13, "close": 163.45, "volume": 176850100, "adjusted": 162.59}]}];
-
 
 function getTimeStamp(longDate){
   var shorterDate = longDate.replace('T',' ');
@@ -272,6 +97,11 @@ $scope.greaterThan = function(prop, val){
   }
 }
 
+$scope.getCurrency = function(name,nb){
+  var array = name.split('_');
+    return array[0];
+}
+
 
 function updateDurations() {
   $scope.updated -=1;
@@ -283,28 +113,55 @@ function updateDurations() {
 };
 updateDurations();    
 
+function syncFromCSV(){
+  $http.get('eco_cal.json').then(function(data){
+    var news = data.data;
+    for (var i=0;i<news.length;i++){
+      News.create({
+        impact:news[i].impact,
+        timestamp:new Date(news[i].timestamp).getTime()/1000,
+        title:news[i].title,
+        currency:news[i].currency
+      });
+    }
+    console.log(data.data);
+  },function(err){
+    console.log(err);
+  });
+}
 
+News.find(
+  {filter:{
+    where:{
+      impact:{gt:1},
+      timestamp:{gt:new Date().getTime()/1000},
+      timestamp:{lt:new Date().getTime()/1000 + 86400},
+    }}}, function(nlist){
+  console.log(nlist);
+  $scope.news = nlist;
+});
   function init() {
-    
     $scope.racetrack = null;
     $scope.updated = 60;
-    News.find({where:{
-      timestamp:{gt:new Date().getTime()/1000}
-    }}, function(nlist){
-      console.log(nlist);
-    })
-    Instrument.find({fields:{
+    console.log(new Date().getTime()/1000);
+    console.log(new Date().getTime()/1000+86400);
+   
+    Instrument.find({filter:{fields:{
       'name':true,
       'heatmap':true,
       'class':true,
       'butter':true,
       "price":true,
-"trendH3":true,
-"trendH2":true,
-"trendM30":true,
-"trendM5":true,
-"trendM1":true
-    }}, function (list) {
+      "trendH3":true,
+      "trendH2":true,
+      "trendM30":true,
+      "trendM5":true,
+      "trendM1":true,
+      "candlesM30":true,
+      "candlesH2":true,
+      "candlesH3":true
+
+    }}}, function (list) {
       $scope.racetrack = [];
       $scope.pairs = list;
       // console.log($scope.currentTime);

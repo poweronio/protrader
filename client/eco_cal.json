@@ -1,0 +1,842 @@
+[
+ {
+   "timestamp": "01/17/2019 10:00:00",
+   "currency": "EUR",
+   "title": "Consumer Price Index (MoM)",
+   "impact": 2
+ },
+ {
+   "timestamp": "01/17/2019 10:00:00",
+   "currency": "EUR",
+   "title": "Consumer Price Index - Core (YoY)",
+   "impact": 3
+ },
+ {
+   "timestamp": "01/17/2019 10:00:00",
+   "currency": "EUR",
+   "title": "Consumer Price Index - Core (MoM)",
+   "impact": 2
+ },
+ {
+   "timestamp": "01/17/2019 10:00:00",
+   "currency": "EUR",
+   "title": "Consumer Price Index (YoY)",
+   "impact": 3
+ },
+ {
+   "timestamp": "01/17/2019 13:30:00",
+   "currency": "USD",
+   "title": "Continuing Jobless Claims",
+   "impact": 2
+ },
+ {
+   "timestamp": "01/17/2019 13:30:00",
+   "currency": "USD",
+   "title": "Initial Jobless Claims",
+   "impact": 2
+ },
+ {
+   "timestamp": "01/17/2019 13:30:00",
+   "currency": "USD",
+   "title": "Philadelphia Fed Manufacturing Survey",
+   "impact": 2
+ },
+ {
+   "timestamp": "01/17/2019 15:45:00",
+   "currency": "USD",
+   "title": "Fed's Quarles speech",
+   "impact": 2
+ },
+ {
+   "timestamp": "01/17/2019 21:30:00",
+   "currency": "NZD",
+   "title": "Business NZ PMI",
+   "impact": 2
+ },
+ {
+   "timestamp": "01/17/2019 23:30:00",
+   "currency": "JPY",
+   "title": "National CPI Ex Food, Energy (YoY)",
+   "impact": 2
+ },
+ {
+   "timestamp": "01/17/2019 23:30:00",
+   "currency": "JPY",
+   "title": "National CPI Ex-Fresh Food (YoY)",
+   "impact": 2
+ },
+ {
+   "timestamp": "01/17/2019 23:30:00",
+   "currency": "JPY",
+   "title": "National Consumer Price Index (YoY)",
+   "impact": 2
+ },
+ {
+   "timestamp": "01/17/2019 23:50:00",
+   "currency": "JPY",
+   "title": "Foreign investment in Japan stocks",
+   "impact": 2
+ },
+ {
+   "timestamp": "01/18/2019 0:00:00",
+   "currency": "EUR",
+   "title": "G20 Meeting",
+   "impact": 2
+ },
+ {
+   "timestamp": "01/18/2019 0:30:00",
+   "currency": "AUD",
+   "title": "HIA New Home Sales (MoM)",
+   "impact": 2
+ },
+ {
+   "timestamp": "01/18/2019 4:30:00",
+   "currency": "JPY",
+   "title": "Industrial Production (YoY)",
+   "impact": 2
+ },
+ {
+   "timestamp": "01/18/2019 9:30:00",
+   "currency": "GBP",
+   "title": "Retail Sales ex-Fuel (MoM)",
+   "impact": 2
+ },
+ {
+   "timestamp": "01/18/2019 9:30:00",
+   "currency": "GBP",
+   "title": "Retail Sales ex-Fuel (YoY)",
+   "impact": 2
+ },
+ {
+   "timestamp": "01/18/2019 9:30:00",
+   "currency": "GBP",
+   "title": "Retail Sales (MoM)",
+   "impact": 2
+ },
+ {
+   "timestamp": "01/18/2019 9:30:00",
+   "currency": "GBP",
+   "title": "Retail Sales (YoY)",
+   "impact": 2
+ },
+ {
+   "timestamp": "01/18/2019 13:30:00",
+   "currency": "CAD",
+   "title": "Consumer Price Index (MoM)",
+   "impact": 2
+ },
+ {
+   "timestamp": "01/18/2019 13:30:00",
+   "currency": "CAD",
+   "title": "Consumer Price Index - Core (MoM)",
+   "impact": 2
+ },
+ {
+   "timestamp": "01/18/2019 13:30:00",
+   "currency": "CAD",
+   "title": "Consumer Price Index (YoY)",
+   "impact": 2
+ },
+ {
+   "timestamp": "01/18/2019 13:30:00",
+   "currency": "CAD",
+   "title": "Bank of Canada Consumer Price Index Core (MoM)",
+   "impact": 2
+ },
+ {
+   "timestamp": "01/18/2019 13:30:00",
+   "currency": "CAD",
+   "title": "Bank of Canada Consumer Price Index Core (YoY)",
+   "impact": 3
+ },
+ {
+   "timestamp": "01/18/2019 14:05:00",
+   "currency": "USD",
+   "title": "FOMC Member Williams speech",
+   "impact": 2
+ },
+ {
+   "timestamp": "01/18/2019 14:15:00",
+   "currency": "USD",
+   "title": "Industrial Production (MoM)",
+   "impact": 2
+ },
+ {
+   "timestamp": "01/18/2019 14:15:00",
+   "currency": "USD",
+   "title": "Capacity Utilization",
+   "impact": 2
+ },
+ {
+   "timestamp": "01/18/2019 15:00:00",
+   "currency": "USD",
+   "title": "Michigan Consumer Sentiment Index",
+   "impact": 2
+ },
+ {
+   "timestamp": "01/18/2019 18:00:00",
+   "currency": "USD",
+   "title": "Baker Hughes US Oil Rig Count",
+   "impact": 2
+ },
+ {
+   "timestamp": "01/21/2019 7:00:00",
+   "currency": "EUR",
+   "title": "Producer Price Index (MoM)",
+   "impact": 2
+ },
+ {
+   "timestamp": "01/22/2019 0:00:00",
+   "currency": "CHF",
+   "title": "World Economic Forum - Davos",
+   "impact": 2
+ },
+ {
+   "timestamp": "01/22/2019 9:30:00",
+   "currency": "GBP",
+   "title": "ILO Unemployment Rate (3M)",
+   "impact": 2
+ },
+ {
+   "timestamp": "01/22/2019 9:30:00",
+   "currency": "GBP",
+   "title": "Average Earnings including Bonus (3Mo/Yr)",
+   "impact": 3
+ },
+ {
+   "timestamp": "01/22/2019 9:30:00",
+   "currency": "GBP",
+   "title": "Average Earnings excluding Bonus (3Mo/Yr)",
+   "impact": 3
+ },
+ {
+   "timestamp": "01/22/2019 9:30:00",
+   "currency": "GBP",
+   "title": "Claimant Count Change",
+   "impact": 2
+ },
+ {
+   "timestamp": "01/22/2019 9:30:00",
+   "currency": "GBP",
+   "title": "Public Sector Net Borrowing",
+   "impact": 2
+ },
+ {
+   "timestamp": "01/22/2019 10:00:00",
+   "currency": "EUR",
+   "title": "ZEW Survey - Current Situation",
+   "impact": 2
+ },
+ {
+   "timestamp": "01/22/2019 10:00:00",
+   "currency": "EUR",
+   "title": "ZEW Survey - Economic Sentiment",
+   "impact": 2
+ },
+ {
+   "timestamp": "01/22/2019 15:00:00",
+   "currency": "USD",
+   "title": "Existing Home Sales (MoM)",
+   "impact": 2
+ },
+ {
+   "timestamp": "01/22/2019 22:45:00",
+   "currency": "NZD",
+   "title": "Consumer Price Index (YoY)",
+   "impact": 2
+ },
+ {
+   "timestamp": "01/22/2019 22:45:00",
+   "currency": "NZD",
+   "title": "Consumer Price Index (QoQ)",
+   "impact": 3
+ },
+ {
+   "timestamp": "01/22/2019 23:50:00",
+   "currency": "JPY",
+   "title": "Merchandise Trade Balance Total",
+   "impact": 2
+ },
+ {
+   "timestamp": "01/22/2019 23:50:00",
+   "currency": "JPY",
+   "title": "Adjusted Merchandise Trade Balance",
+   "impact": 2
+ },
+ {
+   "timestamp": "01/22/2019 23:50:00",
+   "currency": "JPY",
+   "title": "Imports (YoY)",
+   "impact": 2
+ },
+ {
+   "timestamp": "01/22/2019 23:50:00",
+   "currency": "JPY",
+   "title": "Exports (YoY)",
+   "impact": 2
+ },
+ {
+   "timestamp": "01/23/2019 0:00:00",
+   "currency": "CHF",
+   "title": "World Economic Forum - Davos",
+   "impact": 2
+ },
+ {
+   "timestamp": "01/23/2019 2:00:00",
+   "currency": "JPY",
+   "title": "BoJ Interest Rate Decision",
+   "impact": 3
+ },
+ {
+   "timestamp": "01/23/2019 2:00:00",
+   "currency": "JPY",
+   "title": "BoJ Monetary Policy Statement ",
+   "impact": 3
+ },
+ {
+   "timestamp": "01/23/2019 2:00:00",
+   "currency": "JPY",
+   "title": "BoJ outlook report",
+   "impact": 2
+ },
+ {
+   "timestamp": "01/23/2019 4:30:00",
+   "currency": "JPY",
+   "title": "All Industry Activity Index (MoM)",
+   "impact": 2
+ },
+ {
+   "timestamp": "01/23/2019 13:30:00",
+   "currency": "CAD",
+   "title": "Retail Sales (MoM)",
+   "impact": 3
+ },
+ {
+   "timestamp": "01/23/2019 13:30:00",
+   "currency": "CAD",
+   "title": "Retail Sales ex Autos (MoM)",
+   "impact": 2
+ },
+ {
+   "timestamp": "01/23/2019 23:50:00",
+   "currency": "JPY",
+   "title": "Foreign investment in Japan stocks",
+   "impact": 2
+ },
+ {
+   "timestamp": "01/24/2019 0:00:00",
+   "currency": "CHF",
+   "title": "World Economic Forum - Davos",
+   "impact": 2
+ },
+ {
+   "timestamp": "01/24/2019 1:30:00",
+   "currency": "AUD",
+   "title": "Employment Change s.a.",
+   "impact": 3
+ },
+ {
+   "timestamp": "01/24/2019 1:30:00",
+   "currency": "AUD",
+   "title": "Participation Rate",
+   "impact": 3
+ },
+ {
+   "timestamp": "01/24/2019 1:30:00",
+   "currency": "AUD",
+   "title": "Unemployment Rate s.a.",
+   "impact": 3
+ },
+ {
+   "timestamp": "01/24/2019 5:00:00",
+   "currency": "JPY",
+   "title": "Leading Economic Index",
+   "impact": 2
+ },
+ {
+   "timestamp": "01/24/2019 8:30:00",
+   "currency": "EUR",
+   "title": "Markit Manufacturing PMI",
+   "impact": 2
+ },
+ {
+   "timestamp": "01/24/2019 8:30:00",
+   "currency": "EUR",
+   "title": "Markit Services PMI",
+   "impact": 2
+ },
+ {
+   "timestamp": "01/24/2019 9:00:00",
+   "currency": "EUR",
+   "title": "Markit Manufacturing PMI",
+   "impact": 2
+ },
+ {
+   "timestamp": "01/24/2019 9:00:00",
+   "currency": "EUR",
+   "title": "Markit Services PMI",
+   "impact": 2
+ },
+ {
+   "timestamp": "01/24/2019 9:00:00",
+   "currency": "EUR",
+   "title": "Markit PMI Composite",
+   "impact": 2
+ },
+ {
+   "timestamp": "01/24/2019 12:45:00",
+   "currency": "EUR",
+   "title": "ECB Deposit Rate Decision",
+   "impact": 3
+ },
+ {
+   "timestamp": "01/24/2019 12:45:00",
+   "currency": "EUR",
+   "title": "ECB Interest Rate Decision",
+   "impact": 3
+ },
+ {
+   "timestamp": "01/24/2019 13:30:00",
+   "currency": "USD",
+   "title": "Continuing Jobless Claims",
+   "impact": 2
+ },
+ {
+   "timestamp": "01/24/2019 13:30:00",
+   "currency": "USD",
+   "title": "Initial Jobless Claims",
+   "impact": 2
+ },
+ {
+   "timestamp": "01/24/2019 13:30:00",
+   "currency": "EUR",
+   "title": "ECB Monetary policy statement and press conference",
+   "impact": 3
+ },
+ {
+   "timestamp": "01/24/2019 14:45:00",
+   "currency": "USD",
+   "title": "Markit Manufacturing PMI",
+   "impact": 2
+ },
+ {
+   "timestamp": "01/24/2019 14:45:00",
+   "currency": "USD",
+   "title": "Markit Services PMI",
+   "impact": 2
+ },
+ {
+   "timestamp": "01/24/2019 14:45:00",
+   "currency": "USD",
+   "title": "Markit PMI Composite",
+   "impact": 2
+ },
+ {
+   "timestamp": "01/24/2019 23:30:00",
+   "currency": "JPY",
+   "title": "Tokyo CPI ex Food, Energy (YoY)",
+   "impact": 2
+ },
+ {
+   "timestamp": "01/24/2019 23:30:00",
+   "currency": "JPY",
+   "title": "Tokyo Consumer Price Index (YoY)",
+   "impact": 2
+ },
+ {
+   "timestamp": "01/24/2019 23:30:00",
+   "currency": "JPY",
+   "title": "Tokyo CPI ex Fresh Food (YoY)",
+   "impact": 3
+ },
+ {
+   "timestamp": "01/25/2019 0:00:00",
+   "currency": "CHF",
+   "title": "World Economic Forum - Davos",
+   "impact": 2
+ },
+ {
+   "timestamp": "01/25/2019 9:00:00",
+   "currency": "EUR",
+   "title": "IFO - Expectations",
+   "impact": 2
+ },
+ {
+   "timestamp": "01/25/2019 9:00:00",
+   "currency": "EUR",
+   "title": "IFO - Business Climate",
+   "impact": 2
+ },
+ {
+   "timestamp": "01/25/2019 9:00:00",
+   "currency": "EUR",
+   "title": "IFO - Current Assessment",
+   "impact": 2
+ },
+ {
+   "timestamp": "01/25/2019 13:30:00",
+   "currency": "USD",
+   "title": "Durable Goods Orders ex Transportation",
+   "impact": 2
+ },
+ {
+   "timestamp": "01/25/2019 13:30:00",
+   "currency": "USD",
+   "title": "Durable Goods Orders ex Defense",
+   "impact": 2
+ },
+ {
+   "timestamp": "01/25/2019 13:30:00",
+   "currency": "USD",
+   "title": "Durable Goods Orders",
+   "impact": 2
+ },
+ {
+   "timestamp": "01/25/2019 15:00:00",
+   "currency": "USD",
+   "title": "New Home Sales (MoM)",
+   "impact": 2
+ },
+ {
+   "timestamp": "01/25/2019 18:00:00",
+   "currency": "USD",
+   "title": "Baker Hughes US Oil Rig Count",
+   "impact": 2
+ },
+ {
+   "timestamp": "01/25/2019 19:00:00",
+   "currency": "USD",
+   "title": "Monthly Budget Statement",
+   "impact": 2
+ },
+ {
+   "timestamp": "01/27/2019 23:50:00",
+   "currency": "JPY",
+   "title": "BoJ Monetary Policy Meeting Minutes",
+   "impact": 3
+ },
+ {
+   "timestamp": "01/28/2019 10:00:00",
+   "currency": "EUR",
+   "title": "Business Climate",
+   "impact": 2
+ },
+ {
+   "timestamp": "01/28/2019 13:30:00",
+   "currency": "USD",
+   "title": "Chicago Fed National Activity Index ",
+   "impact": 2
+ },
+ {
+   "timestamp": "01/28/2019 22:45:00",
+   "currency": "NZD",
+   "title": "Trade Balance (MoM)",
+   "impact": 2
+ },
+ {
+   "timestamp": "01/28/2019 22:45:00",
+   "currency": "NZD",
+   "title": "Imports",
+   "impact": 2
+ },
+ {
+   "timestamp": "01/28/2019 22:45:00",
+   "currency": "NZD",
+   "title": "Trade Balance (YoY)",
+   "impact": 2
+ },
+ {
+   "timestamp": "01/28/2019 22:45:00",
+   "currency": "NZD",
+   "title": "Exports",
+   "impact": 2
+ },
+ {
+   "timestamp": "01/29/2019 14:00:00",
+   "currency": "USD",
+   "title": "S&P/Case-Shiller Home Price Indices (YoY)",
+   "impact": 2
+ },
+ {
+   "timestamp": "01/29/2019 15:00:00",
+   "currency": "USD",
+   "title": "Consumer Confidence",
+   "impact": 2
+ },
+ {
+   "timestamp": "01/29/2019 21:45:00",
+   "currency": "NZD",
+   "title": "Unemployment Rate",
+   "impact": 3
+ },
+ {
+   "timestamp": "01/29/2019 21:45:00",
+   "currency": "NZD",
+   "title": "Employment Change",
+   "impact": 3
+ },
+ {
+   "timestamp": "01/29/2019 21:45:00",
+   "currency": "NZD",
+   "title": "Participation Rate",
+   "impact": 2
+ },
+ {
+   "timestamp": "01/29/2019 23:50:00",
+   "currency": "JPY",
+   "title": "Retail Trade s.a (MoM)",
+   "impact": 2
+ },
+ {
+   "timestamp": "01/29/2019 23:50:00",
+   "currency": "JPY",
+   "title": "Retail Trade (YoY)",
+   "impact": 2
+ },
+ {
+   "timestamp": "01/29/2019 23:50:00",
+   "currency": "JPY",
+   "title": "Large Retailers' Sales",
+   "impact": 2
+ },
+ {
+   "timestamp": "01/30/2019 0:30:00",
+   "currency": "AUD",
+   "title": "Consumer Price Index (QoQ)",
+   "impact": 3
+ },
+ {
+   "timestamp": "01/30/2019 0:30:00",
+   "currency": "AUD",
+   "title": "RBA trimmed mean CPI (YoY)",
+   "impact": 3
+ },
+ {
+   "timestamp": "01/30/2019 0:30:00",
+   "currency": "AUD",
+   "title": "RBA trimmed mean CPI (QoQ)",
+   "impact": 3
+ },
+ {
+   "timestamp": "01/30/2019 0:30:00",
+   "currency": "AUD",
+   "title": "Consumer Price Index (YoY)",
+   "impact": 3
+ },
+ {
+   "timestamp": "01/30/2019 7:00:00",
+   "currency": "EUR",
+   "title": "Gfk Consumer Confidence Survey",
+   "impact": 2
+ },
+ {
+   "timestamp": "01/30/2019 8:00:00",
+   "currency": "CHF",
+   "title": "KOF Leading Indicator",
+   "impact": 2
+ },
+ {
+   "timestamp": "01/30/2019 9:00:00",
+   "currency": "CHF",
+   "title": "ZEW Survey - Expectations",
+   "impact": 2
+ },
+ {
+   "timestamp": "01/30/2019 9:30:00",
+   "currency": "GBP",
+   "title": "Mortgage Approvals",
+   "impact": 2
+ },
+ {
+   "timestamp": "01/30/2019 13:00:00",
+   "currency": "EUR",
+   "title": "Harmonized Index of Consumer Prices (MoM)",
+   "impact": 2
+ },
+ {
+   "timestamp": "01/30/2019 13:00:00",
+   "currency": "EUR",
+   "title": "Harmonized Index of Consumer Prices (YoY)",
+   "impact": 3
+ },
+ {
+   "timestamp": "01/30/2019 13:15:00",
+   "currency": "USD",
+   "title": "ADP Employment Change",
+   "impact": 2
+ },
+ {
+   "timestamp": "01/30/2019 13:30:00",
+   "currency": "USD",
+   "title": "Gross Domestic Product Price Index",
+   "impact": 2
+ },
+ {
+   "timestamp": "01/30/2019 13:30:00",
+   "currency": "USD",
+   "title": "Gross Domestic Product Annualized",
+   "impact": 3
+ },
+ {
+   "timestamp": "01/30/2019 13:30:00",
+   "currency": "USD",
+   "title": "Personal Consumption Expenditures Prices (QoQ)",
+   "impact": 2
+ },
+ {
+   "timestamp": "01/30/2019 13:30:00",
+   "currency": "USD",
+   "title": "Core Personal Consumption Expenditures (QoQ)",
+   "impact": 3
+ },
+ {
+   "timestamp": "01/30/2019 15:00:00",
+   "currency": "USD",
+   "title": "Pending Home Sales (MoM)",
+   "impact": 2
+ },
+ {
+   "timestamp": "01/30/2019 19:00:00",
+   "currency": "USD",
+   "title": "Fed Interest Rate Decision",
+   "impact": 3
+ },
+ {
+   "timestamp": "01/30/2019 23:50:00",
+   "currency": "JPY",
+   "title": "Foreign investment in Japan stocks",
+   "impact": 2
+ },
+ {
+   "timestamp": "01/31/2019 0:01:00",
+   "currency": "GBP",
+   "title": "Gfk Consumer Confidence",
+   "impact": 2
+ },
+ {
+   "timestamp": "01/31/2019 3:30:00",
+   "currency": "AUD",
+   "title": "RBA Rate Statement",
+   "impact": 3
+ },
+ {
+   "timestamp": "01/31/2019 7:00:00",
+   "currency": "EUR",
+   "title": "Retail Sales (MoM)",
+   "impact": 2
+ },
+ {
+   "timestamp": "01/31/2019 7:45:00",
+   "currency": "EUR",
+   "title": "Consumer Price Index (EU norm) (YoY)",
+   "impact": 2
+ },
+ {
+   "timestamp": "01/31/2019 8:55:00",
+   "currency": "EUR",
+   "title": "Unemployment Change",
+   "impact": 2
+ },
+ {
+   "timestamp": "01/31/2019 8:55:00",
+   "currency": "EUR",
+   "title": "Unemployment Rate s.a.",
+   "impact": 2
+ },
+ {
+   "timestamp": "01/31/2019 10:00:00",
+   "currency": "EUR",
+   "title": "Gross Domestic Product s.a. (QoQ)",
+   "impact": 3
+ },
+ {
+   "timestamp": "01/31/2019 10:00:00",
+   "currency": "EUR",
+   "title": "Gross Domestic Product s.a. (YoY)",
+   "impact": 3
+ },
+ {
+   "timestamp": "01/31/2019 10:00:00",
+   "currency": "EUR",
+   "title": "Unemployment Rate",
+   "impact": 2
+ },
+ {
+   "timestamp": "01/31/2019 13:30:00",
+   "currency": "USD",
+   "title": "Personal Spending",
+   "impact": 2
+ },
+ {
+   "timestamp": "01/31/2019 13:30:00",
+   "currency": "USD",
+   "title": "Core Personal Consumption Expenditure - Price Index (YoY)",
+   "impact": 3
+ },
+ {
+   "timestamp": "01/31/2019 13:30:00",
+   "currency": "USD",
+   "title": "Personal Consumption Expenditures - Price Index (MoM)",
+   "impact": 2
+ },
+ {
+   "timestamp": "01/31/2019 13:30:00",
+   "currency": "USD",
+   "title": "Personal Income (MoM)",
+   "impact": 2
+ },
+ {
+   "timestamp": "01/31/2019 13:30:00",
+   "currency": "USD",
+   "title": "Personal Consumption Expenditures - Price Index (YoY)",
+   "impact": 2
+ },
+ {
+   "timestamp": "01/31/2019 13:30:00",
+   "currency": "USD",
+   "title": "Core Personal Consumption Expenditure - Price Index (MoM)",
+   "impact": 2
+ },
+ {
+   "timestamp": "01/31/2019 13:30:00",
+   "currency": "USD",
+   "title": "Continuing Jobless Claims",
+   "impact": 2
+ },
+ {
+   "timestamp": "01/31/2019 13:30:00",
+   "currency": "USD",
+   "title": "Initial Jobless Claims",
+   "impact": 2
+ },
+ {
+   "timestamp": "01/31/2019 13:30:00",
+   "currency": "CAD",
+   "title": "Gross Domestic Product (MoM)",
+   "impact": 2
+ },
+ {
+   "timestamp": "01/31/2019 14:45:00",
+   "currency": "USD",
+   "title": "Chicago Purchasing Managers' Index",
+   "impact": 2
+ },
+ {
+   "timestamp": "01/31/2019 21:30:00",
+   "currency": "AUD",
+   "title": "AiG Performance of Mfg Index",
+   "impact": 2
+ },
+ {
+   "timestamp": "01/31/2019 23:30:00",
+   "currency": "JPY",
+   "title": "Unemployment Rate",
+   "impact": 2
+ },
+ {
+   "timestamp": "01/31/2019 23:50:00",
+   "currency": "JPY",
+   "title": "Industrial Production (YoY)",
+   "impact": 2
+ }
+]
