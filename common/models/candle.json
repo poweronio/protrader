@@ -7,6 +7,10 @@
     "validateUpsert": true
   },
   "properties": {
+    "instrument": {
+      "type": "string",
+      "required": true
+    },
     "granularity": {
       "type": "string",
       "required": true
@@ -16,8 +20,7 @@
       "required": true
     },
     "color": {
-      "type": "string",
-      "required": true
+      "type": "string"
     },
     "size": {
       "type": "string",
@@ -25,6 +28,21 @@
     },
     "signal": {
       "type": "string"
+    },
+    "o": {
+      "type": "number"
+    },
+    "c": {
+      "type": "number"
+    },
+    "h": {
+      "type": "number"
+    },
+    "l": {
+      "type": "number"
+    },
+    "rt":{
+      "type":"bool"
     }
   },
   "validations": [],

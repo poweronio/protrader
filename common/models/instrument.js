@@ -10,32 +10,32 @@ var newsDataService;
 // var bodyParser = require('koa-bodyparser');
 
 module.exports = function (Instrument) {
+  var app = require('../../server/server');
   var candleDataService;
   var newsDataService;
   var orderbookService;
   //Instrument.setId("1");
   var granularity = ["H3", "H2", "M30", "M5", "M1"];
   var pairs = [
-"AUD_USD",
-"AUD_JPY",
-"AUD_CAD",
-"NZD_USD",
-"NZD_JPY",
-"NZD_CAD",
-"GBP_USD",
-"GBP_CAD",
-"GBP_JPY",
-"EUR_USD",
-"EUR_CAD",
-"EUR_JPY",
-"USD_JPY",
-"USD_CAD",
-"USD_CHF",
-"CAD_CHF",
-"EUR_CHF",
-"GBP_CHF",
-"CAD_JPY",
-"EUR_GBP",
+    "EUR_AUD",
+    "AUD_USD",
+  "AUD_JPY",
+  "AUD_CAD",
+  "NZD_USD",
+  "NZD_JPY",
+  "NZD_CAD",
+  "GBP_USD",
+  "GBP_CAD",
+  "GBP_JPY",
+  "EUR_USD",
+  "EUR_JPY",
+  "USD_JPY",
+  "USD_CAD",
+  "USD_CHF",
+  "EUR_CHF",
+  "GBP_CHF",
+  "CAD_JPY",
+  "EUR_GBP",
   ];
   var tH3,tM30,tM5,tM1 =[];
   var tcandles=0;
@@ -172,8 +172,8 @@ module.exports = function (Instrument) {
 
   }
 
-  Instrument.greet = function (cb) {
-
+  Instrument.latest = function (cb) {
+    var _candles = app.models.Candle;
     async.every(pairs, function (pair, callback) { 
       var data = {
         M1: [],
@@ -192,34 +192,67 @@ module.exports = function (Instrument) {
         H3: []           
       };
       Instrument.findOne({ where: { name: pair } }, function (err, instrument) {
-        
-        // newsDataService = Instrument.app.dataSources.oanda1;
-        // newsDataService.cp(pair, 604800, function (err, response, context) {
-        // newsDataService.cp(pair, 86400, function (err, response, context) {
-          // console.log(response);
-          // if (err) throw err; //error making request
-            // if (response.error) {
-              // console.log('> response error: ' + response.error.stack);
-            // }
-          // instrument.updateAttribute("news",response);
-        // });
-        // orderbookService = Instrument.app.dataSources.orderbook;
-        // orderbookService.cp(pair, 'orderBook', function (err, response, context) {
-          // if (err) throw err; //error making request
-            // if (response.error) {
-              // console.log('> response error: ' + response.error.stack);
-            // }
-        // var orderBook = response;
-        // instrument.updateAttribute("orderbook",response.orderBook.buckets);
-        // });
         async.every(granularity, function (tf, callback) {
           var rtlength = 40;
           candleDataService = Instrument.app.dataSources.oanda;
-          candleDataService.cp(pair, tf, function (err, response, context) {
-            if (err) throw err; //error making request
-            if (response.error) {
-              console.log('> response error: ' + response.error.stack);
+          candleDataService.cp(pair, 1, tf, function (err, response, context) {
+            if(!err){
+            if(tf=='M1'){
+              instrument.updateAttribute("price", response.candles[response.candles.length-1].mid.c);
+              getButter(instrument,tf,response.candles[response.candles.length-1].mid.c); 
+              getHeatmap(instrument,tf,response.candles[response.candles.length-1].mid.c,response.candles[0].mid.c); 
             }
+            console.log(response);
+             _candles.create({
+              instrumentId:instrument.id,
+              granularity:response.granularity,
+              time:new Date(response.candles[0].time).getTime()/1000,
+              color:response.candles[0].mid.close-response.candles[0].mid.open> 0 ? "BLUE" : "RED",
+              size:response.candles[0].mid.close-response.candles[0].mid.open,
+              signal:response.candles,
+            })
+          }else
+            console.log(err);
+            
+           
+          });
+        });
+      })
+    });
+    cb(null, 'Greetings... ');
+  }
+
+  Instrument.greet = function (cb) {
+    
+    async.every(pairs, function (pair, callback) { 
+      var data = {
+        M1: [],
+        M5: [],
+        M10: [],
+        M30: [],
+        H2: [],
+        H3: []           
+      };
+      var datachart = {
+        M1: [],
+        M5: [],
+        M10: [],
+        M30: [],
+        H2: [],
+        H3: []           
+      };
+      Instrument.findOne({ where: { name: pair } }, function (err, instrument) {
+        async.every(granularity, function (tf, callback) {
+          var rtlength = 40;
+          candleDataService = Instrument.app.dataSources.oanda;
+          candleDataService.cp(pair, 50, tf, function (err, response, context) {
+            if (err) {
+              console.log('> response error: '+ err);
+            }
+            // console.log(response);
+            // if (response.error) {
+            //   console.log('' + response.error.stack);
+            // }
             if(tf=='M1'){
               instrument.updateAttribute("price", response.candles[response.candles.length-1].mid.c);
               getButter(instrument,tf,response.candles[response.candles.length-1].mid.c); 
@@ -288,6 +321,10 @@ module.exports = function (Instrument) {
   };
 
   Instrument.remoteMethod('greet', {
+    returns: { arg: 'greeting', type: 'string' }
+  });
+
+  Instrument.remoteMethod('latest', {
     returns: { arg: 'greeting', type: 'string' }
   });
 

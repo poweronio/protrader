@@ -35,7 +35,7 @@ module.exports = function(Orderbook) {
             if (response.error) {
                 console.log('> response error: ' + response.error.stack);
             }
-            console.log(response.orderBook.buckets);
+            // console.log(response.orderBook.buckets);
 
            
 

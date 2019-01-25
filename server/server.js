@@ -31,6 +31,7 @@ app.start = function() {
       // news();
       // orderBook();
     }
+    app.setMaxListeners(30)
   });
 };
 
@@ -46,15 +47,32 @@ app.post('/curl-out', function (req, res) {
 function sync() {
   var apiBase = app.get('url')+'api/';
   request.post(apiBase+'instruments/greet',function(err,resp){
-        console.log("Run");
+    setTimeout(last, 15000);
+    // last()
+        console.log("RUN");
         if(err)
         console.log(err);
         // console.log(resp.body);
         console.log(new Date());
       })
-  
+  console.log("50 CANDLE SYNC");
   console.log(new Date());
-  setTimeout(sync, 60000);
+   
+  
+}
+
+function last() {
+  var apiBase = app.get('url')+'api/';
+  request.post(apiBase+'instruments/latest',function(err,resp){
+        console.log("LAST");
+        if(err)
+        console.log(err);
+        // console.log(resp.body);
+        console.log(new Date());
+      })
+      console.log("1 CANDLE SYNC");
+  console.log(new Date());
+  setTimeout(last, 10000);
   
 }
 

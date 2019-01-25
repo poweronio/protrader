@@ -25,13 +25,14 @@
           },
           "query": {
             "smooth": true,
-            "count": 50,
+            "count": "{count}",
             "granularity": "{tf}"
           }
         },
         "functions": {
           "cp": [
             "pair",
+            "count",
             "tf"
           ]
         }
