@@ -6,6 +6,7 @@ var groupArray = require('group-array');
 
 module.exports = function(Candle) {
     var app = require('../../server/server');
+    var candleDataService;
     var granularity = ["H3", "H2", "M30", "M5", "M1"];
     var majors = [
         "AUD_USD",
