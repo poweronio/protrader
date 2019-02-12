@@ -47,7 +47,7 @@ app.post('/curl-out', function (req, res) {
 function sync() {
   var apiBase = app.get('url')+'api/';
   request.post(apiBase+'instruments/greet',function(err,resp){
-    setTimeout(last, 15000);
+    setTimeout(sync, 60000);
     // last()
         console.log("RUN");
         if(err)
@@ -72,7 +72,7 @@ function last() {
       })
       console.log("1 CANDLE SYNC");
   console.log(new Date());
-  setTimeout(last, 10000);
+  // setTimeout(last, 10000);
   
 }
 

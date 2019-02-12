@@ -151,6 +151,7 @@ News.find(
       'heatmap':true,
       'class':true,
       'butter':true,
+      "pip":true,
       "price":true,
       "trendH3":true,
       "trendH2":true,

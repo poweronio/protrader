@@ -22,7 +22,8 @@
         <tr  ng-repeat="row in pairs|orderBy:'-heatmap.change'|filter:'major'" ng-click="updateCharts(row)">
 
           <td >{{row.name}}<br>{{row.price}}</td>
-          <td>          <button class="btn btn-rounded" ng-class="{'uptick':row.heatmap.color=='BLUE','downtick':row.heatmap.color=='RED'}"><a class="text-white font-bold">{{row.heatmap.change|number:1}}</a></button></td>
+          <!-- <td>          <button class="btn btn-rounded" ng-class="{'uptick':row.heatmap.color=='BLUE','downtick':row.heatmap.color=='RED'}"><a class="text-white font-bold">{{row.heatmap.change|number:1}}</a></button></td> -->
+          <td> <button class="btn btn-rounded" >{{row.pip*(row.candlesM30[49].c - row.candlesM30[19].c)|number:1}}</button> </td>
           <td>
             <div ng-repeat="item in news|filter:getCurrency(row.name)">
             <div ng-if="item.timestamp>=currentTime" class="block">
@@ -38,7 +39,7 @@
             <!-- <div><a class="label label-default">H3</a>{{racetrack[$index].rth3[racetrack[$index].rth3.length-1].time|date:'MM/dd h:mm'}} <a class="label" ng-class="{'label-success':racetrack[$index].rth3[racetrack[$index].rth3.length-1].color=='BLUE','label-danger':racetrack[$index].rth3[racetrack[$index].rth3.length-1].color=='RED'}">{{racetrack[$index].rth3[racetrack[$index].rth3.length-1].size|number:0}} pips</a> </div> -->
             <!-- <div><a class="label label-default">H2</a>{{racetrack[$index].rth2[racetrack[$index].rth2.length-1].time|date:'MM/dd h:mm'}} <a class="label" ng-class="{'label-success':racetrack[$index].rth2[racetrack[$index].rth2.length-1].color=='BLUE','label-danger':racetrack[$index].rth2[racetrack[$index].rth2.length-1].color=='RED'}">{{racetrack[$index].rth2[racetrack[$index].rth2.length-1].size|number:0}} pips</a> </div> -->
             <!-- <div><a class="label label-default">M30</a>{{racetrack[$index].rtm30[racetrack[$index].rtm30.length-1].time|date:'MM/dd h:mm'}} <a class="label" ng-class="{'label-success':racetrack[$index].rtm30[racetrack[$index].rtm30.length-1].color=='BLUE','label-danger':racetrack[$index].rtm30[racetrack[$index].rtm30.length-1].color=='RED'}">{{racetrack[$index].rtm30[racetrack[$index].rtm30.length-1].size|number:0}} pips</a> </div> -->
-            <div ng-repeat="item in row.candlesH3|filter:true|limitTo:1|orderBy:'time'" ><a class="label text-lg" ng-class="{'label-danger':item.color=='RED','label-success':item.color=='BLUE'}">H3 ◘ {{item.size|number:0}} ◘ {{item.o}}</a></div>
+            <div ng-repeat="item in row.candlesH3|filter:true|limitTo:1|orderBy:'time'" ><a class="label" ng-class="{'label-danger':item.color=='RED','label-success':item.color=='BLUE'}">H3 ◘ {{item.size|number:0}} ◘ {{item.o}}</a></div>
             <div ng-repeat="item in row.candlesH2|filter:true|limitTo:1|orderBy:'item.time'" ><a class="label" ng-class="{'label-danger':item.color=='RED','label-success':item.color=='BLUE'}">H2 ◘ {{item.size|number:0}} ◘ {{item.o}}</a></div>
             <div ng-repeat="item in row.candlesM30|filter:true|limitTo:1|orderBy:'item.time'" ><a class="label" ng-class="{'label-danger':item.color=='RED','label-success':item.color=='BLUE'}">M30 ◘ {{item.size|number:0}} ◘ {{item.o}}</a></div>
 
