@@ -41,8 +41,8 @@
     "l": {
       "type": "number"
     },
-    "rt":{
-      "type":"bool"
+    "rt": {
+      "type": "bool"
     }
   },
   "validations": [],

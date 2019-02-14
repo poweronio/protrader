@@ -1,6 +1,5 @@
 {
-  "name": "orderbook",
-  "plural": "orderbook",
+  "name": "positionBook",
   "base": "PersistedModel",
   "idInjection": true,
   "options": {
@@ -12,13 +11,13 @@
       "required": true
     },
     "time": {
-      "type": "number"
-    },
-    "bucketWidth": {
       "type": "string"
     },
     "price": {
       "type": "number"
+    },
+    "bucketWidth": {
+      "type": "string"
     },
     "buckets": {
       "type": [

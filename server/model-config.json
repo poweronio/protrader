@@ -58,5 +58,9 @@
   "orderbook": {
     "dataSource": "protrader",
     "public": true
+  },
+  "positionBook": {
+    "dataSource": "protrader",
+    "public": true
   }
 }

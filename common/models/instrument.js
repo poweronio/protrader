@@ -41,16 +41,6 @@ module.exports = function (Instrument) {
   var tcandles=0;
   var tcandleData, hcandleData, jcandleData=[];
 
-  //var i = 1;
-  
-
-  // Instrument.afterInitialize = function () {
-  // };
-
-  // Instrument.observe('before save', function (ctx, next) {
-    //console.log(ctx.currentInstance);
-  // next();
-  // });
 
   function getTrend(instrument,tf, tcandleData) {
     var trend = "";
@@ -171,64 +161,11 @@ module.exports = function (Instrument) {
   function getHTFSD(instrument,tf,candleData){
 
   }
-
-  Instrument.latest = function (cb) {
-    var _candles = app.models.Candle;
-    async.every(pairs, function (pair, callback) { 
-      var data = {
-        M1: [],
-        M5: [],
-        M10: [],
-        M30: [],
-        H2: [],
-        H3: []           
-      };
-      var datachart = {
-        M1: [],
-        M5: [],
-        M10: [],
-        M30: [],
-        H2: [],
-        H3: []           
-      };
-      Instrument.findOne({ where: { name: pair } }, function (err, instrument) {
-        async.every(granularity, function (tf, callback) {
-          var rtlength = 40;
-          candleDataService = Instrument.app.dataSources.oanda;
-          candleDataService.cp(pair, 1, tf, function (err, response, context) {
-            if(!err){
-            if(tf=='M1'){
-              instrument.updateAttribute("price", response.candles[response.candles.length-1].mid.c);
-              getButter(instrument,tf,response.candles[response.candles.length-1].mid.c); 
-              getHeatmap(instrument,tf,response.candles[response.candles.length-1].mid.c,response.candles[0].mid.c); 
-            }
-            console.log(response);
-             _candles.create({
-              instrumentId:instrument.id,
-              granularity:response.granularity,
-              time:new Date(response.candles[0].time).getTime()/1000,
-              color:response.candles[0].mid.close-response.candles[0].mid.open> 0 ? "BLUE" : "RED",
-              size:response.candles[0].mid.close-response.candles[0].mid.open,
-              signal:response.candles,
-            })
-          }else
-            console.log(err);
-            
-           
-          });
-        });
-      })
-    });
-    cb(null, 'Greetings... ');
-  }
-
   Instrument.greet = function (cb) {
-    
     async.every(pairs, function (pair, callback) { 
       var data = {
         M1: [],
         M5: [],
-        M10: [],
         M30: [],
         H2: [],
         H3: []           
@@ -236,7 +173,6 @@ module.exports = function (Instrument) {
       var datachart = {
         M1: [],
         M5: [],
-        M10: [],
         M30: [],
         H2: [],
         H3: []           
@@ -249,10 +185,7 @@ module.exports = function (Instrument) {
             if (err) {
               console.log('> response error: '+ err);
             }
-            // console.log(response);
-            // if (response.error) {
-            //   console.log('' + response.error.stack);
-            // }
+            if(!err){
             if(tf=='M1'){
               instrument.updateAttribute("price", response.candles[response.candles.length-1].mid.c);
               getButter(instrument,tf,response.candles[response.candles.length-1].mid.c); 
@@ -287,7 +220,7 @@ module.exports = function (Instrument) {
               }else if(tf=="H2"){
                 rtlength=40;
               }else if(tf=="M30"){
-                rtlength=25;
+                rtlength=20;
               }
               var obj = {
                 time: new Date(candleData.time).getTime()/1000,
@@ -308,8 +241,9 @@ module.exports = function (Instrument) {
             getTrendCandles(instrument,tf,data[tf],data[tf].length-1,3);
 
             callback(null, data);  
+          }
           });
-          
+        
         }, function (err, result) {
           //instrument.updateAttribute("candle", data);
           
@@ -320,72 +254,125 @@ module.exports = function (Instrument) {
     cb(null, 'Greetings... ');
   };
 
+  
   Instrument.remoteMethod('greet', {
     returns: { arg: 'greeting', type: 'string' }
   });
 
-  Instrument.remoteMethod('latest', {
-    returns: { arg: 'greeting', type: 'string' }
-  });
+  // Instrument.latest = function (cb) {
+  //   var _candles = app.models.Candle;
+  //   async.every(pairs, function (pair, callback) { 
+  //     var data = {
+  //       M1: [],
+  //       M5: [],
+  //       M10: [],
+  //       M30: [],
+  //       H2: [],
+  //       H3: []           
+  //     };
+  //     var datachart = {
+  //       M1: [],
+  //       M5: [],
+  //       M10: [],
+  //       M30: [],
+  //       H2: [],
+  //       H3: []           
+  //     };
+  //     Instrument.findOne({ where: { name: pair } }, function (err, instrument) {
+  //       async.every(granularity, function (tf, callback) {
+  //         var rtlength = 40;
+  //         candleDataService = Instrument.app.dataSources.oanda;
+  //         candleDataService.cp(pair, 1, tf, function (err, response, context) {
+  //           if(!err){
+  //           if(tf=='M1'){
+  //             instrument.updateAttribute("price", response.candles[response.candles.length-1].mid.c);
+  //             getButter(instrument,tf,response.candles[response.candles.length-1].mid.c); 
+  //             getHeatmap(instrument,tf,response.candles[response.candles.length-1].mid.c,response.candles[0].mid.c); 
+  //           }
+  //           console.log(response);
+  //            _candles.create({
+  //             instrumentId:instrument.id,
+  //             granularity:response.granularity,
+  //             time:new Date(response.candles[0].time).getTime()/1000,
+  //             color:response.candles[0].mid.close-response.candles[0].mid.open> 0 ? "BLUE" : "RED",
+  //             size:response.candles[0].mid.close-response.candles[0].mid.open,
+  //             signal:response.candles,
+  //           })
+  //         }else
+  //           console.log(err);
+            
+           
+  //         });
+  //       });
+  //     })
+  //   });
+  //   cb(null, 'Greetings... ');
+  // }
 
 
-  Instrument.fetchNews = function (cb) {
-    Instrument.find({fields:{name:true,id:true}}, function(err,pairs){
-      var apiBase = app.get('url')+'api/';
-      console.log(pairs);
 
-      async.every(pairs, function (pair, callback) { 
-        newsDataService = Instrument.app.dataSources.oanda1;
-            newsDataService.cp(pair, 86400 , function (err, response, context) {
-              if (err) throw err; //error making request
-              if (response.error) {
-                console.log('> response error: ' + response.error.stack);
-              }
-          //   instrument.updateAttribute("news",response);
-          console.log(response);
-          var apiBase = app.get('url')+'api/';
-          if(response.length>0){
-          // response.forEach((newsItem) => {
-              // request.post(apiBase+'news',newsItem,function(err,resp){
-// console.log(err);
-// console.log(resp);
-                  // });
-                  // console.log(newsItem);
-                // });
-              }
-      });
-    });
-cb(null,"Greeters");
+  // Instrument.remoteMethod('latest', {
+  //   returns: { arg: 'greeting', type: 'string' }
+  // });
+
+
+      //   Instrument.fetchNews = function (cb) {
+      //     Instrument.find({fields:{name:true,id:true}}, function(err,pairs){
+      //       var apiBase = app.get('url')+'api/';
+      //       console.log(pairs);
+
+      //       async.every(pairs, function (pair, callback) { 
+      //         newsDataService = Instrument.app.dataSources.oanda1;
+      //             newsDataService.cp(pair, 86400 , function (err, response, context) {
+      //               if (err) throw err; //error making request
+      //               if (response.error) {
+      //                 console.log('> response error: ' + response.error.stack);
+      //               }
+      //           //   instrument.updateAttribute("news",response);
+      //           console.log(response);
+      //           var apiBase = app.get('url')+'api/';
+      //           if(response.length>0){
+      //           // response.forEach((newsItem) => {
+      //               // request.post(apiBase+'news',newsItem,function(err,resp){
+      // // console.log(err);
+      // // console.log(resp);
+      //                   // });
+      //                   // console.log(newsItem);
+      //                 // });
+      //               }
+      //       });
+      //     });
+      // cb(null,"Greeters");
+          
+      //   });
+      // }
+
+      //   Instrument.remoteMethod('fetchNews', {
+      //     returns: { arg: 'fetchNews', type: 'string' }
+      //   });
+
+
+  // Instrument.getStream = function (cb) { 
+  //   // var instruments="GBP_USD,GBP_JPY,EUR_USD,EUR_JPY,USD_CHF,USD_JPY,USD_CAD,EUR_CHF,GBP_CHF,EUR_GBP,AUD_USD,AUD_JPY,NZD_USD";
+  //   var instruments="GBP_USD,GBP_JPY,EUR_USD,EUR_JPY,USD_CHF,USD_JPY";//,USD_CAD,EUR_CHF,GBP_CHF,EUR_GBP,AUD_USD,AUD_JPY,NZD_USD";
+  //   var streamService;
+  //   streamService = app.dataSources.streaming;
+  //   streamService.cp(function(err,response,context){
+  //     console.log('Is Streaming?');
+  //     console.log(context);
+  //     if (err) throw err; //error making request
+  //     if (response.error) {
+  //         console.log('> response error: ' + response.error.stack);
+  //     }
+  //     console.log(response);
+  //     response.on('data', (chunk)=>{
+  //       console.log(chunk);
+  //     });
+  //     cb(null,"Streamer");
+  //   });
     
-  });
-}
-
-  Instrument.remoteMethod('fetchNews', {
-    returns: { arg: 'fetchNews', type: 'string' }
-  });
-
-
-  Instrument.getStream = function (cb) { 
-    // var instruments="GBP_USD,GBP_JPY,EUR_USD,EUR_JPY,USD_CHF,USD_JPY,USD_CAD,EUR_CHF,GBP_CHF,EUR_GBP,AUD_USD,AUD_JPY,NZD_USD";
-    var instruments="GBP_USD,GBP_JPY,EUR_USD,EUR_JPY,USD_CHF,USD_JPY";//,USD_CAD,EUR_CHF,GBP_CHF,EUR_GBP,AUD_USD,AUD_JPY,NZD_USD";
-    var streamService;
-    streamService = app.dataSources.streaming;
-    streamService.cp(function(err,response,context){
-      console.log('Is Streaming?');
-      console.log(context);
-      if (err) throw err; //error making request
-      if (response.error) {
-          console.log('> response error: ' + response.error.stack);
-      }
-      console.log(response);
-      response.on('data', (chunk)=>{
-        console.log(chunk);
-      });
-      cb(null,"Streamer");
-    });
-    
-  }
-  Instrument.remoteMethod('getStream', {
-    returns: { arg: 'getStream', type: 'string' }
-  });
+  // }
+  // Instrument.remoteMethod('getStream', {
+  //   returns: { arg: 'getStream', type: 'string' }
+  // });
 };

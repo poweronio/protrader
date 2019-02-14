@@ -121,7 +121,8 @@
         <tr ng-repeat="row in pairs|orderBy:'-heatmap.change'|filter:'minor'" ng-click="updateCharts(row)">
 
           <td>{{row.name}}<br>{{row.price}}</td>
-          <td>          <button class="btn" ng-class="{'uptick':row.heatmap.color=='BLUE','downtick':row.heatmap.color=='RED'}"><a class="text-white font-bold">{{row.heatmap.change|number:1}}</a></button></td>
+          <!-- <td>          <button class="btn" ng-class="{'uptick':row.heatmap.color=='BLUE','downtick':row.heatmap.color=='RED'}"><a class="text-white font-bold">{{row.heatmap.change|number:1}}</a></button></td> -->
+          <td> <button class="btn btn-rounded" >{{row.pip*(row.candlesM30[49].c - row.candlesM30[19].c)|number:1}}</button> </td>
           <td>
             <div ng-repeat="item in row.news">
             <div ng-if="item.timestamp>=currentTime" class="block">
@@ -217,7 +218,8 @@
         <tr ng-repeat="row in pairs|orderBy:'-heatmap.change'|filter:'calc'" ng-click="updateCharts(row)">
 
           <td>{{row.name}}<br>{{row.price}}</td>
-          <td>          <button class="btn" ng-class="{'uptick':row.heatmap.color=='BLUE','downtick':row.heatmap.color=='RED'}"><a class="text-white font-bold">{{row.heatmap.change|number:1}}</a></button></td>
+          <!-- <td>          <button class="btn" ng-class="{'uptick':row.heatmap.color=='BLUE','downtick':row.heatmap.color=='RED'}"><a class="text-white font-bold">{{row.heatmap.change|number:1}}</a></button></td> -->
+          <td> <button class="btn btn-rounded" >{{row.pip*(row.candlesM30[49].c - row.candlesM30[19].c)|number:1}}</button> </td>
           <td>
             <div ng-repeat="item in row.news">
             <div ng-if="item.timestamp>=currentTime" class="block">

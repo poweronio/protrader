@@ -41,12 +41,12 @@
   },
   "streaming": {
     "name": "streaming",
-    "debug":true,
+    "debug": true,
     "options": {
       "headers": {
         "Authorization": "Bearer 1fee90dedad1abc90df403870923132c-7ec28839c346f9fc989abbf08c23d99b",
-            "Content-type": "application/octet-stream",
-            "Connection": "keep-alive"
+        "Content-type": "application/octet-stream",
+        "Connection": "keep-alive"
       }
     },
     "connector": "rest",

@@ -29,7 +29,8 @@ app.start = function() {
       sync();
       // getStream();
       // news();
-      // orderBook();
+      // setTimeout(orderBook,10000);
+      // setTimeout(positionBook,20000);
     }
     app.setMaxListeners(30)
   });
@@ -92,6 +93,19 @@ function news() {
 function orderBook() {
   var apiBase = app.get('url')+'api/';
   request.post(apiBase+'orderbook/fetch',function(err,resp){
+        console.log("Run orderbook");
+        if(err)
+        console.log(err);
+        // console.log(resp.body);
+        console.log(new Date());
+      })
+  
+  console.log(new Date());
+  // setTimeout(news, 3600000);
+}
+function positionBook() {
+  var apiBase = app.get('url')+'api/';
+  request.post(apiBase+'positionBooks/fetch',function(err,resp){
         console.log("Run orderbook");
         if(err)
         console.log(err);
