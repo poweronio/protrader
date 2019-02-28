@@ -160,7 +160,12 @@ News.find(
       "trendM1":true,
       "candlesM30":true,
       "candlesH2":true,
-      "candlesH3":true
+      "candlesH3":true,
+      "chartH2":true,
+      "chartH3":true,
+      "chartM30":true,
+      "chartM5":true,
+      "chartM1":true,
 
     }}}, function (list) {
       $scope.racetrack = [];

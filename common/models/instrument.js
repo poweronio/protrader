@@ -122,8 +122,8 @@ module.exports = function (Instrument) {
   }
 
   function getHeatmap(instrument, tf, candleLast, candleStart){
-    var getHeatmap = candleLast - candleStart;
-    instrument.updateAttribute("heatmap",{change:Math.abs((candleLast - candleStart)*instrument.pip),color:candleLast-candleStart>0?'BLUE':'RED'});
+    var Heatmap = candleLast - candleStart;
+    instrument.updateAttribute("heatmap",{change:Math.abs(Heatmap*instrument.pip),color:Heatmap>0?'BLUE':'RED'});
   }
 
   function getButter(instrument, tf, candleData){
