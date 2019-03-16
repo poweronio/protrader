@@ -228,6 +228,7 @@ module.exports = function (Instrument) {
                 open: candleData.mid.o,
                 close: candleData.mid.c,
                 high: candleData.mid.h,
+                vol:candleData.volume,
                 color: candleData.mid.c - candleData.mid.o > 0 ? "BLUE" : "RED",
                 size:Math.abs(candleData.mid.c - candleData.mid.o)*instrument.pip,
                 rt:(Math.abs(candleData.mid.c - candleData.mid.o)*instrument.pip)>rtlength?true:false
