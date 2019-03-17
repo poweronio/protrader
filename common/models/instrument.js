@@ -16,26 +16,15 @@ module.exports = function (Instrument) {
   var orderbookService;
   //Instrument.setId("1");
   var granularity = ["H3", "H2", "M30", "M5", "M1"];
+  // Instrument.setMaxListeners(100);
+  
   var pairs = [
-    "EUR_AUD",
-    "AUD_USD",
-  "AUD_JPY",
-  "AUD_CAD",
-  "NZD_USD",
-  "NZD_JPY",
-  "NZD_CAD",
-  "GBP_USD",
-  "GBP_CAD",
-  "GBP_JPY",
-  "EUR_USD",
-  "EUR_JPY",
-  "USD_JPY",
-  "USD_CAD",
-  "USD_CHF",
-  "EUR_CHF",
-  "GBP_CHF",
-  "CAD_JPY",
-  "EUR_GBP",
+    "AUD_USD",  "AUD_JPY",  "AUD_CAD", "AUD_CHF", "AUD_NZD",
+    "CAD_JPY", "CAD_CHF", "CHF_JPY",
+    "EUR_USD",  "EUR_JPY", "EUR_CAD", "EUR_CHF", "EUR_GBP", "EUR_AUD","EUR_NZD",
+    "GBP_USD",  "GBP_CAD",  "GBP_JPY", "GBP_CHF", "GBP_AUD", "GBP_NZD",
+    "NZD_USD",  "NZD_JPY",  "NZD_CAD", "NZD_CHF",
+    "USD_JPY",  "USD_CAD",  "USD_CHF"
   ];
   var tH3,tM30,tM5,tM1 =[];
   var tcandles=0;
@@ -162,7 +151,11 @@ module.exports = function (Instrument) {
 
   }
   Instrument.greet = function (cb) {
+    this.dataSource.setMaxListeners(0);
+    candleDataService = Instrument.app.dataSources.oanda;
+    var rtlength = 40;
     async.every(pairs, function (pair, callback) { 
+      
       var data = {
         M1: [],
         M5: [],
@@ -179,8 +172,8 @@ module.exports = function (Instrument) {
       };
       Instrument.findOne({ where: { name: pair } }, function (err, instrument) {
         async.every(granularity, function (tf, callback) {
-          var rtlength = 40;
-          candleDataService = Instrument.app.dataSources.oanda;
+          
+          
           candleDataService.cp(pair, 50, tf, function (err, response, context) {
             if (err) {
               console.log('> response error: '+ err);

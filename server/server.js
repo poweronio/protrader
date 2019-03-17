@@ -26,13 +26,12 @@ app.start = function() {
         // sync();
       }
       
-      sync();
+      // sync();
       // getStream();
       // news();
       // setTimeout(orderBook,10000);
       // setTimeout(positionBook,20000);
     }
-    app.setMaxListeners(30)
   });
 };
 
