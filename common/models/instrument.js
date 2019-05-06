@@ -19,11 +19,11 @@ module.exports = function (Instrument) {
   // Instrument.setMaxListeners(100);
   
   var pairs = [
-    "AUD_USD",  "AUD_JPY",  "AUD_CAD", "AUD_CHF", "AUD_NZD",
-    "CAD_JPY", "CAD_CHF", "CHF_JPY",
-    "EUR_USD",  "EUR_JPY", "EUR_CAD", "EUR_CHF", "EUR_GBP", "EUR_AUD","EUR_NZD",
-    "GBP_USD",  "GBP_CAD",  "GBP_JPY", "GBP_CHF", "GBP_AUD", "GBP_NZD",
-    "NZD_USD",  "NZD_JPY",  "NZD_CAD", "NZD_CHF",
+    "AUD_USD",  "AUD_JPY",  "AUD_CAD", //"AUD_CHF", "AUD_NZD",
+    "CAD_JPY", "CAD_CHF", //"CHF_JPY",
+    "EUR_USD",  "EUR_JPY", "EUR_CAD", "EUR_CHF", "EUR_GBP", "EUR_AUD",//"EUR_NZD",
+    "GBP_USD",  "GBP_CAD",  "GBP_JPY", "GBP_CHF", //"GBP_AUD", "GBP_NZD",
+    "NZD_USD",  "NZD_JPY",  "NZD_CAD", //"NZD_CHF",
     "USD_JPY",  "USD_CAD",  "USD_CHF"
   ];
   var tH3,tM30,tM5,tM1 =[];
@@ -175,6 +175,7 @@ module.exports = function (Instrument) {
           
           
           candleDataService.cp(pair, 50, tf, function (err, response, context) {
+            console.log("***************** "+ pair+" *****************")
             if (err) {
               console.log('> response error: '+ err);
             }

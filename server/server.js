@@ -23,7 +23,7 @@ app.start = function() {
       }
       else {
         console.log("Market OPEN");
-        // sync();
+        sync();
       }
       
       // sync();
